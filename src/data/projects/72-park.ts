@@ -107,7 +107,7 @@ export const p72Park: Project = {
     },
     {
       q: "¿Cuándo se entrega?",
-      a: "Prevista entrega a finales de 2025.",
+      a: "Entrega prevista para finales de 2025.",
     },
     {
       q: "¿Qué diferencia a 72 Park?",

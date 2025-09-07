@@ -96,7 +96,7 @@ function ShieldIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-type Params = { params: { locale: string; slug: string } };
+type Params = { params: Promise<{ locale: string; slug: string }> };
 
 
 function pickBySlug(slug: string): Project | null {
@@ -113,8 +113,8 @@ function fmtUSD(n: number, locale: string) {
   }).format(n);
 }
 
-export async function generateMetadata({ params }: { params: { locale: string; slug: string } }) {
-  const { locale, slug } = params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await params;
   const isEN = locale === "en";
   const p = pickBySlug(slug);
   if (!p) {
@@ -156,7 +156,7 @@ export async function generateMetadata({ params }: { params: { locale: string; s
 }
 
 export default async function Proyecto({ params }: Params) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   const isEN = locale === "en";
   const p = pickBySlug(slug);
   if (!p) notFound();
@@ -197,18 +197,42 @@ export default async function Proyecto({ params }: Params) {
       : `Hola Esteban, estoy interesado/a en ${p.name}. ¿Podés enviarme más información?`
   )}`;
 
+  // Extra policy chips for mobile only
+  const policyChips = [
+    ...(p.rentalPolicy ? [isEN ? "No restrictions" : "Sin restricciones"] : []),
+    ...(p.hoa ? [`HOA ${p.hoa}`] : []),
+    ...(typeof p.furnished === "boolean"
+      ? [isEN ? (p.furnished ? "Furnished" : "Unfurnished") : (p.furnished ? "Amoblado" : "Sin amoblar")]
+      : []),
+  ];
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-12">
       {/* Breadcrumb */}
-      <div className="mb-6 text-sm text-neutral-500">
+      <div className="mb-3 sm:mb-6 text-sm text-neutral-500">
         <Link href={`/${locale}/proyectos`} className="underline">{t.breadcrumb}</Link>
         <span className="mx-1">/</span>
         <span className="text-neutral-700">{p.name}</span>
       </div>
 
       {/* Title + meta */}
-      <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0A2540]">{p.name}</h1>
-      <p className="mt-2 text-sm sm:text-base text-[#0A2540]/70">
+      <h1 className="mt-2 sm:mt-0 text-3xl sm:text-4xl font-semibold tracking-tight text-[#0A2540]">{p.name}</h1>
+      {/* Meta — mobile condensed */}
+      <p className="mt-1 text-sm text-[#0A2540]/70 sm:hidden">
+        {typeof p.priceFromUsd === "number" ? (
+          <>
+            {t.from} {fmtUSD(p.priceFromUsd, locale)}
+            {typeof p.pricePerSfApprox === "number" && (
+              <span className="opacity-60"> · ~${p.pricePerSfApprox}/sf</span>
+            )}
+          </>
+        ) : (
+          isEN ? "Inquire" : "Consultar"
+        )}
+        {p.delivery ? <span className="opacity-60"> · {t.delivery} {p.delivery}</span> : null}
+      </p>
+      {/* Meta — desktop/full */}
+      <p className="hidden sm:block mt-2 text-base text-[#0A2540]/70">
         {typeof p.priceFromUsd === "number" ? (
           <>
             {t.from} {fmtUSD(p.priceFromUsd, locale)}
@@ -227,28 +251,48 @@ export default async function Proyecto({ params }: Params) {
         ) : null}
       </p>
 
-      {/* Micro‑claims from project data (localized). Optional. */}
+      {/* Micro‑claims / Chips */}
       {(() => {
         type WithClaims = Project & { microClaimsEs?: string[]; microClaimsEn?: string[] };
         const pp = p as WithClaims;
         const claims = (isEN ? pp.microClaimsEn : pp.microClaimsEs) ?? [];
         if (!Array.isArray(claims) || claims.length === 0) return null;
+
+        // Desktop (wrap) + Mobile (horizontal scroll)
+        const Chip = ({ children }: { children: React.ReactNode }) => (
+          <span className="inline-flex items-center rounded-full bg-[#0A2540]/5 px-3 py-1 text-[12px] sm:text-[12.5px] text-[#0A2540]">
+            {children}
+          </span>
+        );
+
+        // Combine extra policy chips for mobile only
+        const mobileChips = [...claims, ...policyChips];
+
         return (
-          <div className="mt-2 flex flex-wrap gap-2">
-            {claims.map((c, i) => (
-              <span
-                key={`claim-${i}`}
-                className="inline-flex items-center gap-2 rounded-full bg-[#0A2540]/5 px-3 py-1 text-[12.5px] text-[#0A2540]"
-              >
-                {c}
-              </span>
-            ))}
-          </div>
+          <>
+            {/* Desktop / tablet: tidy wrap */}
+            <div className="mt-2 hidden sm:flex sm:flex-wrap sm:gap-2.5">
+              {claims.map((c, i) => (
+                <Chip key={`claim-d-${i}`}>{c}</Chip>
+              ))}
+            </div>
+
+            {/* Mobile: single-row horizontal carousel (no wrap) */}
+            <div className="sm:hidden mt-2 -mx-4 px-4 overflow-x-auto">
+              <ul className="flex gap-2 snap-x snap-mandatory">
+                {mobileChips.map((c, i) => (
+                  <li key={`claim-m-${i}`} className="snap-start shrink-0">
+                    <Chip>{c}</Chip>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
         );
       })()}
 
       {/* Hero */}
-      <section className="mt-6">
+      <section className="mt-3 sm:mt-6">
         <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-black/10">
           <Image
             src={p.image}
@@ -262,14 +306,14 @@ export default async function Proyecto({ params }: Params) {
       </section>
 
       {/* Sticky CTA */}
-      <div className="mt-6 rounded-xl border border-black/10 bg-white px-3 py-3 flex flex-wrap gap-2">
-        <Link href={bookingUrl} className="inline-flex h-9 items-center justify-center rounded-md bg-[#0A2540] px-3 text-xs sm:text-sm font-medium text-white hover:opacity-95">
+      <div className="mt-6 rounded-xl border border-black/10 bg-white px-3 py-3 flex flex-col gap-2 sm:flex-row">
+        <Link href={bookingUrl} className="w-full sm:w-auto inline-flex h-9 items-center justify-center rounded-md bg-[#0A2540] px-3 text-xs sm:text-sm font-medium text-white hover:opacity-95">
           {t.ctas.schedule}
         </Link>
-        <a href={waHref} target="_blank" rel="noopener noreferrer" className="inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a href={waHref} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
           {t.ctas.whatsapp}
         </a>
-        <a href="mailto:info@estebanfirpo.com" className="inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a href="mailto:info@estebanfirpo.com" className="w-full sm:w-auto inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
           {t.ctas.email}
         </a>
       </div>
@@ -278,7 +322,29 @@ export default async function Proyecto({ params }: Params) {
       {Array.isArray(p.images) && p.images.length > 0 && (
         <section className="mt-8">
           <h2 className="text-xl font-medium text-[#0A2540]">{t.gallery}</h2>
-          <GalleryLightbox images={p.images} name={p.name} />
+          {/* Desktop / Tablet: Lightbox grid */}
+          <div className="hidden sm:block">
+            <GalleryLightbox images={p.images} name={p.name} />
+          </div>
+          {/* Mobile: horizontal scroll */}
+          <div className="sm:hidden mt-3 -mx-4 px-4 overflow-x-auto">
+            <ul className="flex gap-3 snap-x snap-mandatory">
+              {p.images.map((img, i) => (
+                <li key={`mimg-${i}`} className="snap-start shrink-0 first:pl-0 last:pr-0">
+                  <div className="relative h-48 w-[85vw] overflow-hidden rounded-xl border border-black/10">
+                    <Image
+                      src={img.src}
+                      alt={`${p.name} — ${t.gallery} ${i + 1}`}
+                      fill
+                      sizes="85vw"
+                      className="object-cover"
+                      priority={i === 0}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       )}
 
@@ -463,14 +529,14 @@ export default async function Proyecto({ params }: Params) {
       })()}
 
       {/* CTAs */}
-      <section className="mt-10 flex flex-wrap gap-3">
-        <Link href={bookingUrl} className="inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95">
+      <section className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <Link href={bookingUrl} className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95">
           {t.ctas.schedule}
         </Link>
-        <a href={waHref} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a href={waHref} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
           {t.ctas.whatsapp}
         </a>
-        <a href="mailto:info@estebanfirpo.com" className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a href="mailto:info@estebanfirpo.com" className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
           {t.ctas.email}
         </a>
       </section>

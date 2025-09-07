@@ -111,7 +111,8 @@ export default function Footer() {
       <div className="border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
         <div className="mx-auto max-w-6xl px-4 py-4 text-xs flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div className="w-full flex justify-center">
-            <p className="opacity-90">
+            {/* Desktop: una sola línea */}
+            <p className="opacity-90 hidden sm:block text-center">
               {isEN
                 ? <>© {year} Esteban Firpo. All rights reserved. · Made with <span aria-hidden>💻</span> by{" "}</>
                 : <>© {year} Esteban Firpo. Todos los derechos reservados. · Hecho con <span aria-hidden>💻</span> por{" "}</>
@@ -126,6 +127,26 @@ export default function Footer() {
                 Rodrigo Opalo
               </a>
             </p>
+            {/* Mobile: dos líneas centradas */}
+            <div className="sm:hidden text-center leading-relaxed">
+              <p className="opacity-90">
+                {isEN
+                  ? `© ${year} Esteban Firpo. All rights reserved.`
+                  : `© ${year} Esteban Firpo. Todos los derechos reservados.`}
+              </p>
+              <p className="opacity-90">
+                {isEN ? "Made with 💻 by " : "Hecho con 💻 por "}
+                <a
+                  href="https://www.devrodri.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-90"
+                  style={{ color: SAND }}
+                >
+                  Rodrigo Opalo
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
