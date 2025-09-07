@@ -1,0 +1,504 @@
+// src/app/[locale]/proyectos/[slug]/page.tsx
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ALL_PROJECTS } from "@/data/projects/index";
+import type { Project } from "@/data/types";
+import GalleryLightbox from "@/components/GalleryLightbox";
+import HighlightsBlock, { type HighlightItem } from "@/components/HighlightsBlock";
+import SpecsBlock from "@/components/SpecsBlock";
+import WhyBlock, { type WhyItem } from "@/components/WhyBlock";
+import FaqsBlock, { type FaqItem } from "@/components/FaqsBlock";
+import PaymentPlan from "@/components/PaymentPlan";
+function BedIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="2" y="10" width="20" height="8" rx="2" />
+      <path d="M2 18v2M22 18v2M6 10V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4" />
+    </svg>
+  );
+}
+function BalconyIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="4" y="10" width="16" height="8" rx="2" />
+      <path d="M4 14h16M9 10V6h6v4" />
+    </svg>
+  );
+}
+function RulerIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="3" y="7" width="18" height="10" rx="2" />
+      <path d="M7 7v10M17 7v10M12 7v10" />
+    </svg>
+  );
+}
+
+function HeightIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4" />
+    </svg>
+  );
+}
+
+// Características mini icons
+function KitchenIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="3" y="6" width="18" height="12" rx="2" />
+      <path d="M8 6v12M16 6v12M3 10h18" />
+    </svg>
+  );
+}
+function BathIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="3" y="11" width="18" height="6" rx="2" />
+      <path d="M6 11V8a3 3 0 0 1 3-3h2" />
+    </svg>
+  );
+}
+function QuartzIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M7 3l10 0 4 4 0 10-4 4-10 0-4-4 0-10 4-4z" />
+      <path d="M7 7l10 0 0 10-10 0 0-10z" />
+    </svg>
+  );
+}
+
+
+function BeachIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M2 20h20M4 18c1.5-3 5-5 9-5 2.5 0 4 .5 7 2M12 6c2 0 4 1.5 5 3M12 6c-2 0-4 1.5-5 3M12 6V3"/>
+    </svg>
+  );
+}
+function SkylineIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="3" y="10" width="4" height="8" />
+      <rect x="9" y="6" width="4" height="12" />
+      <rect x="15" y="12" width="6" height="6" />
+    </svg>
+  );
+}
+
+function ShieldIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-3z"/>
+      <path d="M9 12l2 2 4-4"/>
+    </svg>
+  );
+}
+
+type Params = { params: { locale: string; slug: string } };
+
+
+function pickBySlug(slug: string): Project | null {
+  // projects store slug like "/proyectos/72-park"; normalize for match
+  const want = `/proyectos/${slug}`;
+  return ALL_PROJECTS.find(p => p.slug === want) ?? null;
+}
+
+function fmtUSD(n: number, locale: string) {
+  return new Intl.NumberFormat(locale === "en" ? "en-US" : "es-ES", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
+export async function generateMetadata({ params }: { params: { locale: string; slug: string } }) {
+  const { locale, slug } = params;
+  const isEN = locale === "en";
+  const p = pickBySlug(slug);
+  if (!p) {
+    return {
+      title: isEN ? "Project not found" : "Proyecto no encontrado",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const title = `${p.name} — ${p.city} | Esteban Firpo`;
+  const desc = isEN
+    ? `STR approved, private beach club, ${p.pricePerSfApprox ? `~$${p.pricePerSfApprox}/sf, ` : ""}${p.delivery ? `delivery ${p.delivery}, ` : ""}request floor plans and availability.`
+    : `Renta corta aprobada, club de playa privado, ${p.pricePerSfApprox ? `~$${p.pricePerSfApprox}/sf, ` : ""}${p.delivery ? `entrega ${p.delivery}, ` : ""}solicitá planos y disponibilidad.`;
+
+  const url = `/${locale}/proyectos/${slug}`;
+  const image = p.image || "/images/og-default.jpg";
+
+  return {
+    title,
+    description: desc,
+    alternates: { canonical: url },
+    robots: { index: true, follow: true },
+    openGraph: {
+      title,
+      description: desc,
+      url,
+      images: [{ url: image }],
+      locale,
+      siteName: "Esteban Firpo — Real Estate",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: desc,
+      images: [image],
+    },
+  };
+}
+
+export default async function Proyecto({ params }: Params) {
+  const { locale, slug } = params;
+  const isEN = locale === "en";
+  const p = pickBySlug(slug);
+  if (!p) notFound();
+
+  const payment = (isEN ? p.paymentPlanEn : p.paymentPlanEs) ?? [];
+  const faqs = (isEN ? p.faqsEn : p.faqsEs) ?? [];
+  const unitMix = (isEN ? p.unitMixEn : p.unitMixEs) ?? [];
+  const features = (isEN ? p.featuresEn : p.featuresEs) ?? [];
+
+  const t = {
+    breadcrumb: isEN ? "Projects" : "Proyectos",
+    from: isEN ? "From" : "Desde",
+    delivery: isEN ? "Completion" : "Entrega",
+    rental: isEN ? "Rental policy" : "Política de renta",
+    gallery: isEN ? "Gallery" : "Galería",
+    highlights: isEN ? "Highlights" : "Destacados",
+    mix: isEN ? "Unit mix" : "Tipologías",
+    features: isEN ? "Features" : "Características",
+    payments: isEN ? "Payment plan" : "Plan de pagos",
+    faqsTitle: isEN ? "FAQs" : "Preguntas frecuentes",
+    brochure: isEN ? "Download brochure" : "Descargar brochure",
+    ctas: {
+      schedule: isEN ? "Schedule Meeting" : "Agendar Reunión",
+      whatsapp: "WhatsApp",
+      email: isEN ? "Email Esteban" : "Email a Esteban",
+    },
+  };
+
+  const bookingUrl = process.env.NEXT_PUBLIC_CALENDAR_URL || `/${locale}/agendar`;
+  const hasCoords = typeof (p as Project).lat === "number" && typeof (p as Project).lng === "number";
+  const mapSrc = hasCoords
+    ? `https://www.google.com/maps?q=${p.lat},${p.lng}&hl=${isEN ? "en" : "es"}&z=15&output=embed`
+    : `https://www.google.com/maps?q=${encodeURIComponent(`${p.name} ${p.city}`)}&hl=${isEN ? "en" : "es"}&z=15&output=embed`;
+  const waNumber = "17542673931"; // +1 754 267 3931
+  const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+    isEN
+      ? `Hi Esteban, I'm interested in ${p.name}. Could you please send me more information?`
+      : `Hola Esteban, estoy interesado/a en ${p.name}. ¿Podés enviarme más información?`
+  )}`;
+
+  return (
+    <main className="mx-auto max-w-5xl px-4 py-12">
+      {/* Breadcrumb */}
+      <div className="mb-6 text-sm text-neutral-500">
+        <Link href={`/${locale}/proyectos`} className="underline">{t.breadcrumb}</Link>
+        <span className="mx-1">/</span>
+        <span className="text-neutral-700">{p.name}</span>
+      </div>
+
+      {/* Title + meta */}
+      <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0A2540]">{p.name}</h1>
+      <p className="mt-2 text-sm sm:text-base text-[#0A2540]/70">
+        {typeof p.priceFromUsd === "number" ? (
+          <>
+            {t.from} {fmtUSD(p.priceFromUsd, locale)}
+            {typeof p.pricePerSfApprox === "number" && (
+              <span className="opacity-60"> · ~${p.pricePerSfApprox}/sf</span>
+            )}
+          </>
+        ) : (
+          isEN ? "Inquire" : "Consultar"
+        )}
+        {p.delivery ? <> · {t.delivery} {p.delivery}</> : null}
+        {p.rentalPolicy ? <> · {t.rental} {p.rentalPolicy}</> : null}
+        {p.hoa ? <> · HOA {p.hoa}</> : null}
+        {typeof p.furnished === "boolean" ? (
+          <> · {isEN ? (p.furnished ? "Furnished" : "Unfurnished") : (p.furnished ? "Amoblado" : "Sin amoblar")}</>
+        ) : null}
+      </p>
+
+      {/* Micro‑claims from project data (localized). Optional. */}
+      {(() => {
+        type WithClaims = Project & { microClaimsEs?: string[]; microClaimsEn?: string[] };
+        const pp = p as WithClaims;
+        const claims = (isEN ? pp.microClaimsEn : pp.microClaimsEs) ?? [];
+        if (!Array.isArray(claims) || claims.length === 0) return null;
+        return (
+          <div className="mt-2 flex flex-wrap gap-2">
+            {claims.map((c, i) => (
+              <span
+                key={`claim-${i}`}
+                className="inline-flex items-center gap-2 rounded-full bg-[#0A2540]/5 px-3 py-1 text-[12.5px] text-[#0A2540]"
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+        );
+      })()}
+
+      {/* Hero */}
+      <section className="mt-6">
+        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-black/10">
+          <Image
+            src={p.image}
+            alt={p.name}
+            fill
+            sizes="(min-width:1024px) 960px, 100vw"
+            className="object-cover"
+            priority
+          />
+        </div>
+      </section>
+
+      {/* Sticky CTA */}
+      <div className="mt-6 rounded-xl border border-black/10 bg-white px-3 py-3 flex flex-wrap gap-2">
+        <Link href={bookingUrl} className="inline-flex h-9 items-center justify-center rounded-md bg-[#0A2540] px-3 text-xs sm:text-sm font-medium text-white hover:opacity-95">
+          {t.ctas.schedule}
+        </Link>
+        <a href={waHref} target="_blank" rel="noopener noreferrer" className="inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+          {t.ctas.whatsapp}
+        </a>
+        <a href="mailto:info@estebanfirpo.com" className="inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+          {t.ctas.email}
+        </a>
+      </div>
+
+      {/* Gallery */}
+      {Array.isArray(p.images) && p.images.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-xl font-medium text-[#0A2540]">{t.gallery}</h2>
+          <GalleryLightbox images={p.images} name={p.name} />
+        </section>
+      )}
+
+      {(() => {
+        const lines = (isEN ? p.highlightsEn : p.highlights) ?? [];
+        if (!Array.isArray(lines) || lines.length === 0) return null;
+        const items: HighlightItem[] = lines.map((line: string) => ({ title: line }));
+        return <HighlightsBlock title={t.highlights} items={items} />;
+      })()}
+
+
+      {unitMix.length > 0 && (
+        <SpecsBlock
+          title={t.mix}
+          subhead={isEN ? "Units & measures" : "Unidades y medidas"}
+          items={
+            (isEN ? p.unitMixEn : p.unitMixEs)?.map((line, i) => ({
+              label: line,
+              icon:
+                i === 0 ? <BedIcon className="h-4 w-4" /> :
+                i === 1 ? <BalconyIcon className="h-4 w-4" /> :
+                i === 2 ? <RulerIcon className="h-4 w-4" /> :
+                i === 3 ? <HeightIcon className="h-4 w-4" /> : undefined,
+            })) ?? []
+          }
+          primaryCta={{
+            label: isEN ? "Request floor plans (PDF)" : "Solicitar planos (PDF)",
+            href: `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+              isEN ? `Floor plans (PDF) — ${p.name}` : `Planos (PDF) — ${p.name}`
+            )}&body=${encodeURIComponent(
+              isEN
+                ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send me floor plans (PDF).\n\nThanks.`
+                : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame los planos (PDF).\n\nGracias.`
+            )}`,
+            variant: "ghost",
+          }}
+          secondaryCta={{
+            label: isEN ? "Check availability by typology" : "Ver disponibilidad por tipología",
+            href: `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+              isEN ? `Availability by typology — ${p.name}` : `Disponibilidad por tipología — ${p.name}`
+            )}&body=${encodeURIComponent(
+              isEN
+                ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send availability by typology (Jr‑1 / 1BR / 2BR / 3BR).\n\nThanks.`
+                : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame disponibilidad por tipología (Jr‑1 / 1BR / 2BR / 3BR).\n\nGracias.`
+            )}`,
+            variant: "ghost",
+          }}
+        />
+      )}
+
+      {features.length > 0 && (
+        <SpecsBlock
+          title={t.features}
+          subhead={isEN ? "Materials & finishes" : "Materiales y marcas"}
+          items={
+            (isEN ? p.featuresEn : p.featuresEs)?.map((line, i) => ({
+              label: line,
+              icon:
+                i === 0 ? <KitchenIcon className="h-4 w-4" /> :
+                i === 1 ? <BathIcon className="h-4 w-4" /> :
+                i === 2 ? <QuartzIcon className="h-4 w-4" /> : undefined,
+            })) ?? []
+          }
+          primaryCta={{
+            label: isEN ? "Request materials (PDF)" : "Solicitar materiales (PDF)",
+            href: `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+              isEN ? `Materials list (PDF) — ${p.name}` : `Lista de materiales (PDF) — ${p.name}`
+            )}&body=${encodeURIComponent(
+              isEN
+                ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send me the materials list (PDF).\n\nThanks.`
+                : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame la lista de materiales (PDF).\n\nGracias.`
+            )}`,
+            variant: "ghost",
+          }}
+        />
+      )}
+
+      {/* Why 72 Park */}
+      {(() => {
+        const whyItems: WhyItem[] = [
+          {
+            icon: <ShieldIcon className="h-6 w-6 text-[#0A2540]" />,
+            heading: isEN ? "STR approved" : "Renta corta aprobada",
+            text: isEN ? "On-site management program" : "Gestión en sitio",
+          },
+          {
+            icon: <BeachIcon className="h-6 w-6 text-[#0A2540]" />,
+            heading: isEN ? "Private beach club" : "Club de playa privado",
+            text: isEN ? "Chairs & towels service" : "Servicio de sillas y toallas",
+          },
+          {
+            icon: <SkylineIcon className="h-6 w-6 text-[#0A2540]" />,
+            heading: isEN ? "North Beach" : "Ubicación North Beach",
+            text: isEN ? "Walkable to beach & parks" : "Cerca de playa y parques",
+          },
+        ];
+        return (
+          <WhyBlock
+            title={isEN ? "Why 72 Park?" : "¿Por qué 72 Park?"}
+            items={whyItems}
+          />
+        );
+      })()}
+
+      {/* FAQs */}
+      {faqs.length > 0 && (() => {
+        // Mailto helpers for inline CTAs
+        const mailtoAvail = `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+          isEN ? `Availability by typology — ${p.name}` : `Disponibilidad por tipología — ${p.name}`
+        )}&body=${encodeURIComponent(
+          isEN
+            ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send availability by typology (Jr‑1 / 1BR / 2BR / 3BR).\n\nThanks.`
+            : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame disponibilidad por tipología (Jr‑1 / 1BR / 2BR / 3BR).\n\nGracias.`
+        )}`;
+        const mailtoMaterials = `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+          isEN ? `Materials list (PDF) — ${p.name}` : `Lista de materiales (PDF) — ${p.name}`
+        )}&body=${encodeURIComponent(
+          isEN
+            ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send me the materials list (PDF).\n\nThanks.`
+            : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame la lista de materiales (PDF).\n\nGracias.`
+        )}`;
+
+        // Rank FAQs by sales impact
+        const rank = (q: string) => {
+          const s = q.toLowerCase();
+          if (s.includes("renta") || s.includes("short")) return 0; // STR
+          if (s.includes("playa") || s.includes("beach")) return 1; // beach club
+          if (s.includes("amoblad") || s.includes("furnish")) return 2; // furnished
+          if (s.includes("ubic") || s.includes("where")) return 3; // location
+          if (s.includes("entreg") || s.includes("deliver")) return 4; // delivery
+          if (s.includes("cowork")) return 5;
+          if (s.includes("mascota") || s.includes("pets")) return 6;
+          if (s.includes("certific") || s.includes("leed")) return 7;
+          if (s.includes("diferenc") || s.includes("differ")) return 8;
+          return 99;
+        };
+
+        const sorted = [...faqs].sort((a: { q: string }, b: { q: string }) => rank(a.q) - rank(b.q));
+
+        const faqItems: FaqItem[] = sorted.map((f: { q: string; a: string }, i: number) => {
+          const ql = f.q.toLowerCase();
+          let answer: React.ReactNode = <span>{f.a}</span>;
+          // Inject inline CTAs in critical answers
+          if (ql.includes("renta") || ql.includes("short")) {
+            answer = (
+              <span>
+                {f.a}{" "}
+                <a href={mailtoAvail} className="underline">{isEN ? "Check availability by typology" : "Ver disponibilidad por tipología"}</a>
+              </span>
+            );
+          } else if (ql.includes("playa") || ql.includes("beach")) {
+            answer = (
+              <span>
+                {f.a}{" "}
+                <a href={mailtoAvail} className="underline">{isEN ? "Check availability by typology" : "Ver disponibilidad por tipología"}</a>
+              </span>
+            );
+          } else if (ql.includes("amoblad") || ql.includes("furnish")) {
+            answer = (
+              <span>
+                {f.a}{" "}
+                <a href={mailtoMaterials} className="underline">{isEN ? "Request materials (PDF)" : "Solicitar materiales (PDF)"}</a>
+              </span>
+            );
+          } else if (ql.includes("ubic") || ql.includes("where")) {
+            answer = (
+              <span>
+                {f.a}{" "}
+                <a href="#ubicacion" className="underline">{isEN ? "See map" : "Ver mapa"}</a>
+              </span>
+            );
+          }
+          return {
+            id: rank(f.q) === 0 ? "faq-str" : undefined,
+            q: f.q,
+            a: answer,
+            defaultOpen: i === 0, // STR open after sort
+          } as FaqItem;
+        });
+
+        return <FaqsBlock id="faqs" title={t.faqsTitle} items={faqItems} />;
+      })()}
+
+      {/* CTAs */}
+      <section className="mt-10 flex flex-wrap gap-3">
+        <Link href={bookingUrl} className="inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95">
+          {t.ctas.schedule}
+        </Link>
+        <a href={waHref} target="_blank" rel="noopener noreferrer" className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+          {t.ctas.whatsapp}
+        </a>
+        <a href="mailto:info@estebanfirpo.com" className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+          {t.ctas.email}
+        </a>
+      </section>
+
+      {/* Payment plan */}
+      <PaymentPlan
+        title={t.payments}
+        steps={payment.map((label: string) => ({ label }))}
+        project={p.name}
+      />
+
+      {/* Location */}
+      <section id="ubicacion" className="mt-12">
+        <h2 className="text-xl font-medium text-[#0A2540]">{isEN ? 'Location' : 'Ubicación'}</h2>
+        <div className="mt-3 overflow-hidden rounded-2xl border border-black/10">
+          <iframe
+            src={mapSrc}
+            width="100%"
+            height="360"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </section>
+    </main>
+  );
+}
+
+// EditorialRow is unused and not needed; removed image usage from Tipologías and Características sections.

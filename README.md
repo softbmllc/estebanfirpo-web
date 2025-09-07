@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Esteban Firpo Real Estate — Web
 
-## Getting Started
+## Overview
+Sitio web desarrollado en **Next.js (App Router)** con enfoque en proyectos inmobiliarios en preventa en Miami.  
+Se priorizó un diseño minimalista, branding tipo Apple, y alto rendimiento visual y funcional para convertir leads.
 
-First, run the development server:
+## Estructura principal
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Páginas
+- `/[locale]` — Home multilenguaje (ES/EN).
+- `/[locale]/proyectos` — Listado de proyectos destacados.
+- `/[locale]/proyectos/[slug]` — Página individual de cada proyecto.
+- `/[locale]/miami` — Sección “¿Por qué Miami?”.
+- `/[locale]/precon` — Sección “¿Por qué Preconstrucción?”.
+- `/[locale]/contacto` — Contacto directo.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Componentes
+- **SectionWhyMiami.tsx** — Bloque “¿Por qué Miami?”.
+- **SectionWhyPrecon.tsx** — Bloque “¿Por qué Preconstrucción?”.
+- **WhyBlock.tsx** — Sección reutilizable “¿Por qué [proyecto]?” con items/iconos.
+- **SpecsBlock.tsx** — Para Tipologías y Características (cards con iconos + CTAs).
+- **FaqsBlock.tsx** — FAQs reutilizables con acordeón accesible.
+- **PaymentPlan.tsx** — Plan de pagos editorial, numerado y con estilo premium.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Datos
+Cada proyecto tiene su propio archivo en `/src/data/projects/`.  
+Ejemplo: `72-park.ts` incluye:
+- `unitMixEs/En`
+- `featuresEs/En`
+- `faqsEs/En`
+- `paymentPlanEs/En`
+- `highlightsEs/En`
+- Imágenes, ubicación (lat/lng), precios y metadata.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### SEO
+Cada página de proyecto exporta `generateMetadata` con:
+- `title`, `description` dinámicos (ES/EN).
+- `openGraph` (imágenes, descripción).
+- `twitter card`.
+- `canonical alternates`.
 
-## Learn More
+Esto asegura previews correctos en WhatsApp, Instagram y LinkedIn.
 
-To learn more about Next.js, take a look at the following resources:
+## Branding
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Paleta de colores
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Rol | Nombre | Hex |
+|-----|--------|-----|
+| Azul marino (primario) | Navy | `#0A2540` |
+| Dorado (acento) | Gold | `#D4AF37` |
+| Gris arena (fondos suaves) | Sand | `#F9FAFB` |
+| Tinta (texto principal) | Ink | `#0E1624` |
 
-## Deploy on Vercel
+### Estilo
+- Inspirado en **Apple**: minimalismo, tipografía clara, espaciado generoso.
+- Componentes reutilizables para consistencia.
+- Ghost buttons para CTAs secundarios, sólidos para primarios.
+- Diseño mobile-first.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Próximos pasos
+- Seguir cargando proyectos en `/src/data/projects/`.
+- Replicar estructura de 72 Park en cada nuevo slug.
+- Ajustar detalles visuales y microcopy según feedback.
