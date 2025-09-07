@@ -6,6 +6,7 @@ import { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import type { Project } from "@/data/types";
 import imageKitLoader from "@/utils/imageKitLoader";
+import { ALL_PROJECTS } from "@/data/projects";
 
 export type ProjectDrawerProps = {
   open: boolean;
@@ -50,7 +51,7 @@ export default function ProjectDrawer({ open, project, onClose }: ProjectDrawerP
       priceFrom: isEN ? "From" : "Desde",
       perSf: isEN ? "~/sf" : "~/sf",
       ctas: {
-        schedule: isEN ? "Book 15-min call" : "Agendar 15’ con Esteban",
+        schedule: isEN ? "Schedule" : "Agendar reunión",
         whatsapp: isEN ? "WhatsApp" : "WhatsApp",
         email: isEN ? "Email Esteban" : "Email a Esteban",
       },
@@ -71,11 +72,23 @@ export default function ProjectDrawer({ open, project, onClose }: ProjectDrawerP
     gallery.push({ src: project.image, alt: project.name });
   }
 
+  const bookingUrl = "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ21yM5KOsoq2niX4QY7FXyUrFiLuQpLxw9IIzheIYWY1ruSBHG5DUrSzUmGst3Ew4nb8ZKw6ptP";
+
+  const waNumber = "17542673931";
+  const waText = isEN
+    ? `Hi Esteban, I'm interested in ${project.name}. Could you please send me more information?`
+    : `Hola Esteban, estoy interesado/a en ${project.name}. ¿Podés enviarme más información?`;
+  const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`;
+
   const numberLocale = isEN ? "en-US" : "es-ES";
   const fmt = (n?: number) => (typeof n === "number" ? n.toLocaleString(numberLocale) : "");
 
   // Helper to decide if a src should use ImageKit loader (relative path intended for IK or absolute IK URL)
   const shouldUseIKLoader = (src: string) => !src.startsWith("/") || !!process.env.NEXT_PUBLIC_IMAGEKIT_BASE_URL;
+
+  const rentalDisplay = isEN
+    ? project.rentalPolicyEn ?? project.rentalPolicy
+    : project.rentalPolicyEs ?? project.rentalPolicy;
 
   return (
     <div role="dialog" aria-modal className="fixed inset-0 z-50">
@@ -92,7 +105,12 @@ export default function ProjectDrawer({ open, project, onClose }: ProjectDrawerP
         <div className="flex items-start justify-between gap-3 p-4 border-b border-black/10">
           <div>
             <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-[#0A2540]">
-              {project.name}
+              <a
+                href={`/${locale}/proyectos/${(project.slug ?? "").toString().split("/").pop()}`}
+                className="hover:opacity-90"
+              >
+                {project.name}
+              </a>
             </h2>
             <p className="mt-0.5 text-[12px] text-[#0A2540]/70">
               {project.city}
@@ -140,7 +158,7 @@ export default function ProjectDrawer({ open, project, onClose }: ProjectDrawerP
             </div>
             <div>
               <div className="text-[11px] uppercase tracking-wide opacity-60">{t.rental}</div>
-              <div className="mt-0.5 font-medium">{project.rentalPolicy}</div>
+              <div className="mt-0.5 font-medium">{rentalDisplay || (isEN ? "—" : "—")}</div>
             </div>
             <div>
               <div className="text-[11px] uppercase tracking-wide opacity-60">{t.priceFrom}</div>
@@ -205,65 +223,78 @@ export default function ProjectDrawer({ open, project, onClose }: ProjectDrawerP
           <div className="mt-5">
             <h3 className="text-sm font-semibold text-[#0A2540]">{t.faqs}</h3>
             {(() => {
-              const faqs = (isEN ? project.faqsEn : project.faqsEs) ?? [];
-              if (faqs.length) {
-                return (
-                  <ul className="mt-2 space-y-2">
-                    {faqs.map((f, i) => (
-                      <li key={i}>
-                        <p className="text-[13px] font-medium text-[#0A2540]">{f.q}</p>
-                        <p className="text-[13px] text-[#0A2540]/80">{f.a}</p>
-                      </li>
-                    ))}
-                  </ul>
-                );
+              let faqs = (isEN ? project.faqsEn : project.faqsEs) ?? [];
+              if (!faqs.length) {
+                const slugFromProject = (project.slug ?? "").toString().split("/").pop();
+                const slugFromParams = (params?.slug as string) || "";
+                const slugToUse = (slugFromProject || slugFromParams) as string;
+                const full = ALL_PROJECTS.find(p => (p.slug ?? "").toString().endsWith(slugToUse));
+                faqs = (isEN ? full?.faqsEn : full?.faqsEs) ?? [];
               }
-              return (
-                <ul className="mt-2 text-[13px] text-[#0A2540]/80 list-disc pl-5 space-y-1">
-                  <li>{isEN ? "Can foreigners finance at closing? Yes, options exist." : "¿Extranjeros pueden financiar al cierre? Sí, hay opciones."}</li>
-                  <li>{isEN ? "Are short-term rentals allowed? Depends on each project." : "¿Se permiten rentas cortas? Depende de cada proyecto."}</li>
+              return faqs.length ? (
+                <ul className="mt-2 space-y-2">
+                  {faqs.map((f, i) => (
+                    <li key={i}>
+                      <p className="text-[13px] font-medium text-[#0A2540]">{f.q}</p>
+                      <p className="text-[13px] text-[#0A2540]/80">{f.a}</p>
+                    </li>
+                  ))}
                 </ul>
-              );
+              ) : null;
             })()}
           </div>
         </div>
 
         {/* Footer CTAs */}
-        <div className="p-4 border-t border-black/10">
+        <div className="p-4 pb-[env(safe-area-inset-bottom)] border-t border-black/10">
           {/* Mobile layout: schedule full width, then two side-by-side */}
-          <div className="flex flex-col gap-2 sm:hidden">
+          <div className="flex flex-col gap-2 sm:hidden max-h-[40vh] overflow-y-auto">
             <a
-              href={`/${locale}/agendar`}
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-11 w-full items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95"
             >
               {t.ctas.schedule}
             </a>
             <div className="grid grid-cols-2 gap-2">
               <a
-                href={`/${locale}/contacto`}
-                className="inline-flex h-11 w-full items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 w-full items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
               >
                 {t.ctas.whatsapp}
               </a>
               <a
                 href={`mailto:esteban@miamiliferealty.com`}
-                className="inline-flex h-11 w-full items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
+                className="inline-flex h-11 w-full items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
               >
                 {t.ctas.email}
               </a>
             </div>
+            <a
+              href={`/${locale}/proyectos/${(project.slug ?? "").toString().split("/").pop()}`}
+              className="inline-flex h-11 w-full items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95"
+            >
+              {isEN ? "View project" : "Ver proyecto"}
+            </a>
           </div>
 
           {/* Desktop layout: three inline */}
           <div className="hidden sm:flex gap-2">
             <a
-              href={`/${locale}/agendar`}
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-10 flex-1 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95"
             >
               {t.ctas.schedule}
             </a>
             <a
-              href={`/${locale}/contacto`}
+              href={waHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-10 flex-1 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
             >
               {t.ctas.whatsapp}
@@ -273,6 +304,12 @@ export default function ProjectDrawer({ open, project, onClose }: ProjectDrawerP
               className="inline-flex h-10 flex-1 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
             >
               {t.ctas.email}
+            </a>
+            <a
+              href={`/${locale}/proyectos/${(project.slug ?? "").toString().split("/").pop()}`}
+              className="inline-flex h-10 flex-1 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
+            >
+              {isEN ? "View project" : "Ver proyecto"}
             </a>
           </div>
         </div>

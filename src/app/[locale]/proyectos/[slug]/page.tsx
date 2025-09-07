@@ -43,58 +43,43 @@ function HeightIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-// Características mini icons
-function KitchenIcon(props: React.SVGProps<SVGSVGElement>) {
+
+// Feature icons
+function PoolIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
-      <rect x="3" y="6" width="18" height="12" rx="2" />
-      <path d="M8 6v12M16 6v12M3 10h18" />
+      <path d="M3 16c2 1.5 4 1.5 6 0 2 1.5 4 1.5 6 0 2 1.5 4 1.5 6 0" />
+      <path d="M8 12V7a2 2 0 0 1 4 0v5" />
+      <path d="M12 12V7a2 2 0 0 1 4 0v5" />
     </svg>
   );
 }
-function BathIcon(props: React.SVGProps<SVGSVGElement>) {
+function YogaIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
-      <rect x="3" y="11" width="18" height="6" rx="2" />
-      <path d="M6 11V8a3 3 0 0 1 3-3h2" />
+      <circle cx="12" cy="5" r="2" />
+      <path d="M12 7v6l-4 4M12 13l4 4" />
     </svg>
   );
 }
-function QuartzIcon(props: React.SVGProps<SVGSVGElement>) {
+function WorkIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
-      <path d="M7 3l10 0 4 4 0 10-4 4-10 0-4-4 0-10 4-4z" />
-      <path d="M7 7l10 0 0 10-10 0 0-10z" />
+      <rect x="3" y="7" width="18" height="12" rx="2" />
+      <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+    </svg>
+  );
+}
+function StoreIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M4 7h16l-1 3H5L4 7z" />
+      <path d="M5 10v7h14v-7" />
     </svg>
   );
 }
 
 
-function BeachIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
-      <path d="M2 20h20M4 18c1.5-3 5-5 9-5 2.5 0 4 .5 7 2M12 6c2 0 4 1.5 5 3M12 6c-2 0-4 1.5-5 3M12 6V3"/>
-    </svg>
-  );
-}
-function SkylineIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
-      <rect x="3" y="10" width="4" height="8" />
-      <rect x="9" y="6" width="4" height="12" />
-      <rect x="15" y="12" width="6" height="6" />
-    </svg>
-  );
-}
-
-function ShieldIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
-      <path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-3z"/>
-      <path d="M9 12l2 2 4-4"/>
-    </svg>
-  );
-}
 
 type Params = { params: Promise<{ locale: string; slug: string }> };
 
@@ -361,14 +346,19 @@ export default async function Proyecto({ params }: Params) {
           title={t.mix}
           subhead={isEN ? "Units & measures" : "Unidades y medidas"}
           items={
-            (isEN ? p.unitMixEn : p.unitMixEs)?.map((line, i) => ({
-              label: line,
-              icon:
-                i === 0 ? <BedIcon className="h-4 w-4" /> :
-                i === 1 ? <BalconyIcon className="h-4 w-4" /> :
-                i === 2 ? <RulerIcon className="h-4 w-4" /> :
-                i === 3 ? <HeightIcon className="h-4 w-4" /> : undefined,
-            })) ?? []
+            (isEN ? p.unitMixEn : p.unitMixEs)?.map((line, i) => {
+              const norm = typeof line === "string" ? { label: line } : line;
+              return {
+                label: norm.label,
+                icon:
+                  i === 0 ? <BedIcon className="h-4 w-4" /> :
+                  i === 1 ? <BedIcon className="h-4 w-4" /> :
+                  i === 2 ? <BedIcon className="h-4 w-4" /> :
+                  i === 3 ? <BedIcon className="h-4 w-4" /> :
+                  i === 4 ? <BedIcon className="h-4 w-4" /> :
+                  i === 5 ? <BalconyIcon className="h-4 w-4" /> : undefined,
+              };
+            }) ?? []
           }
           primaryCta={{
             label: isEN ? "Request floor plans (PDF)" : "Solicitar planos (PDF)",
@@ -400,13 +390,19 @@ export default async function Proyecto({ params }: Params) {
           title={t.features}
           subhead={isEN ? "Materials & finishes" : "Materiales y marcas"}
           items={
-            (isEN ? p.featuresEn : p.featuresEs)?.map((line, i) => ({
-              label: line,
-              icon:
-                i === 0 ? <KitchenIcon className="h-4 w-4" /> :
-                i === 1 ? <BathIcon className="h-4 w-4" /> :
-                i === 2 ? <QuartzIcon className="h-4 w-4" /> : undefined,
-            })) ?? []
+            (isEN ? p.featuresEn : p.featuresEs)?.map((line, i) => {
+              const norm = typeof line === "string" ? { label: line } : line;
+              return {
+                label: norm.label,
+                icon:
+                  i === 0 ? <PoolIcon className="h-4 w-4" /> :
+                  i === 1 ? <YogaIcon className="h-4 w-4" /> :
+                  i === 2 ? <WorkIcon className="h-4 w-4" /> :
+                  i === 3 ? <WorkIcon className="h-4 w-4" /> :
+                  i === 4 ? <StoreIcon className="h-4 w-4" /> :
+                  i === 5 ? <PoolIcon className="h-4 w-4" /> : undefined,
+              };
+            }) ?? []
           }
           primaryCta={{
             label: isEN ? "Request materials (PDF)" : "Solicitar materiales (PDF)",
@@ -422,28 +418,16 @@ export default async function Proyecto({ params }: Params) {
         />
       )}
 
-      {/* Why 72 Park */}
+      {/* WhyBlock */}
       {(() => {
-        const whyItems: WhyItem[] = [
-          {
-            icon: <ShieldIcon className="h-6 w-6 text-[#0A2540]" />,
-            heading: isEN ? "STR approved" : "Renta corta aprobada",
-            text: isEN ? "On-site management program" : "Gestión en sitio",
-          },
-          {
-            icon: <BeachIcon className="h-6 w-6 text-[#0A2540]" />,
-            heading: isEN ? "Private beach club" : "Club de playa privado",
-            text: isEN ? "Chairs & towels service" : "Servicio de sillas y toallas",
-          },
-          {
-            icon: <SkylineIcon className="h-6 w-6 text-[#0A2540]" />,
-            heading: isEN ? "North Beach" : "Ubicación North Beach",
-            text: isEN ? "Walkable to beach & parks" : "Cerca de playa y parques",
-          },
-        ];
+        type WithClaims = Project & { microClaimsEs?: string[]; microClaimsEn?: string[] };
+        const pp = p as WithClaims;
+        const whyClaims = (isEN ? pp.microClaimsEn : pp.microClaimsEs) ?? [];
+        if (!Array.isArray(whyClaims) || whyClaims.length === 0) return null;
+        const whyItems: WhyItem[] = whyClaims.map((c) => ({ heading: c }));
         return (
           <WhyBlock
-            title={isEN ? "Why 72 Park?" : "¿Por qué 72 Park?"}
+            title={isEN ? `Why ${p.name}?` : `¿Por qué ${p.name}?`}
             items={whyItems}
           />
         );

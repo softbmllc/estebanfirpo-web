@@ -22,10 +22,10 @@ export interface Project {
     faqsEs?: { q: string; a: string }[];
     faqsEn?: { q: string; a: string }[];
     images?: { src: string; alt?: string }[];
-    unitMixEs?: string[];
-    unitMixEn?: string[];
-    featuresEs?: string[];
-    featuresEn?: string[];
+    unitMixEs?: (string | { label: string; iconKey?: string })[];
+    unitMixEn?: (string | { label: string; iconKey?: string })[];
+    featuresEs?: (string | { label: string; iconKey?: string })[];
+    featuresEn?: (string | { label: string; iconKey?: string })[];
     /** 🔥 NUEVO para mapas */
     lat?: number;
     lng?: number;
