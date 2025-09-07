@@ -6,6 +6,7 @@ export interface Project {
     delivery?: string;
     priceFromUsd?: number;
     pricePerSfApprox?: number;
+    financingAtClosing?: boolean;
     rentalPolicy?: string;
     rentalPolicyEs?: string;
     rentalPolicyEn?: string;

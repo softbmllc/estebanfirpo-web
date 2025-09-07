@@ -20,7 +20,15 @@ type IconKey =
   | "bike"
   | "security"
   | "store"
-  | "dot";
+  | "dot"
+  | "coffee"
+  | "sparkles"
+  | "dumbbell"
+  | "dock"
+  | "beach"
+  | "book"
+  | "kid"
+  | "laundry";
 
 export type SpecItem = {
   /** mini SVG o emoji (16px) — opcional si usás iconKey o heurística */
@@ -96,14 +104,14 @@ export default function SpecsBlock({
 
 function SpecCard({ icon, iconKey, label, subLabel, href }: SpecItem) {
   const content = (
-    <div className="rounded-xl border border-black/10 bg-white p-3 sm:p-3.5 transition-colors hover:bg-[#F9FAFB]">
-      <div className="flex items-start gap-2 text-[13px] text-[#0A2540]">
+    <div className="rounded-xl border border-black/10 bg-white px-3 h-12 flex items-center transition-colors hover:bg-[#F9FAFB]">
+      <div className="flex items-center gap-2 w-full text-[14px] text-[#0A2540]">
         <span className="inline-flex h-4 w-4 items-center justify-center text-[#0A2540]" aria-hidden>
           {icon ? icon : <AutoIcon keyName={iconKey} text={label} />}
         </span>
-        <div>
-          <span className="block">{label}</span>
-          {subLabel ? <span className="block text-[12px] text-[#0A2540]/70">{subLabel}</span> : null}
+        <div className="min-w-0">
+          <span className="block truncate" title={label}>{label}</span>
+          {subLabel ? <span className="block text-[12px] text-[#0A2540]/70 truncate" title={subLabel}>{subLabel}</span> : null}
         </div>
       </div>
     </div>
@@ -194,6 +202,16 @@ function AutoIcon({ keyName, text }: { keyName?: IconKey; text: string }) {
           <path d="M7 14v4M12 14v4M17 14v4" />
         </svg>
       );
+    case "beach":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <path d="M2 21h20" />
+          <path d="M6 21c1.5-3 4.5-3 6 0" />
+          <path d="M12 8a4 4 0 0 1 8 0v1H12z" />
+          <path d="M12 9c-3 0-6 1-8 3" />
+          <path d="M20 9l-3-6" />
+        </svg>
+      );
     case "height":
       return (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
@@ -282,6 +300,57 @@ function AutoIcon({ keyName, text }: { keyName?: IconKey; text: string }) {
           <path d="M5 10v7h14v-7" />
         </svg>
       );
+    case "coffee":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z" />
+          <path d="M16 8h3a2 2 0 1 1 0 4h-3" />
+          <path d="M6 3c1 1 1 2 0 3M10 3c1 1 1 2 0 3M14 3c1 1 1 2 0 3" />
+        </svg>
+      );
+    case "sparkles":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <path d="M12 3l2.2 4.5L19 9l-4.8 1.5L12 15l-2.2-4.5L5 9l4.8-1.5L12 3z" />
+        </svg>
+      );
+    case "dumbbell":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <path d="M3 9h3v6H3zM18 9h3v6h-3z" />
+          <path d="M6 12h12" />
+        </svg>
+      );
+    case "dock":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <path d="M3 20h18" />
+          <path d="M6 20V9h12v11" />
+          <path d="M10 13h4" />
+        </svg>
+      );
+    case "book":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <path d="M4 5a2 2 0 0 1 2-2h10v16H6a2 2 0 0 0-2 2V5z" />
+          <path d="M16 19h2a2 2 0 0 0 2-2V3h-2" />
+        </svg>
+      );
+    case "kid":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <circle cx="12" cy="8" r="3" />
+          <path d="M5 20c1.5-3 5-5 7-5s5.5 2 7 5" />
+        </svg>
+      );
+    case "laundry":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6">
+          <rect x="4" y="3" width="16" height="18" rx="2" />
+          <circle cx="12" cy="13" r="4" />
+          <path d="M8 6h8M8 9h2M14 9h2" />
+        </svg>
+      );
     default:
       return <span>•</span>;
   }
@@ -292,17 +361,31 @@ function guessIconKey(text: string): IconKey {
   if (/(jr|studio|dormitorio|bed)/.test(t)) return "bed";
   if (/(m²|sq ft|ft²|metros|square)/.test(t)) return "area";
   if (/(balcón|balcon|balcony|terraza)/.test(t)) return "balcony";
+  if (/(iluminaci[oó]n|lighting)/.test(t)) return "sparkles";
+  if (/(beach club|club de playa|beach|playa)/.test(t)) return "beach";
+  if (/(lobby|chandelier|grand salon|sal[oó]n)/.test(t)) return "sparkles";
   if (/(altura|alturas|height|piso‑techo|piso-techo|floor\-to\-ceiling)/.test(t)) return "height";
   if (/(piscina|pool|rooftop)/.test(t)) return "pool";
   if (/(sauna|cold plunge|spa)/.test(t)) return "spa";
+  if (/(belleza|wellness|sal[oó]n privado)/.test(t)) return "spa";
+  if (/(ba[ñn]o|bathroom|italkraft|waterworks)/.test(t)) return "spa";
+  if (/(gimnasio|gym|anatomy)/.test(t)) return "dumbbell";
   if (/(yoga|meditación|meditacion)/.test(t)) return "yoga";
   if (/(paddle|pickleball)/.test(t)) return "paddle";
   if (/(cowork|work lounge|sala de trabajo|administración de propiedades|administracion de propiedades)/.test(t)) return "work";
-  if (/(garaje|garage|parking)/.test(t)) return "garage";
-  if (/(cocina de verano|summer kitchen)/.test(t)) return "kitchen";
+  if (/(garaje|garage|parking|estacionamiento|aparcam|parqueadero)/.test(t)) return "garage";
+  if (/(cocina|kitchen|electrodom[eé]stic|appliance|horno|microondas|lavavajillas|refrigerador)/.test(t)) return "kitchen";
   if (/(paquetes|package room|mail room)/.test(t)) return "package";
   if (/(biciclet|bike)/.test(t)) return "bike";
   if (/(control de acceso|access control|seguridad)/.test(t)) return "security";
+  if (/(cine|screening|pel[ií]cula|movie|juegos|game room)/.test(t)) return "sparkles";
+  if (/(lavadora|secadora|washer|dryer|laundry)/.test(t)) return "laundry";
+  if (/(biblioteca|library|lounge)/.test(t)) return "book";
+  if (/(marina|muelle|dock|water taxi)/.test(t)) return "dock";
+  if (/(club infantil|niñ|child|kids|infantil)/.test(t)) return "kid";
+  if (/(restaurante|restaurant|catering|dining|comida|bebidas|food|beverage)/.test(t)) return "coffee";
   if (/(comercio|retail|tienda)/.test(t)) return "store";
+  if (/(cafeter|panader|barista|coffee|café|cafe|wine|beer|cerveza|bar)/.test(t)) return "coffee";
+  if (/(amoblad|amuebl|furnished|terminadas|finished)/.test(t)) return "sparkles";
   return "dot";
 }

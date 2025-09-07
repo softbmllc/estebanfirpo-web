@@ -1,5 +1,5 @@
 // src/components/HighlightsBlock.tsx
-import React from "react";
+import React from "react";  
 
 /** Conjunto de íconos soportados. Ampliable sin romper API. */
 type IconKey =
@@ -13,7 +13,12 @@ type IconKey =
   | "furniture"
   | "pet"
   | "view"
-  | "sparkles";
+  | "sparkles"
+  | "location"
+  | "coffee"
+  | "portal"
+  | "spa"
+  | "dock";
 
 /** Item puede venir como string (solo título) o como objeto enriquecido. */
 export type HighlightItem = {
@@ -187,17 +192,58 @@ const ICON_MAP: Record<IconKey, React.FC> = {
       <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" />
     </svg>
   ),
+  location: () => (
+    <svg {...ICON_PROPS} viewBox="0 0 24 24">
+      <path d="M12 21s-7-5.5-7-10a7 7 0 1 1 14 0c0 4.5-7 10-7 10z" />
+      <circle cx="12" cy="11" r="2.5" />
+    </svg>
+  ),
+  coffee: () => (
+    <svg {...ICON_PROPS} viewBox="0 0 24 24">
+      <path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8z" />
+      <path d="M16 8h3a2 2 0 1 1 0 4h-3" />
+      <path d="M6 3c1 1 1 2 0 3M10 3c1 1 1 2 0 3M14 3c1 1 1 2 0 3" />
+    </svg>
+  ),
+  portal: () => (
+    <svg {...ICON_PROPS} viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a9 9 0 0 1 0 18M12 3a9 9 0 0 0 0 18" />
+    </svg>
+  ),
+  spa: () => (
+    <svg {...ICON_PROPS} viewBox="0 0 24 24">
+      <path d="M8 13c0-2 2-3 2-5S8 5 8 3" />
+      <path d="M12 13c0-2 2-3 2-5s-2-3-2-5" />
+      <path d="M5 19h14" />
+    </svg>
+  ),
+  dock: () => (
+    <svg {...ICON_PROPS} viewBox="0 0 24 24">
+      <path d="M3 20h18" />
+      <path d="M6 20V9h12v11" />
+      <path d="M10 13h4" />
+    </svg>
+  ),
 };
 
 /** Heurística simple para asignar iconos por texto ES/EN. */
 function guessIconKey(txt: string): IconKey {
   const t = txt.toLowerCase();
-  if (/(piscina|pool|cabana)/.test(t)) return "pool";
+  if (/(piscina|pool|cabana|cabañ|jacuzzi)/.test(t)) return "pool";
   if (/(beach|playa|club)/.test(t)) return "beach";
   if (/(rooftop|terraza|vistas|view)/.test(t)) return /(vista|view)/.test(t) ? "view" : "rooftop";
+  if (/(torre|tower|75|glass tower)/.test(t)) return "view";
+  if (/(residenc|penthouses|duplex|flats|flow\-?through)/.test(t)) return "view";
+  if (/(ubicación|ubicacion|minutes|minutos|bcc|village|metro|metrorail|location)/.test(t)) return "location";
+  if (/(cafeter|panader|barista|coffee|café|cafe|wine|beer|mercado)/.test(t)) return "coffee";
+  if (/(portal|exposici|plataforma|platform|exhibit)/.test(t)) return "portal";
   if (/(cowork|co\-?trabajo)/.test(t)) return "cowork";
   if (/(gym|gimnasio|fitness)/.test(t)) return "gym";
   if (/(yoga|meditaci)/.test(t)) return "yoga";
+  if (/(interior|acabados|kitchen|cocina|baño|baño|pisos|mármol|marmol|granito|quartz|cabinet|mueble)/.test(t)) return "furniture";
+  if (/(hammam|spa|steam|sauna|tratamiento|treatment)/.test(t)) return "spa";
+  if (/(marina|muelle|dock|water taxi)/.test(t)) return "dock";
   if (/(amoblad|amueblad|furnish)/.test(t)) return "furniture";
   if (/(sofa|lounge)/.test(t)) return "sofa";
   if (/(mascota|pet)/.test(t)) return "pet";

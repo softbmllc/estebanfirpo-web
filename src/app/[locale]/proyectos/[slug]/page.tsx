@@ -10,6 +10,7 @@ import SpecsBlock from "@/components/SpecsBlock";
 import WhyBlock, { type WhyItem } from "@/components/WhyBlock";
 import FaqsBlock, { type FaqItem } from "@/components/FaqsBlock";
 import PaymentPlan from "@/components/PaymentPlan";
+import { Lock, WashingMachine, Tv, Speaker, PawPrint, Palette, Dumbbell, Briefcase } from "lucide-react";
 function BedIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
@@ -77,6 +78,26 @@ function StoreIcon(props: React.SVGProps<SVGSVGElement>) {
       <path d="M5 10v7h14v-7" />
     </svg>
   );
+}
+
+function featureIconFor(label: string) {
+  const s = (label || "").toLowerCase();
+  const cls = "h-4 w-4";
+  // Priority: explicit keywords first
+  if (s.includes("cerradura")) return <Lock className={cls} />; // smart lock
+  if (s.includes("lavadora") || s.includes("secadora")) return <WashingMachine className={cls} />; // washer/dryer
+  if (s.includes("tv") || s.includes("audio") || s.includes("sonido")) return <Tv className={cls} />; // tv + audio
+  if (s.includes("pet") || s.includes("mascota")) return <PawPrint className={cls} />; // pet‑friendly
+  if (s.includes("arte") || s.includes("art")) return <Palette className={cls} />; // art exhibitions
+
+  // Generic amenities
+  if (s.includes("cowork") || s.includes("co‑working") || s.includes("co working")) return <Briefcase className={cls} />;
+  if (s.includes("gimnasio") || s.includes("gym")) return <Dumbbell className={cls} />;
+  if (s.includes("piscina") || s.includes("pool") || s.includes("jacuzzi")) return <PoolIcon className={cls} />;
+  if (s.includes("mercado") || s.includes("lobby") || s.includes("tienda")) return <StoreIcon className={cls} />;
+
+  // Fallback: no icon
+  return undefined;
 }
 
 
@@ -390,17 +411,11 @@ export default async function Proyecto({ params }: Params) {
           title={t.features}
           subhead={isEN ? "Materials & finishes" : "Materiales y marcas"}
           items={
-            (isEN ? p.featuresEn : p.featuresEs)?.map((line, i) => {
+            (isEN ? p.featuresEn : p.featuresEs)?.map((line) => {
               const norm = typeof line === "string" ? { label: line } : line;
               return {
                 label: norm.label,
-                icon:
-                  i === 0 ? <PoolIcon className="h-4 w-4" /> :
-                  i === 1 ? <YogaIcon className="h-4 w-4" /> :
-                  i === 2 ? <WorkIcon className="h-4 w-4" /> :
-                  i === 3 ? <WorkIcon className="h-4 w-4" /> :
-                  i === 4 ? <StoreIcon className="h-4 w-4" /> :
-                  i === 5 ? <PoolIcon className="h-4 w-4" /> : undefined,
+                icon: featureIconFor(norm.label),
               };
             }) ?? []
           }
