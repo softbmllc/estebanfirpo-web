@@ -135,7 +135,7 @@ export default async function Home({params}: {params: {locale: string}}) {
               aria-label="Abrir WhatsApp de Esteban con mensaje prellenado"
               className="block sm:inline underline decoration-[#0A2540]/30 underline-offset-2 hover:decoration-[#0A2540] sm:ml-2" data-analytics="hero:whatsapp"
             >
-              {params.locale === 'en' ? 'Chat on WhatsApp' : 'Hablamos por WhatsApp'}
+              {params.locale === 'en' ? 'Chat on WhatsApp' : 'Hablemos por WhatsApp'}
             </a>
           </div>
         </div>
@@ -150,21 +150,33 @@ export default async function Home({params}: {params: {locale: string}}) {
       {/* PROYECTOS DESTACADOS */}
       <FeaturedProjects />
 
-      {/* BANDA CTA */}
-      <section className="rounded-xl border p-6 text-center">
-        <h3 className="text-xl font-medium">{t('band.title')}</h3>
-        <p className="mt-2 text-neutral-600">{t('band.copy')}</p>
-        <div className="mt-4 flex justify-center gap-3">
-          <Link href="contacto" className="h-10 rounded-md bg-[#0A2540] px-4 text-white inline-flex items-center hover:opacity-90">
-            {t('band.ctaContact')}
-          </Link>
+      {/* BANDA CTA — premium */}
+      <section className="mt-6 rounded-lg border border-primary/10 bg-white p-5 text-center shadow-[0_1px_3px_rgba(0,0,0,.04)]">
+        <div className="mx-auto mb-3 h-[2px] w-24 rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.6), rgba(212,175,55,.0))'}} />
+        <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#0A2540]">
+          {params.locale === 'en' ? 'Ready to invest?' : '¿Listo para invertir?'}
+        </h3>
+        <p className="mt-2 text-[14px] text-neutral-700">
+          {params.locale === 'en'
+            ? 'Let’s connect and review the best opportunities together.'
+            : 'Conversemos y revisemos las mejores oportunidades.'}
+        </p>
+        <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          {/* Email (primary) */}
           <a
-            href="https://calendly.com/XXXX/30min"
-            target="_blank"
-            rel="noreferrer"
-            className="h-10 rounded-md border border-[#0A2540] px-4 inline-flex items-center text-[#0A2540] hover:bg-accent/10"
+            href={`mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(params.locale==='en' ? 'Investment inquiry from website' : 'Consulta de inversión desde la web')}`}
+            className="inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white no-underline hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
           >
-            {t('band.ctaCall')}
+            {params.locale === 'en' ? 'Email Esteban' : 'Escribir a Esteban'}
+          </a>
+          {/* WhatsApp (outline) */}
+          <a
+            href={`https://wa.me/17542673931?text=${encodeURIComponent(params.locale==='en' ? 'Hi Esteban, I would like to schedule a call to discuss investment opportunities.' : 'Hola Esteban, me gustaría agendar una llamada para hablar de oportunidades de inversión.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540] px-4 text-sm font-medium text-[#0A2540] no-underline hover:bg-[#0A2540] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+          >
+            {params.locale === 'en' ? 'WhatsApp' : 'WhatsApp'}
           </a>
         </div>
       </section>

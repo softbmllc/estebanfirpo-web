@@ -70,18 +70,15 @@ export function SectionWhyPrecon({ heroImageSrc, heroImageAlt }: SectionWhyPreco
 
       <ul className="mt-3 grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {points.map((p, i) => (
-          <li key={i} className="rounded-2xl border border-[#0A2540]/10 bg-white p-4 sm:p-5 min-h-[88px] md:min-h-[92px] shadow-[inset_0_-1px_0_rgba(0,0,0,.03)] transition hover:shadow-sm hover:-translate-y-[1px] hover:bg-[#F9FAFB] hover:ring-1 hover:ring-black/[0.04]">
-            <div className="flex items-start gap-3">
-              <span aria-hidden className="mt-0.5 inline-flex h-5 w-5 md:h-5 md:w-5 shrink-0 items-center justify-center rounded-full border-2 border-[#0A2540]/40 text-[#0A2540]/80">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 md:h-[18px] md:w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </span>
-              <p className="text-[#0A2540] leading-tight">
-                <span className="block text-[15px] md:text-[16px] font-semibold tracking-tight whitespace-nowrap md:whitespace-normal">{p.kpi}</span>
-                <span className="block text-[12px] md:text-[13px] leading-snug opacity-80">{p.label}</span>
-              </p>
-            </div>
+          <li
+            key={i}
+            className="relative flex items-start gap-3 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)] transition hover:shadow-sm hover:-translate-y-[1px] hover:bg-[#F9FAFB]"
+          >
+            <div className="h-10 w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))'}} />
+            <p className="text-[#0A2540] leading-tight">
+              <span className="block text-[15px] md:text-[16px] font-semibold tracking-tight whitespace-nowrap md:whitespace-normal">{p.kpi}</span>
+              <span className="block text-[12px] md:text-[13px] leading-snug opacity-80">{p.label}</span>
+            </p>
           </li>
         ))}
       </ul>

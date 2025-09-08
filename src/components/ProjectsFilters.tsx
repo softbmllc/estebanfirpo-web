@@ -29,6 +29,17 @@ export function ProjectsFilters({
       priceFrom: locale === "en" ? "Min price" : "Precio mín.",
       priceTo: locale === "en" ? "Max price" : "Precio máx.",
       reset: locale === "en" ? "Reset" : "Reiniciar",
+      rentalLabel: (v: Filters["rental"]) => {
+        if (v === "all") return locale === "en" ? "Any" : "Todas";
+        const map: Record<string, string> = {
+          "No restr.": locale === "en" ? "No restrictions" : "No restr.",
+          "30 días": locale === "en" ? "30 days" : "30 días",
+          "60 días": locale === "en" ? "60 days" : "60 días",
+          "90 días": locale === "en" ? "90 days" : "90 días",
+          "6 meses": locale === "en" ? "6 months" : "6 meses",
+        };
+        return map[v] ?? String(v);
+      },
     }),
     [locale]
   );
@@ -63,13 +74,14 @@ export function ProjectsFilters({
 
   return (
     <aside aria-label={t.title} className="rounded-2xl border border-black/10 bg-white p-3 sm:p-4">
+      <div className="mb-2 h-[2px] w-full rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
       <div className="flex items-center justify-between">
         <p className="text-[12.5px] font-medium text-[#0A2540]">{t.title}</p>
         {onReset ? (
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex h-8 items-center justify-center rounded-md border border-black/10 px-2 text-[12px] text-[#0A2540] hover:bg-[#F9FAFB]"
+            className="inline-flex h-8 items-center justify-center rounded-md border border-primary/20 bg-white px-2 text-[12px] text-primary hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
           >
             {t.reset}
           </button>
@@ -108,7 +120,7 @@ export function ProjectsFilters({
             aria-expanded={open}
             className="flex w-full items-center justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-left text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#0A2540]"
           >
-            <span>{value.rental === "all" ? t.any : value.rental}</span>
+            <span>{t.rentalLabel(value.rental)}</span>
             <svg className={`h-4 w-4 text-black/40 transition-transform ${open ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden>
               <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clipRule="evenodd" />
             </svg>
@@ -126,9 +138,12 @@ export function ProjectsFilters({
                   role="option"
                   aria-selected={value.rental === opt}
                   onClick={() => { onChange({ ...value, rental: opt }); close(); }}
-                  className={`cursor-pointer px-3 py-2 hover:bg-[#F9FAFB] ${value.rental === opt ? "bg-[#F2F4F7]" : ""}`}
+                  className={`relative cursor-pointer px-3 py-2 hover:bg-[#F9FAFB] ${value.rental === opt ? "bg-[#F2F4F7]" : ""}`}
                 >
-                  {opt === "all" ? t.any : opt}
+                  {value.rental === opt && (
+                    <span className="absolute left-0 top-0 h-full w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))'}} />
+                  )}
+                  {t.rentalLabel(opt)}
                 </li>
               ))}
             </ul>

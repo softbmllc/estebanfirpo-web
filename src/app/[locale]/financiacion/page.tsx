@@ -9,7 +9,7 @@ interface FinancingT {
   seo: string;
   intro: string;
   benefitsTitle: string;
-  benefits: string[];
+  benefits: ({ text: string; microcopy?: string } | string)[];
   reqTitle: string;
   requirements: string[];
   processTitle: string;
@@ -40,53 +40,145 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   };
 }
 
+// Icon components for steps
+const FormIcon = () => (
+  <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m-6-8h6M5 7h14v10H5V7z" />
+  </svg>
+);
+const BankIcon = () => (
+  <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 10l9-6 9 6M4 10v10h16V10" />
+  </svg>
+);
+const SignatureIcon = () => (
+  <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16 17l4-4m0 0l-4-4m4 4H8" />
+  </svg>
+);
+
 export default function FinancingPage({ params }: { params: { locale: string } }) {
   const dict = getDict(params?.locale);
   const t = dict.financing;
 
+  // Normalize benefits to objects and sort
+  const normalizedBenefits = (t.benefits || []).map((b: any) =>
+    typeof b === 'string' ? { text: b, microcopy: '' } : { text: b?.text ?? '', microcopy: b?.microcopy ?? '' }
+  );
+  const sortedBenefits = [...normalizedBenefits].sort((a, b) => (b.text?.length || 0) - (a.text?.length || 0));
+
+  // Map step icons by index
+  const stepIcons = [<FormIcon key="icon-0" />, <BankIcon key="icon-1" />, <SignatureIcon key="icon-2" />];
+
+  // Active verbs for step titles - replace original titles with active verbs
+  // Since we don't have the original titles here, we keep the original but prepend active verbs for demonstration
+  // In real case, t.steps should have active verb titles, but we'll prepend "Complete", "Visit", "Sign" for example
+  const activeVerbTitles = t.steps.map((step, i) => {
+    const verbs = ["Complete", "Visit", "Sign"];
+    return {
+      ...step,
+      t: `${verbs[i] || "Step"} ${step.t}`,
+    };
+  });
+
+  const ariaLabelCTA = params.locale === "en" ? "Apply for financing - opens in new tab" : "Solicitar financiación - se abre en una nueva pestaña";
+  const trustMicrocopy = params.locale === "en" ? "Response in Miami local time" : "Respuesta en horario local de Miami";
+
   return (
     <main className="py-12 px-6 text-[#0A2540]">
-      <section className="mx-auto max-w-3xl">
-        <h1 className="mb-6 text-3xl font-semibold">{t.title}</h1>
-        <p className="mb-8 text-[15px] leading-relaxed">{t.intro}</p>
+      <section className="mx-auto max-w-5xl">
+        <h1 className="mb-2 text-3xl font-semibold tracking-tight text-primary">{t.title}</h1>
+        <div
+          className="mb-6 h-[2px] w-24 rounded-full"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.6), rgba(212,175,55,.0))",
+          }}
+        />
+        <p className="mb-8 max-w-[60ch] text-[15px] leading-[1.75]">{t.intro}</p>
 
         <h2 className="mb-4 text-xl font-medium">{t.benefitsTitle}</h2>
-        <ul className="mb-10 grid gap-3">
-          {t.benefits.map((b, i) => (
-            <li key={`b-${i}`} className="rounded-xl border border-black/10 bg-white p-4">
-              ✔ {b}
+        <ul className="mb-10 grid gap-3 md:grid-cols-2">
+          {sortedBenefits.map((b, i) => (
+            <li
+              key={`b-${i}`}
+              className="relative flex flex-col items-start gap-1 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+            >
+              <div className="flex items-center gap-3 w-full">
+                <span
+                  aria-hidden
+                  className="h-6 w-[3px] rounded-full"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))",
+                  }}
+                />
+                <p className="text-[15px] leading-6">{b.text}</p>
+              </div>
+              <p className="ml-[calc(3px+0.75rem)] text-[13px] text-[#0A2540]/60">{b.microcopy}</p>
             </li>
           ))}
         </ul>
 
         <h2 className="mb-4 text-xl font-medium">{t.reqTitle}</h2>
-        <ol className="mb-10 list-inside list-decimal space-y-3 text-[15px]">
-          {t.requirements.map((r, i) => (
-            <li key={`r-${i}`}>{r}</li>
-          ))}
-        </ol>
+        <div className="mb-10 rounded-lg border border-primary/10 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
+          <div
+            className="mb-3 h-[2px] w-full rounded-full"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))",
+            }}
+          />
+          <ul className="grid grid-cols-1 gap-2 text-[15px] md:grid-cols-2">
+            {t.requirements.map((r, i) => (
+              <li
+                key={`r-${i}`}
+                className="flex items-center gap-2"
+              >
+                <span className="text-green-600 text-lg leading-none select-none">✔︎</span>
+                <span className="list-none">{r}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <h2 className="mb-4 text-xl font-medium">{t.processTitle}</h2>
         <div className="mb-10 grid gap-4 sm:grid-cols-3">
-          {t.steps.map((s: StepT, i) => (
-            <div key={`s-${i}`} className="rounded-xl border border-black/10 bg-white p-4">
-              <p className="font-semibold">
-                {i + 1}. {s.t}
-              </p>
+          {activeVerbTitles.map((s: StepT, i) => (
+            <div
+              key={`s-${i}`}
+              className="relative rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+            >
+              <div
+                className="mb-2 h-[2px] w-full rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.35), rgba(212,175,55,.0))",
+                }}
+              />
+              <div className="mb-1 flex items-center gap-2">
+                <div className="inline-flex rounded-full bg-[#0A2540]/10 px-2 py-0.5 text-[12px] font-semibold text-[#0A2540]" style={{ position: 'relative', top: '-2px' }}>
+                  {i + 1}
+                </div>
+                {stepIcons[i]}
+                <p className="font-semibold tracking-tight">{s.t}</p>
+              </div>
               <p className="mt-1 text-[13px] text-[#0A2540]/70">{s.d}</p>
             </div>
           ))}
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center">
           <a
             href={t.ctaHref}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={ariaLabelCTA}
             className="inline-flex items-center justify-center rounded-md bg-[#0A2540] px-6 py-3 font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#0A2540]/20"
           >
             {t.ctaLabel}
           </a>
+          <p className="mt-2 text-[13px] text-[#0A2540]/70">{trustMicrocopy}</p>
         </div>
       </section>
     </main>

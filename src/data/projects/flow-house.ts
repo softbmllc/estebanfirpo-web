@@ -15,17 +15,17 @@ export const pFlowHouse: Project = {
 
   microClaimsEs: [
     "Miami Worldcenter",
-    "Bienestar + cowork",
+    "Wellness & cowork",
     "Residencias amobladas"
   ],
   microClaimsEn: [
     "Miami Worldcenter",
-    "Wellbeing + cowork",
+    "Wellness & cowork",
     "Furnished residences"
   ],
 
   highlights: [
-    "46,100 ft² de amenidades (wellbeing, workflow y experience)",
+    "46,100 ft² de amenidades (wellness & cowork)",
     "Piscina semi‑olímpica de 126 ft con day beds y cabañas",
     "Coworking con oficinas privadas, salas de reunión y podcast room",
     "Residencias terminadas y amobladas con lavadora/secadora",

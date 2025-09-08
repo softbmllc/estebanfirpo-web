@@ -57,7 +57,7 @@ export default function Proyectos() {
       <div className="flex flex-col gap-4 sm:gap-5">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0A2540]">
-            {t("projects.title", { default: locale === "en" ? "Projects" : "Proyectos" })}
+            {locale === "en" ? "Projects" : "Proyectos"}
           </h1>
           <button
             type="button"

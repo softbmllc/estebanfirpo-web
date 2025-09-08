@@ -26,7 +26,7 @@ export const pOneParkTower: Project = {
 
   highlights: [
     "Torre de 33 plantas con 299 residencias y penthouses",
-    "Vistas a Bahía Biscayne, Océano Atlántico y Parque Oleta",
+    "Vistas a Bahía Biscayne, Atlántico y Oleta",
     "Ubicado dentro de SoLé Mia (184 acres) con laguna de 7 acres",
     "Dos piscinas: planta baja y terraza social nivel 6",
     "ONE Beach Club con playas de arena y deportes acuáticos",
