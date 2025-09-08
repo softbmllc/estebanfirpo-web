@@ -98,8 +98,8 @@ export const pEllaMiami: Project = {
   images: [
     { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/ella-miami-beach-03.jpg?updatedAt=1757212992581" },
     { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/ella-miami-beach-07.jpg?updatedAt=1757212992507" },
-    { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/ella-miami-beach-09-scaled-2.jpg?updatedAt=1757212997767" },
-    { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/ella-miami-beach-09-scaled.jpg?updatedAt=1757212997671" },
+    { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/Gtd1LINg.jpeg" },
+    { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/1X7YlYjw.jpeg" },
     { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/ella-miami-beach-08.jpg?updatedAt=1757212992563" },
     { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/ella-miami-beach-01.jpg?updatedAt=1757212991986" },
     { src: "https://ik.imagekit.io/devrodri/ELLA-Miami/G4m3fvVQ.jpeg?updatedAt=1757212991597" },

@@ -361,7 +361,9 @@ function guessIconKey(text: string): IconKey {
   if (/(jr|studio|dormitorio|bed)/.test(t)) return "bed";
   if (/(m²|sq ft|ft²|metros|square)/.test(t)) return "area";
   if (/(balcón|balcon|balcony|terraza)/.test(t)) return "balcony";
+  if (/(diseñ|diseño|planos?|uno y dos pisos|1 y 2 pisos|dos pisos|2 pisos|1 piso)/.test(t)) return "height";
   if (/(iluminaci[oó]n|lighting)/.test(t)) return "sparkles";
+  if (/(materiales|acabados)/.test(t)) return "sparkles";
   if (/(beach club|club de playa|beach|playa)/.test(t)) return "beach";
   if (/(lobby|chandelier|grand salon|sal[oó]n)/.test(t)) return "sparkles";
   if (/(altura|alturas|height|piso\s*a\s*techo|piso‑techo|piso-techo|floor\s*to\s*ceiling|floor\-to\-ceiling)/.test(t)) return "height";
@@ -389,6 +391,7 @@ function guessIconKey(text: string): IconKey {
   if (/(restaurante|restaurant|catering|dining|comida|bebidas|food|beverage)/.test(t)) return "coffee";
   if (/(agua\s*filtrada|water\s*filtered|uv\s*water|filtraci[oó]n\s*uv|aire\s*filtrado|filtered\s*air)/.test(t)) return "sparkles";
   if (/(hilton|hotel|concierge|room\s*service|housekeeping)/.test(t)) return "sparkles";
+  if (/(tecnolog[ií]a\s*inteligente|smart\s*home|dom[oó]tica)/.test(t)) return "sparkles";
   if (/(comercio|retail|tienda)/.test(t)) return "store";
   if (/(cafeter|panader|barista|coffee|café|cafe|wine|beer|cerveza|bar)/.test(t)) return "coffee";
   if (/(amoblad|amuebl|furnished|terminadas|finished)/.test(t)) return "sparkles";

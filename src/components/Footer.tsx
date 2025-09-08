@@ -46,7 +46,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-sm font-medium">Esteban Firpo</p>
-                <p className="text-xs opacity-90">Broker Associate</p>
+                <p className="text-xs opacity-90">REALTOR® Associate</p>
               </div>
             </div>
 
