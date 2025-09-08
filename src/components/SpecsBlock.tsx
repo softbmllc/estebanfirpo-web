@@ -364,7 +364,7 @@ function guessIconKey(text: string): IconKey {
   if (/(iluminaci[oó]n|lighting)/.test(t)) return "sparkles";
   if (/(beach club|club de playa|beach|playa)/.test(t)) return "beach";
   if (/(lobby|chandelier|grand salon|sal[oó]n)/.test(t)) return "sparkles";
-  if (/(altura|alturas|height|piso‑techo|piso-techo|floor\-to\-ceiling)/.test(t)) return "height";
+  if (/(altura|alturas|height|piso\s*a\s*techo|piso‑techo|piso-techo|floor\s*to\s*ceiling|floor\-to\-ceiling)/.test(t)) return "height";
   if (/(piscina|pool|rooftop)/.test(t)) return "pool";
   if (/(sauna|cold plunge|spa)/.test(t)) return "spa";
   if (/(belleza|wellness|sal[oó]n privado)/.test(t)) return "spa";
@@ -373,8 +373,11 @@ function guessIconKey(text: string): IconKey {
   if (/(yoga|meditación|meditacion)/.test(t)) return "yoga";
   if (/(paddle|pickleball)/.test(t)) return "paddle";
   if (/(cowork|work lounge|sala de trabajo|administración de propiedades|administracion de propiedades)/.test(t)) return "work";
+  if (/(business lounge|owner portal|portal|anal[ií]tica|analytics)/.test(t)) return "work";
   if (/(garaje|garage|parking|estacionamiento|aparcam|parqueadero)/.test(t)) return "garage";
+  if (/(impact|impacto)/.test(t)) return "security";
   if (/(cocina|kitchen|electrodom[eé]stic|appliance|horno|microondas|lavavajillas|refrigerador)/.test(t)) return "kitchen";
+  if (/(encimera|encimeras|grifer[ií]a|griferia|countertop|countertops|stone countertops)/.test(t)) return "kitchen";
   if (/(paquetes|package room|mail room)/.test(t)) return "package";
   if (/(biciclet|bike)/.test(t)) return "bike";
   if (/(control de acceso|access control|seguridad)/.test(t)) return "security";
@@ -384,6 +387,8 @@ function guessIconKey(text: string): IconKey {
   if (/(marina|muelle|dock|water taxi)/.test(t)) return "dock";
   if (/(club infantil|niñ|child|kids|infantil)/.test(t)) return "kid";
   if (/(restaurante|restaurant|catering|dining|comida|bebidas|food|beverage)/.test(t)) return "coffee";
+  if (/(agua\s*filtrada|water\s*filtered|uv\s*water|filtraci[oó]n\s*uv|aire\s*filtrado|filtered\s*air)/.test(t)) return "sparkles";
+  if (/(hilton|hotel|concierge|room\s*service|housekeeping)/.test(t)) return "sparkles";
   if (/(comercio|retail|tienda)/.test(t)) return "store";
   if (/(cafeter|panader|barista|coffee|café|cafe|wine|beer|cerveza|bar)/.test(t)) return "coffee";
   if (/(amoblad|amuebl|furnished|terminadas|finished)/.test(t)) return "sparkles";

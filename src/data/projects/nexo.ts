@@ -26,16 +26,16 @@ export const pNexo: Project = {
   ],
 
   highlights: [
-    "Edificio de 17 pisos y 254 residencias (estudios a 4BR townhomes)",
-    "Modelo sin restricciones: apto Airbnb, Vrbo y otras plataformas",
+    "254 residencias en 17 pisos",
+    "Sin restricciones: apto Airbnb y más",
     "Tech Center de dos niveles con coworking, salas y café",
     "Piscina estilo resort, cine al aire libre, fire pits y summer kitchens",
     "Rooftop observatory con vistas 360° y BBQ",
     "Residencias terminadas y amobladas; ventanas piso‑techo y balcones",
   ],
   highlightsEn: [
-    "17‑story building with 254 residences (studios to 4BR townhomes)",
-    "No rental restrictions: Airbnb, Vrbo and other platforms allowed",
+    "254 residences in 17 stories",
+    "No restrictions: Airbnb & more",
     "Two‑story Tech Center with coworking, meeting rooms and café",
     "Resort‑style pool, outdoor movie lawn, fire pits and summer kitchens",
     "Rooftop observatory with 360° views and BBQ",
