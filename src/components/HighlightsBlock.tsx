@@ -46,7 +46,8 @@ export default function HighlightsBlock({
   return (
     <section className={"mt-10 " + className}>
       {title ? <h2 className="text-xl font-medium text-[#0A2540]">{title}</h2> : null}
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+      {/* responsive: 1 col en mobile, 2 en >= sm */}
+      <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {normalized.map((it, i) => {
           const autoKey = it.iconKey ?? guessIconKey(it.title);
           return (
@@ -77,7 +78,15 @@ function Card({
   desc?: string;
 }) {
   return (
-    <div className="rounded-xl border border-black/10 bg-white p-4">
+    <div className="relative rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,.03)] transition-colors hover:bg-[#F9FAFB]">
+      {/* hairline dorada sutil */}
+      <div
+        className="mb-2 h-[2px] w-full rounded-full"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.35), rgba(212,175,55,.0))",
+        }}
+      />
       <div className="flex items-start gap-3">
         <IconBadge iconKey={iconKey} icon={icon} />
         <div>

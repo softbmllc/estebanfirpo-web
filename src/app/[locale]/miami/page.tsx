@@ -47,16 +47,13 @@ export default async function Miami({ params }: { params: { locale: 'es' | 'en' 
   ];
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-16">
+    <main className="mx-auto max-w-5xl px-4 py-16 space-y-12 text-[#0A2540]">
       {/* Header */}
-      <header className="max-w-3xl">
+      <header className="space-y-3">
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-primary">
           {locale === 'en' ? 'Why invest in Miami' : '¿Por qué invertir en Miami?'}
         </h1>
-        <span className="mt-3 inline-flex rounded-full bg-[rgba(212,175,55,.15)] px-2 py-0.5 text-[11px] font-medium text-[#0A2540]">
-          {locale === 'en' ? '2025 Insight' : 'Análisis 2025'}
-        </span>
-        <p className="mt-3 text-[17px] leading-[1.75] text-[#0D1521]">
+        <p className="mt-1 max-w-[60ch] text-[15px] leading-[1.75] text-[#0D1521]">
           {t('miami.copy', {
             default:
               'Miami es la puerta de entrada a Latinoamérica, un hub financiero global y un mercado inmobiliario en constante crecimiento. Invertir aquí significa aprovechar renta alta, estabilidad y seguridad jurídica.'

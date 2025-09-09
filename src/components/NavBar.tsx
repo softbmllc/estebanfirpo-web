@@ -19,16 +19,16 @@ export default function NavBar(){
   const base = `/${locale}`;
 
   const L = locale === "es"
-    ? {home:"Inicio", miami:"Miami", precon:"Preconstrucción", proyectos:"Proyectos", contacto:"Contacto", sobreMi:"Sobre mí", financing:"Financiación"}
-    : {home:"Home",   miami:"Miami", precon:"Pre-construction", proyectos:"Projects", contacto:"Contact",  sobreMi:"About", financing:"Financing"};
+    ? {home:"Inicio", proyectos:"Proyectos", miami:"Miami", precon:"Preconstrucción", storages:"Storages", financing:"Financiación", sobreMi:"Sobre mí"}
+    : {home:"Home", projects:"Projects", miami:"Miami", precon:"Pre-construction", storages:"Storages", financing:"Financing", sobreMi:"About"};
 
   const items = [
     { href: `${base}`,              label: L.home },
+    { href: `${base}/proyectos`,    label: L.proyectos || L.projects },
     { href: `${base}/miami`,        label: L.miami },
     { href: `${base}/precon`,       label: L.precon },
-    { href: `${base}/proyectos`,    label: L.proyectos },
+    { href: `${base}/storages`,     label: L.storages },
     { href: `${base}/financiacion`, label: L.financing },
-    { href: `${base}/contacto`,     label: L.contacto },
     { href: `${base}/sobre-mi`,     label: L.sobreMi }
   ];
 
@@ -59,7 +59,7 @@ export default function NavBar(){
                 key={it.href}
                 href={it.href}
                 aria-current={isActive ? 'page' : undefined}
-                className={`no-underline text-ink hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30 underline-offset-10 xl:underline-offset-12 transition-colors ${isActive ? 'text-primary underline decoration-2 xl:decoration-1' : ''}`}
+                className={`no-underline text-ink hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30 underline-offset-10 xl:underline-offset-12 transition-colors ${isActive ? 'text-primary underline decoration-2 xl:decoration-1 decoration-[#D4AF37]' : ''}`}
               >
                 {it.label}
               </Link>
@@ -77,28 +77,51 @@ export default function NavBar(){
       </div>
 
       {open && (
-        <nav className="md:hidden border-t border-black/5">
-          <div className="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-3">
-            {items.map(it=>(
-              <Link
-                key={it.href}
-                href={it.href}
-                aria-current={pathname === it.href ? 'page' : undefined}
-                onClick={()=>setOpen(false)}
-                className="no-underline text-ink"
-              >
-                {it.label}
+        <nav className="md:hidden fixed inset-0 z-50 bg-white/95 backdrop-blur-sm">
+          <div className="mx-auto max-w-6xl px-4 py-4 flex flex-col h-full">
+            {/* Top bar */}
+            <div className="flex items-center justify-between pb-3 border-b border-black/10">
+              <Link href={base} onClick={()=>setOpen(false)} className="text-sm font-semibold text-brand-navy no-underline">
+                Esteban Firpo · Miami Real Estate
               </Link>
-            ))}
-            <Link
-              href={switchHref}
-              onClick={()=>setOpen(false)}
-              title={switchTo.toUpperCase()}
-              aria-label={locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
-              className="inline-flex items-center rounded-full border border-primary text-primary px-2.5 py-1 text-xs font-semibold no-underline hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
-            >
-              {switchTo.toUpperCase()}
-            </Link>
+              <button aria-label="Cerrar menú" onClick={()=>setOpen(false)} className="p-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Menu items */}
+            <div className="mt-3 grow overflow-y-auto divide-y divide-black/5">
+              {items.map(it=>{
+                const isHome = it.href === base;
+                const isActive = isHome ? (pathname === base) : pathname.startsWith(it.href);
+                return (
+                  <Link
+                    key={it.href}
+                    href={it.href}
+                    aria-current={isActive ? 'page' : undefined}
+                    onClick={()=>setOpen(false)}
+                    className={`block py-3.5 text-lg no-underline transition-colors ${isActive ? 'text-primary underline decoration-2 underline-offset-[6px] decoration-[#D4AF37]' : 'text-ink hover:text-primary'}`}
+                  >
+                    {it.label}
+                  </Link>
+                )})}
+            </div>
+
+            {/* Language switch */}
+            <div className="pt-3 border-t border-black/10">
+              <Link
+                href={switchHref}
+                onClick={()=>setOpen(false)}
+                title={switchTo.toUpperCase()}
+                aria-label={locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
+                className="inline-flex w-full items-center justify-center rounded-md border border-primary text-primary px-3 py-2 text-sm font-semibold no-underline hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+              >
+                {switchTo.toUpperCase()}
+              </Link>
+            </div>
           </div>
         </nav>
       )}

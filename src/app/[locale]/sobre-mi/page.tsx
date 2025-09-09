@@ -11,19 +11,12 @@ export default async function SobreMi({
   const isEN = locale === 'en';
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-16 space-y-10">
+    <main className="mx-auto max-w-5xl px-4 py-16 space-y-12 text-[#0A2540]">
       {/* Header */}
       <header className="space-y-3">
-        <h1 className="text-3xl font-semibold tracking-tight text-primary">
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-primary">
           {isEN ? 'About me' : 'Sobre mí'}
         </h1>
-        <div
-          className="h-[2px] w-24 rounded-full"
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.6), rgba(212,175,55,.0))',
-          }}
-        />
         <p className="max-w-[46rem] text-neutral-700 leading-[1.7]">
           {isEN
             ? 'I advise real‑estate investors in Miami throughout the entire process —from selecting the right project to closing— with a clear focus on ROI and capital preservation.'

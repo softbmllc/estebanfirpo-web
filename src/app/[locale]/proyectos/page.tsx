@@ -3,7 +3,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import { useMemo, useState, useCallback } from "react";
 import { ALL_PROJECTS } from "@/data/projects/index";
 import type { Project } from "@/data/types";
@@ -13,7 +12,6 @@ import { useParams } from "next/navigation";
 
 export default function Proyectos() {
   const { locale } = useParams() as { locale: string };
-  const t = useTranslations();
   const numberLocale = locale === "en" ? "en-US" : "es-ES";
   const fmt = (n?: number) =>
     typeof n === "number"
@@ -56,7 +54,7 @@ export default function Proyectos() {
       {/* Title row */}
       <div className="flex flex-col gap-4 sm:gap-5">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0A2540]">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-primary">
             {locale === "en" ? "Projects" : "Proyectos"}
           </h1>
           <button

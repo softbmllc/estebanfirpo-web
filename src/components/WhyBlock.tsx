@@ -60,7 +60,15 @@ function WhyCard({ icon, iconKey, heading, text, href, analytics }: WhyItem) {
     );
 
   const content = (
-    <div className="rounded-xl border border-black/10 bg-white p-4 transition-colors hover:bg-[#F9FAFB]">
+    <div className="relative overflow-hidden rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,.03)] transition-colors hover:bg-[#F9FAFB]">
+      {/* hairline dorada sutil y recortada por el borde */}
+      <div
+        className="mb-2 h-px w-full"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.22), rgba(212,175,55,.05))",
+        }}
+      />
       <div className="flex items-center gap-3">
         {typeof icon === "string" ? (
           <span aria-hidden className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#0A2540]/5 text-lg">

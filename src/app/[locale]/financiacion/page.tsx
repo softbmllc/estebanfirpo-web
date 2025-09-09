@@ -20,6 +20,8 @@ interface FinancingT {
 interface Messages {
   financing: FinancingT;
 }
+type Benefit = { text: string; microcopy?: string } | string;
+type NormalizedBenefit = { text: string; microcopy: string };
 
 function getDict(locale: string): Messages {
   return (locale === "en" ? (en as unknown as Messages) : (es as unknown as Messages));
@@ -62,10 +64,10 @@ export default function FinancingPage({ params }: { params: { locale: string } }
   const t = dict.financing;
 
   // Normalize benefits to objects and sort
-  const normalizedBenefits = (t.benefits || []).map((b: any) =>
-    typeof b === 'string' ? { text: b, microcopy: '' } : { text: b?.text ?? '', microcopy: b?.microcopy ?? '' }
+  const normalizedBenefits: NormalizedBenefit[] = (t.benefits as Benefit[]).map((b): NormalizedBenefit =>
+    typeof b === 'string' ? { text: b, microcopy: '' } : { text: b.text, microcopy: b.microcopy ?? '' }
   );
-  const sortedBenefits = [...normalizedBenefits].sort((a, b) => (b.text?.length || 0) - (a.text?.length || 0));
+  const sortedBenefits = [...normalizedBenefits].sort((a, b) => b.text.length - a.text.length);
 
   // Map step icons by index
   const stepIcons = [<FormIcon key="icon-0" />, <BankIcon key="icon-1" />, <SignatureIcon key="icon-2" />];
@@ -85,16 +87,9 @@ export default function FinancingPage({ params }: { params: { locale: string } }
   const trustMicrocopy = params.locale === "en" ? "Response in Miami local time" : "Respuesta en horario local de Miami";
 
   return (
-    <main className="py-12 px-6 text-[#0A2540]">
+    <main className="mx-auto max-w-5xl px-4 py-16 space-y-12 text-[#0A2540]">
       <section className="mx-auto max-w-5xl">
-        <h1 className="mb-2 text-3xl font-semibold tracking-tight text-primary">{t.title}</h1>
-        <div
-          className="mb-6 h-[2px] w-24 rounded-full"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.6), rgba(212,175,55,.0))",
-          }}
-        />
+        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-primary">{t.title}</h1>
         <p className="mb-8 max-w-[60ch] text-[15px] leading-[1.75]">{t.intro}</p>
 
         <h2 className="mb-4 text-xl font-medium">{t.benefitsTitle}</h2>

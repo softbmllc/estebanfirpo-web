@@ -12,15 +12,19 @@ Se priorizó un diseño minimalista, branding tipo Apple, y alto rendimiento vis
 - `/[locale]/proyectos/[slug]` — Página individual de cada proyecto.
 - `/[locale]/miami` — Sección “¿Por qué Miami?”.
 - `/[locale]/precon` — Sección “¿Por qué Preconstrucción?”.
-- `/[locale]/contacto` — Contacto directo.
+- `/[locale]/financiacion` — Sección de financiación.
+- `/[locale]/storages` — Sección de self‑storages.
 
 ### Componentes
 - **SectionWhyMiami.tsx** — Bloque “¿Por qué Miami?”.
 - **SectionWhyPrecon.tsx** — Bloque “¿Por qué Preconstrucción?”.
+- **SectionWhyStorages.tsx** — Bloque introductorio de Storages.
 - **WhyBlock.tsx** — Sección reutilizable “¿Por qué [proyecto]?” con items/iconos.
-- **SpecsBlock.tsx** — Para Tipologías y Características (cards con iconos + CTAs).
+- **SpecsBlock.tsx** — Cards responsive con branding dorado/azul.
 - **FaqsBlock.tsx** — FAQs reutilizables con acordeón accesible.
 - **PaymentPlan.tsx** — Plan de pagos editorial, numerado y con estilo premium.
+- **HighlightsBlock.tsx** — Bloque de destacados (cards con branding).
+- **NavBar.tsx** — Navegación desktop y mobile mejorada, con subrayado dorado.
 
 ### Datos
 Cada proyecto tiene su propio archivo en `/src/data/projects/`.  
@@ -31,6 +35,8 @@ Ejemplo: `72-park.ts` incluye:
 - `paymentPlanEs/En`
 - `highlightsEs/En`
 - Imágenes, ubicación (lat/lng), precios y metadata.
+
+Además, existe `/src/data/storages/` para self-storages como Callaway.
 
 ### SEO
 Cada página de proyecto exporta `generateMetadata` con:
@@ -57,10 +63,12 @@ Esto asegura previews correctos en WhatsApp, Instagram y LinkedIn.
 - Componentes reutilizables para consistencia.
 - Ghost buttons para CTAs secundarios, sólidos para primarios.
 - Diseño mobile-first.
+- El dorado ahora se aplica en subrayados activos y hairlines de cards.
+- Mejoras en la navegación móvil: overlay con blur, botones grandes y coherencia visual.
 
 ---
 
 ## Próximos pasos
-- Seguir cargando proyectos en `/src/data/projects/`.
-- Replicar estructura de 72 Park en cada nuevo slug.
-- Ajustar detalles visuales y microcopy según feedback.
+- Seguir cargando proyectos y storages en sus carpetas de datos.
+- Mantener consistencia de headers y branding.
+- Ajustar microcopy.

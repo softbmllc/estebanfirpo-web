@@ -1,12 +1,11 @@
 // src/app/[locale]/page.tsx
-import {getTranslations} from 'next-intl/server';
 import Link from 'next/link';
 import SectionWhyMiami from '@/components/SectionWhyMiami';
 import SectionWhyPrecon from '@/components/SectionWhyPrecon';
 import FeaturedProjects from '@/components/FeaturedProjects';
+import SectionWhyStorages from '@/components/SectionWhyStorages';
 
 export default async function Home({params}: {params: {locale: string}}) {
-  const t = await getTranslations({locale: params.locale, namespace: 'home'});
 
   return (
     <div className="space-y-20 py-12">
@@ -149,6 +148,10 @@ export default async function Home({params}: {params: {locale: string}}) {
 
       {/* PROYECTOS DESTACADOS */}
       <FeaturedProjects />
+      {/* STORAGES SECTION (aligned to same container as featured projects) */}
+      <div>
+        <SectionWhyStorages locale={params.locale === 'en' ? 'en' : 'es'} />
+      </div>
 
       {/* BANDA CTA — premium */}
       <section className="mt-6 rounded-lg border border-primary/10 bg-white p-5 text-center shadow-[0_1px_3px_rgba(0,0,0,.04)]">

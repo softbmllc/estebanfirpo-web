@@ -55,7 +55,8 @@ export default function SpecsBlock({
   primaryCta,
   secondaryCta,
   headingLevel = "h2",
-  gridClassName = "mt-2 grid gap-3 md:grid-cols-2",
+  // 1 col en mobile, 2 cols desde sm para evitar scroll horizontal
+  gridClassName = "mt-2 grid gap-3 grid-cols-1 sm:grid-cols-2",
   ctaAlign = "left",
   className = "",
 }: {
@@ -104,14 +105,26 @@ export default function SpecsBlock({
 
 function SpecCard({ icon, iconKey, label, subLabel, href }: SpecItem) {
   const content = (
-    <div className="rounded-xl border border-black/10 bg-white px-3 h-12 flex items-center transition-colors hover:bg-[#F9FAFB]">
+    <div className="relative rounded-lg border border-primary/15 bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,.03)] transition-colors hover:bg-[#F9FAFB]">
+      {/* hairline dorada sutil */}
+      <div
+        className="mb-2 h-[2px] w-full rounded-full"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.35), rgba(212,175,55,.0))",
+        }}
+      />
       <div className="flex items-center gap-2 w-full text-[14px] text-[#0A2540]">
         <span className="inline-flex h-4 w-4 items-center justify-center text-[#0A2540]" aria-hidden>
           {icon ? icon : <AutoIcon keyName={iconKey} text={label} />}
         </span>
         <div className="min-w-0">
           <span className="block truncate" title={label}>{label}</span>
-          {subLabel ? <span className="block text-[12px] text-[#0A2540]/70 truncate" title={subLabel}>{subLabel}</span> : null}
+          {subLabel ? (
+            <span className="block text-[12px] text-[#0A2540]/70 truncate" title={subLabel}>
+              {subLabel}
+            </span>
+          ) : null}
         </div>
       </div>
     </div>
