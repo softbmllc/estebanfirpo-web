@@ -35,7 +35,7 @@ export default async function SobreMi({
           }}
         />
         <div className="relative h-44 w-44 overflow-hidden rounded-xl border border-primary/20 sm:h-48 sm:w-48 shadow-[0_1px_3px_rgba(0,0,0,.08)]">
-          <Image src="/images/esteban.jpg" alt="Esteban Firpo" fill sizes="160px" className="object-cover" />
+          <Image src="/images/Esteban.jpg" alt="Esteban Firpo" fill sizes="160px" className="object-cover" />
         </div>
         <div className="space-y-4">
           {/* Elegant credentials block */}
@@ -58,7 +58,7 @@ export default async function SobreMi({
             <p>
               {isEN
                 ? 'Born in Paysandú (Uruguay). I studied Engineering in Montevideo and led Magenta for 15+ years, making it one of the most important printing companies in Uruguay’s interior and still operating today.'
-                : 'Nací en Paysandú (Uruguay). Estudié Ingeniería en Montevideo y durante más de 15 años dirigí Magenta, que es una de las más importantes del interior del país y al día de hoy sigue operando.'}
+                : 'Nací en Paysandú (Uruguay). Estudié Ingeniería en Montevideo y durante más de 15 años dirigí Magenta, que es una de las imprentas más importantes del interior del país y al día de hoy sigue operando.'}
             </p>
             <p>
               {isEN

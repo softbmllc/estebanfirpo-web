@@ -399,6 +399,8 @@ function guessIconKey(text: string): IconKey {
   if (/(cine|screening|pel[ií]cula|movie|juegos|game room)/.test(t)) return "sparkles";
   if (/(lavadora|secadora|washer|dryer|laundry)/.test(t)) return "laundry";
   if (/(biblioteca|library|lounge)/.test(t)) return "book";
+  if (/(cl[óo]set|closet|walk[-\s]?in)/.test(t)) return "package";
+  if (/(toilette|powder\s*room|toilet)/.test(t)) return "spa";
   if (/(marina|muelle|dock|water taxi)/.test(t)) return "dock";
   if (/(club infantil|niñ|child|kids|infantil)/.test(t)) return "kid";
   if (/(restaurante|restaurant|catering|dining|comida|bebidas|food|beverage)/.test(t)) return "coffee";

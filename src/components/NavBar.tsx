@@ -92,35 +92,35 @@ export default function NavBar(){
               </button>
             </div>
 
-            {/* Menu items */}
-            <div className="mt-3 grow overflow-y-auto divide-y divide-black/5">
-              {items.map(it=>{
-                const isHome = it.href === base;
-                const isActive = isHome ? (pathname === base) : pathname.startsWith(it.href);
-                return (
-                  <Link
-                    key={it.href}
-                    href={it.href}
-                    aria-current={isActive ? 'page' : undefined}
-                    onClick={()=>setOpen(false)}
-                    className={`block py-3.5 text-lg no-underline transition-colors ${isActive ? 'text-primary underline decoration-2 underline-offset-[6px] decoration-[#D4AF37]' : 'text-ink hover:text-primary'}`}
-                  >
-                    {it.label}
-                  </Link>
-                )})}
-            </div>
-
-            {/* Language switch */}
-            <div className="pt-3 border-t border-black/10">
-              <Link
-                href={switchHref}
-                onClick={()=>setOpen(false)}
-                title={switchTo.toUpperCase()}
-                aria-label={locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
-                className="inline-flex w-full items-center justify-center rounded-md border border-primary text-primary px-3 py-2 text-sm font-semibold no-underline hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
-              >
-                {switchTo.toUpperCase()}
-              </Link>
+            {/* Menu items + language switch */}
+            <div className="mt-3 overflow-y-auto">
+              <div className="divide-y divide-black/5">
+                {items.map(it=>{
+                  const isHome = it.href === base;
+                  const isActive = isHome ? (pathname === base) : pathname.startsWith(it.href);
+                  return (
+                    <Link
+                      key={it.href}
+                      href={it.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      onClick={()=>setOpen(false)}
+                      className={`block py-3.5 text-lg no-underline transition-colors ${isActive ? 'text-primary underline decoration-2 underline-offset-[6px] decoration-[#D4AF37]' : 'text-ink hover:text-primary'}`}
+                    >
+                      {it.label}
+                    </Link>
+                  )})}
+              </div>
+              <div className="mt-4">
+                <Link
+                  href={switchHref}
+                  onClick={()=>setOpen(false)}
+                  title={switchTo.toUpperCase()}
+                  aria-label={locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
+                  className="inline-flex w-full items-center justify-center rounded-md border border-primary text-primary px-3 py-2 text-sm font-semibold no-underline hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+                >
+                  {switchTo.toUpperCase()}
+                </Link>
+              </div>
             </div>
           </div>
         </nav>

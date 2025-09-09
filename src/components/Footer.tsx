@@ -93,13 +93,23 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href={`/${locale}/precon`} className="hover:opacity-90" style={{ color: SAND }}>
+                  {isEN ? "Why Pre‑construction" : "Por qué Preconstrucción"}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/storages`} className="hover:opacity-90" style={{ color: SAND }}>
+                  {isEN ? "Storages" : "Storages"}
+                </Link>
+              </li>
+              <li>
                 <Link href={`/${locale}/financiacion`} className="hover:opacity-90" style={{ color: SAND }}>
                   {isEN ? "Financing" : "Financiación"}
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/contacto`} className="hover:opacity-90" style={{ color: SAND }}>
-                  {isEN ? "Contact" : "Contacto"}
+                <Link href={`/${locale}/sobre-mi`} className="hover:opacity-90" style={{ color: SAND }}>
+                  {isEN ? "About" : "Sobre mí"}
                 </Link>
               </li>
             </ul>
