@@ -76,6 +76,18 @@ export default function Footer() {
                 Miami Life Realty · 2320 Hollywood Blvd, Hollywood, FL 33020
               </li>
             </ul>
+
+            {/* Logo broker */}
+            <div className="pt-3">
+              <Image
+                src="/images/miamiliferealty_logo.png"
+                alt="Miami Life Realty"
+                width={160}
+                height={40}
+                className="h-8 w-auto object-contain"
+                sizes="160px"
+              />
+            </div>
           </div>
 
           {/* Enlaces útiles */}

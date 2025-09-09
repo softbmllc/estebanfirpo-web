@@ -8,7 +8,7 @@ export const pFaena: Project = {
   name: "Faena Residences Miami",
   city: "Miami River",
   rentalPolicy: undefined,
-  furnished: false,
+  furnished: undefined,
   priceFromUsd: 1300000, // 1BR starting from $1.3M
   pricePerSfApprox: undefined,
   delivery: "2028",

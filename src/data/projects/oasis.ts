@@ -7,11 +7,12 @@ export const pOasis: Project = {
   id: "oasis-hallandale",
   name: "Oasis Hallandale",
   city: "Hallandale Beach",
-  rentalPolicy: undefined,
-  furnished: false,
-  priceFromUsd: undefined,
+  rentalPolicy: "1 alquiler/año · 6 meses mínimo",
+  furnished: undefined,
+  priceFromUsd: 700000,
   pricePerSfApprox: undefined,
-  delivery: "2025",
+  hoa: "$0.75–0.85/sf",
+  delivery: "2025–2027",
   slug: "/proyectos/oasis-hallandale",
   image: "https://ik.imagekit.io/devrodri/Oasis/UpDctSXg.jpeg",
 
@@ -67,16 +68,36 @@ export const pOasis: Project = {
     "Walk‑in closets; powder room in select residences"
   ],
 
-  paymentPlanEs: ["A confirmar con el desarrollador"],
-  paymentPlanEn: ["To be confirmed by the developer"],
+  paymentPlanEs: [
+    "US$10.000 reserva",
+    "15% al contrato",
+    "10% al iniciar obra (groundbreaking)",
+    "15% a los 180 días",
+    "60% al cierre (financiación disponible para extranjeros)"
+  ],
+  paymentPlanEn: [
+    "US$10,000 reservation",
+    "15% at contract",
+    "10% at groundbreaking",
+    "15% at 180 days",
+    "60% at closing (financing available for foreign buyers)"
+  ],
 
   faqsEs: [
-    { q: "¿Se permiten rentas cortas?", a: "Confirmar política exacta del condominio." },
-    { q: "¿Incluye paquete de amoblamiento?", a: "Consultar opciones disponibles." }
+    { q: "¿Precio desde?", a: "Desde ~USD 700.000 (1 dormitorio; referencias 2024–2025)." },
+    { q: "¿Política de alquiler?", a: "1 alquiler por año; contrato mínimo 6 meses. No se permite renta corta (Airbnb)." },
+    { q: "¿HOA estimado?", a: "~USD 0.75–0.85 por pie cuadrado mensual (según servicios)." },
+    { q: "¿Plan de depósitos?", a: "Esquema referencial: reserva US$10.000; 15% contrato; 10% inicio de obra; 15% a 180 días; 60% cierre (varía por torre/etapa)." },
+    { q: "¿Amoblamiento?", a: "Unidades ‘fully finished’, sin muebles. Consultar paquetes externos si se desea." },
+    { q: "¿Entrega?", a: "Cronograma escalonado: West ~Q4 2025/Q1 2026; East ~2027." }
   ],
   faqsEn: [
-    { q: "Are short‑term rentals allowed?", a: "Please confirm with the condo association." },
-    { q: "Is there a furnishing package?", a: "Please ask for available options." }
+    { q: "Starting price?", a: "From ~USD 700,000 (1‑bed; 2024–2025 references)." },
+    { q: "Rental policy?", a: "1 lease per year; 6‑month minimum. No short‑term rentals (Airbnb)." },
+    { q: "HOA estimate?", a: "~USD 0.75–0.85 per sqft monthly (depending on services)." },
+    { q: "Deposit structure?", a: "Reference: US$10,000 reservation; 15% at contract; 10% at groundbreaking; 15% at 180 days; 60% at closing (varies by tower/stage)." },
+    { q: "Furnishing?", a: "Delivered fully finished; furniture not included. Third‑party packages available." },
+    { q: "Delivery timeline?", a: "Staggered: West ~Q4 2025/Q1 2026; East ~2027." }
   ],
 
   images: [
