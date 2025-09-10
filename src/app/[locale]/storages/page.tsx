@@ -15,7 +15,7 @@ export default async function StoragesPage({
       {/* Hero */}
       <header className="mb-6 space-y-2">
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-primary">
-          {isEN ? "Invest in Self‑Storage" : "Invertí en Storages en EE.UU."}
+          {isEN ? "Invest in Self‑Storage" : "Invierte en Storages en EE.UU."}
         </h1>
         <div
           className="h-[2px] w-24 rounded-full"

@@ -28,7 +28,9 @@ type IconKey =
   | "beach"
   | "book"
   | "kid"
-  | "laundry";
+  | "laundry"
+  | "ac"
+  | "wifi";
 
 export type SpecItem = {
   /** mini SVG o emoji (16px) — opcional si usás iconKey o heurística */
@@ -364,6 +366,24 @@ function AutoIcon({ keyName, text }: { keyName?: IconKey; text: string }) {
           <path d="M8 6h8M8 9h2M14 9h2" />
         </svg>
       );
+    case "ac":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="2.2" />
+          <path d="M12 4c2.2 0 4 1.8 4 4 0 .7-.2 1.3-.5 1.9l-2.9-.9" />
+          <path d="M20 12c0 2.2-1.8 4-4 4-.7 0-1.3-.2-1.9-.5l.9-2.9" />
+          <path d="M12 20c-2.2 0-4-1.8-4-4 0-.7.2-1.3.5-1.9l2.9.9" />
+        </svg>
+      );
+    case "wifi":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12a11 11 0 0 1 14 0" />
+          <path d="M7.5 14.5a7 7 0 0 1 9 0" />
+          <path d="M10 17a3 3 0 0 1 4 0" />
+          <circle cx="12" cy="20" r="1" />
+        </svg>
+      );
     default:
       return <span>•</span>;
   }
@@ -379,7 +399,7 @@ function guessIconKey(text: string): IconKey {
   if (/(materiales|acabados)/.test(t)) return "sparkles";
   if (/(beach club|club de playa|beach|playa)/.test(t)) return "beach";
   if (/(lobby|chandelier|grand salon|sal[oó]n)/.test(t)) return "sparkles";
-  if (/(altura|alturas|height|piso\s*a\s*techo|piso‑techo|piso-techo|floor\s*to\s*ceiling|floor\-to\-ceiling)/.test(t)) return "height";
+  if (/(altura|alturas|height|techo|techos|ceiling|piso\s*a\s*techo|piso‑techo|piso-techo|floor\s*to\s*ceiling|floor\-to\-ceiling)/.test(t)) return "height";
   if (/(piscina|pool|rooftop)/.test(t)) return "pool";
   if (/(sauna|cold plunge|spa)/.test(t)) return "spa";
   if (/(belleza|wellness|sal[oó]n privado)/.test(t)) return "spa";
@@ -398,6 +418,8 @@ function guessIconKey(text: string): IconKey {
   if (/(control de acceso|access control|seguridad)/.test(t)) return "security";
   if (/(cine|screening|pel[ií]cula|movie|juegos|game room)/.test(t)) return "sparkles";
   if (/(lavadora|secadora|washer|dryer|laundry)/.test(t)) return "laundry";
+  if (/(wi[-\s]?fi|wifi|internet|fibra|fiber)/.test(t)) return "wifi";
+  if (/(climatizaci[oó]n|hvac|aire\s*acondicionado|air\s*conditioning|alta\s*eficiencia)/.test(t)) return "ac";
   if (/(biblioteca|library|lounge)/.test(t)) return "book";
   if (/(cl[óo]set|closet|walk[-\s]?in)/.test(t)) return "package";
   if (/(toilette|powder\s*room|toilet)/.test(t)) return "spa";

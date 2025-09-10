@@ -80,7 +80,7 @@ export const pFaena: Project = {
     "10% al inicio de obra (groundbreaking)",
     "10% a los 12 meses del inicio de obra",
     "10% al colado de la losa de la unidad residencial más alta",
-    "50% al Cierre"
+    "50% al Cierre (financiación disponible para extranjeros)"
   ],
   paymentPlanEn: [
     "5% at Contract",
@@ -89,7 +89,7 @@ export const pFaena: Project = {
     "10% at Groundbreaking",
     "10% 12 Months after Groundbreaking",
     "10% at Pouring of Highest Residential Unit",
-    "50% at Closing"
+    "50% at Closing (financing available for foreign buyers)"
   ],
 
   faqsEs: [

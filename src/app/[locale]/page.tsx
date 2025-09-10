@@ -1,5 +1,6 @@
 // src/app/[locale]/page.tsx
 import Link from 'next/link';
+import Image from 'next/image';
 import SectionWhyMiami from '@/components/SectionWhyMiami';
 import SectionWhyPrecon from '@/components/SectionWhyPrecon';
 import FeaturedProjects from '@/components/FeaturedProjects';
@@ -8,52 +9,35 @@ import SectionWhyStorages from '@/components/SectionWhyStorages';
 export default async function Home({params}: {params: {locale: string}}) {
 
   return (
-    <div className="space-y-20 py-12">
+    <div className="space-y-20 pt-0 pb-12">
       {/* HERO */}
-      <section role="region" aria-labelledby="hero-title" aria-describedby="hero-desc" className="relative overflow-hidden rounded-[18px] border border-black/10 bg-[#F9FAFB] px-8 sm:px-12 md:px-14 pt-[88px] pb-20 md:pt-[104px] md:pb-24 shadow-[inset_0_-1px_0_0_rgba(0,0,0,.04),0_1px_2px_rgba(0,0,0,0.03),0_8px_24px_rgba(0,0,0,0.04)] flex justify-center items-center min-h-[600px]">
+      <section role="region" aria-labelledby="hero-title" aria-describedby="hero-desc" className="relative overflow-hidden w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-[#F9FAFB] pt-[88px] pb-20 md:pt-[104px] md:pb-24 flex justify-center items-center min-h-[600px]">
         
-
-        <div className="space-y-12 relative max-w-3xl md:max-w-4xl xl:max-w-[50rem] mx-auto text-center">
-          {/* Capsules — compact on mobile, detailed on desktop */}
-          {/* Mobile: single compact capsule */}
-          <div className="sm:hidden -mx-4 px-4">
-            <span className="inline-flex items-center rounded-[999px] border border-[#D4AF37]/30 bg-white/60 px-3 py-1 text-[11px] leading-tight font-medium text-[#0A2540] hover:bg-white/80">
-              {params.locale === 'en'
-                ? 'Closing financing · 2025–2028 · Verified'
-                : 'Financiación al cierre · 2025–2028 · Verificado'}
-            </span>
+        {/* Background media (SORA-ready) */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none">
+          {/* Desktop/Tablet: video de fondo */}
+          <div className="hidden sm:block absolute inset-0">
+            <video
+              className="h-full w-full object-cover"
+              autoPlay
+              muted
+              playsInline
+              loop
+              poster="/images/hero-fallback.jpg"
+            >
+              <source src="/videos/hero-sora.webm" type="video/webm" />
+              <source src="/videos/hero-sora.mp4" type="video/mp4" />
+            </video>
           </div>
-
-          {/* Desktop & tablets: three capsules */}
-          <div className="hidden sm:flex flex-wrap justify-center gap-2 gap-y-1 -mx-4 px-4">
-            <span
-              className="inline-flex items-center rounded-full border border-[#D4AF37]/30 bg-white/60 px-3 py-1 text-[11px] sm:text-[12px] leading-tight font-medium text-[#0A2540] hover:bg-white/80"
-              aria-hidden="true"
-            >
-              <span aria-hidden className="mr-1 inline-block h-3 w-3 align-[-2px]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><line x1="2" y1="11" x2="22" y2="11"/></svg>
-              </span>
-              {params.locale === 'en' ? 'Closing financing (foreign buyers)' : 'Financiación al cierre (extranjeros)'}
-            </span>
-            <span
-              className="inline-flex items-center rounded-full border border-[#D4AF37]/30 bg-white/60 px-3 py-1 text-[11px] sm:text-[12px] leading-tight font-medium text-[#0A2540] hover:bg-white/80"
-              aria-hidden="true"
-            >
-              <span aria-hidden className="mr-1 inline-block h-3 w-3 align-[-2px]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/></svg>
-              </span>
-              {params.locale === 'en' ? 'Deliveries 2025–2028' : 'Entregas 2025–2028'}
-            </span>
-            <span
-              className="inline-flex items-center rounded-full border border-[#D4AF37]/30 bg-white/60 px-3 py-1 text-[11px] sm:text-[12px] leading-tight font-medium text-[#0A2540] hover:bg-white/80"
-              aria-hidden="true"
-            >
-              <span aria-hidden className="mr-1 inline-block h-3 w-3 align-[-2px]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-              </span>
-              {params.locale === 'en' ? 'Inventory verified weekly' : 'Inventario verificado semanal'}
-            </span>
+          {/* Mobile: imagen estática */}
+          <div className="sm:hidden absolute inset-0">
+            <Image src="/images/hero-fallback-mobile.jpg" alt="" fill priority className="object-cover" />
           </div>
+          {/* Overlay claro para legibilidad sobre texto oscuro */}
+          <div className="absolute inset-0 bg-white/75" />
+        </div>
+
+        <div className="space-y-8 sm:space-y-12 relative max-w-3xl md:max-w-4xl xl:max-w-[50rem] mx-auto text-center px-4 sm:px-0">
 
           {/* Eyebrow */}
           <p className="text-[12px] tracking-[0.12em] uppercase text-[#0A2540]/85 mb-1">
@@ -61,7 +45,7 @@ export default async function Home({params}: {params: {locale: string}}) {
           </p>
 
           <h1 id="hero-title" className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[58px] font-bold leading-[1.1] tracking-[-0.01em] text-[#0A2540] text-balance max-w-[50rem] mx-auto">
-            {params.locale === 'en' ? 'Invest in high-performing pre-construction in Miami.' : 'Invertí en preconstrucción de alto rendimiento en Miami.'}
+            {params.locale === 'en' ? 'Invest in high-performing pre-construction in Miami.' : 'Invierte en preconstrucción de alto rendimiento en Miami.'}
           </h1>
           <p className="max-w-2xl mx-auto text-[18px] leading-8 text-[#0D1521]/85">
             {params.locale === 'en'
@@ -69,7 +53,7 @@ export default async function Home({params}: {params: {locale: string}}) {
               : 'Planes de pago flexibles, desarrolladores de primer nivel y cierre sin fricción.'}
           </p>
 
-          <div className="flex flex-col gap-3 sm:flex-row justify-center items-center">
+          <div className="flex flex-col gap-2 sm:gap-3 sm:flex-row justify-center items-center">
             <Link
               href={`/${params.locale}/proyectos`}
               prefetch
@@ -100,7 +84,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             </a>
           </div>
           {/* TRUST ROW (wordmarks monocromo, reales) */}
-          <div className="mt-8">
+          <div className="mt-6 sm:mt-8">
             <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[#0A2540]/60">
               <span
                 className="text-[12px] sm:text-xs font-semibold tracking-[0.14em] uppercase"
@@ -125,6 +109,19 @@ export default async function Home({params}: {params: {locale: string}}) {
               </span>
             </div>
           </div>
+          {/* Avatar Esteban centrado */}
+          <div className="mt-6 flex justify-center">
+            <Image
+              src="/images/Esteban.jpg"
+              alt="Esteban Firpo"
+              width={384}
+              height={384}
+              sizes="500px"
+              quality={90}
+              priority
+              className="h-28 w-28 sm:h-32 sm:w-32 rounded-full object-cover ring-2 ring-white/70 shadow-md"
+            />
+          </div>
           <div id="hero-desc" className="pt-2 text-xs text-[#0A2540]/70 flex items-center justify-center">
             <span className="text-[#0A2540]/60 mr-1 hidden sm:inline">{params.locale === 'en' ? 'Questions?' : '¿Dudas?'}</span>
             <a
@@ -139,6 +136,33 @@ export default async function Home({params}: {params: {locale: string}}) {
           </div>
         </div>
       </section>
+
+      {/* RIBBON — resumen bajo el hero (oscura) */}
+<section aria-label="resumen sitio"
+  className="relative w-screen left-1/2 -ml-[50vw] -mr-[50vw] bg-[#0B1F3A] border-y border-[#D4AF37]/30 -mt-20">
+  <div className="mx-auto max-w-6xl px-4">
+    <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-2 py-3 text-sm text-white">
+      <li className="flex items-center gap-2">
+        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><line x1="2" y1="11" x2="22" y2="11"/>
+        </svg>
+        {params.locale==='en' ? 'Closing financing (foreign buyers)' : 'Financiación al cierre (extranjeros)'}
+      </li>
+      <li className="hidden sm:flex items-center gap-2">
+        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="5" width="18" height="16" rx="2"/><line x1="16" y1="3" x2="16" y2="7"/><line x1="8" y1="3" x2="8" y2="7"/>
+        </svg>
+        {params.locale==='en' ? 'Deliveries 2025–2028' : 'Entregas 2025–2028'}
+      </li>
+      <li className="flex items-center gap-2">
+        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+        {params.locale==='en' ? 'Inventory verified weekly' : 'Inventario verificado semanal'}
+      </li>
+    </ul>
+  </div>
+</section>
 
       <SectionWhyMiami />
       <SectionWhyPrecon

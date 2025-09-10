@@ -41,7 +41,7 @@ export default function Footer() {
                   alt="Foto de Esteban Firpo"
                   fill
                   className="object-cover"
-                  sizes="48px"
+                  sizes="150px"
                 />
               </div>
               <div>
