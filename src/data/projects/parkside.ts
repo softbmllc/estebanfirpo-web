@@ -9,7 +9,8 @@ export const pParkside: Project = {
   id: "parkside-brickell",
   name: "Parkside Brickell",
   city: "Brickell, Miami",
-  rentalPolicy: "Sin restricciones de alquiler; aprobado para renta corta (gestión hotelera en el edificio)",
+  rentalPolicyEs: "Sin restricciones de alquiler; aprobado para renta corta (gestión hotelera en el edificio)",
+  rentalPolicyEn: "No rental restrictions; approved for short-term rental (hotel management in the building)",
   furnished: true,
   priceFromUsd: 500000,
   pricePerSfApprox: undefined,
@@ -29,17 +30,20 @@ export const pParkside: Project = {
   ],
 
   microClaimsEs: [
+    "VISA de Inversionista (EB‑5)",
     "Residencias terminadas y amobladas",
     "STR sin restricciones con gestión in‑house",
     "Boutique en el corazón de Brickell"
   ],
   microClaimsEn: [
+    "EB‑5 investor visa eligible",
     "Delivered fully finished and furnished",
     "No rental restrictions; STR with in‑house management",
     "Boutique residence in the heart of Brickell"
   ],
 
   highlights: [
+    "VISA EB‑5: ruta a la Green Card (vía Centro Regional)",
     "Piscina en terraza panorámica y cabañas",
     "Cocina al aire libre con bar y restaurante en PB",
     "Gimnasio en la terraza",
@@ -48,6 +52,7 @@ export const pParkside: Project = {
     "Shuttle a Brickell City Centre y la playa"
   ],
   highlightsEn: [
+    "EB‑5 Investor Visa: path to Green Card (via Regional Center)",
     "Rooftop pool with cabanas",
     "Outdoor kitchen with bar and ground‑floor restaurant",
     "Rooftop gym",
@@ -102,12 +107,18 @@ export const pParkside: Project = {
   ],
 
   faqsEs: [
+    { q: "¿Visa EB‑5?", a: "Sí. Parkside Brickell ofrece opción de Visa EB‑5 vía Centro Regional, con ruta a la Green Card sujeta a aprobación de USCIS." },
+    { q: "¿Monto y costos EB‑5?", a: "Inversión mínima US$1.050.000 (área no‑TEA), más admin fee (~US$70.000), honorarios legales (~US$20–25k) y tasa USCIS I‑526E (~US$12.160)." },
+    { q: "¿Proceso y tiempos EB‑5?", a: "Petición I‑526E (~24–36 meses), Green Card condicional 2 años, luego I‑829 para remover condiciones. Plazo total estimado: ~4–6 años." },
     { q: "¿Precio desde?", a: "Estudios desde ~US$500.000; 1BR desde ~US$700.000; 2BR desde ~US$900.000." },
     { q: "¿Hay leaseback?", a: "Sí, programa de leaseback con retorno del 10%." },
     { q: "¿Política de alquiler?", a: "Sin restricciones; STR permitidos con gestión hotelera en el edificio." },
     { q: "¿Amoblamiento?", a: "Residencias entregadas completamente terminadas y amobladas." }
   ],
   faqsEn: [
+    { q: "EB‑5 visa?", a: "Yes. Parkside Brickell offers an EB‑5 option via a Regional Center, with a path to the Green Card subject to USCIS approval." },
+    { q: "EB‑5 amount & costs?", a: "Minimum US$1,050,000 (non‑TEA), plus admin fee (~US$70,000), legal fees (~US$20–25k) and USCIS I‑526E fee (~US$12,160)." },
+    { q: "EB‑5 process & timing?", a: "I‑526E (~24–36 months), 2‑year conditional Green Card, then I‑829 to remove conditions. Total ~4–6 years (est.)." },
     { q: "Starting price?", a: "Studios from ~US$500k; 1BR ~US$700k; 2BR ~US$900k." },
     { q: "Leaseback?", a: "Yes, developer leaseback program at 10%." },
     { q: "Rental policy?", a: "No restrictions; short‑term rentals allowed with in‑house management." },

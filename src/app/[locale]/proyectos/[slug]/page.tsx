@@ -11,6 +11,7 @@ import WhyBlock, { type WhyItem } from "@/components/WhyBlock";
 import FaqsBlock, { type FaqItem } from "@/components/FaqsBlock";
 import PaymentPlan from "@/components/PaymentPlan";
 import { Lock, WashingMachine, Tv, Speaker, PawPrint, Palette, Dumbbell, Briefcase } from "lucide-react";
+import ShareButtons from "@/components/ShareButtons";
 function BedIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
@@ -132,7 +133,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   const title = `${p.name} — ${p.city} | Esteban Firpo`;
   const desc = isEN
-    ? `STR approved, private beach club, ${p.pricePerSfApprox ? `~$${p.pricePerSfApprox}/sf, ` : ""}${p.delivery ? `delivery ${p.delivery}, ` : ""}request floor plans and availability.`
+    ? `STR approved, private beach club, ${p.pricePerSfApprox ? `~$${p.pricePerSfApprox}/sf, ` : ""}${p.delivery ? `completion ${p.delivery}, ` : ""}request floor plans and availability.`
     : `Renta corta aprobada, club de playa privado, ${p.pricePerSfApprox ? `~$${p.pricePerSfApprox}/sf, ` : ""}${p.delivery ? `entrega ${p.delivery}, ` : ""}solicitá planos y disponibilidad.`;
 
   const url = `/${locale}/proyectos/${slug}`;
@@ -166,6 +167,10 @@ export default async function Proyecto({ params }: Params) {
   const isEN = locale === "en";
   const p = pickBySlug(slug);
   if (!p) notFound();
+
+  const policy = isEN
+    ? ((p as any).rentalPolicyEn ?? (p as any).rentalPolicy ?? undefined)
+    : ((p as any).rentalPolicyEs ?? (p as any).rentalPolicy ?? undefined);
 
   const payment = (isEN ? p.paymentPlanEn : p.paymentPlanEs) ?? [];
   const faqs = (isEN ? p.faqsEn : p.faqsEs) ?? [];
@@ -202,10 +207,12 @@ export default async function Proyecto({ params }: Params) {
       ? `Hi Esteban, I'm interested in ${p.name}. Could you please send me more information?`
       : `Hola Esteban, estoy interesado/a en ${p.name}. ¿Podés enviarme más información?`
   )}`;
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://www.estebanfirpo.com";
+  const shareUrl = `${base}/${locale}/proyectos/${slug}`.replace(/(?<!:)\/\/+/, "/");
 
   // Extra policy chips for mobile only
   const policyChips = [
-    ...(p.rentalPolicy ? [isEN ? "No restrictions" : "Sin restricciones"] : []),
+    ...(policy ? [policy] : []),
     ...(p.hoa ? [`HOA ${p.hoa}`] : []),
     ...(typeof p.furnished === "boolean"
       ? [isEN ? (p.furnished ? "Furnished" : "Unfurnished") : (p.furnished ? "Amoblado" : "Sin amoblar")]
@@ -250,12 +257,13 @@ export default async function Proyecto({ params }: Params) {
           isEN ? "Inquire" : "Consultar"
         )}
         {p.delivery ? <> · {t.delivery} {p.delivery}</> : null}
-        {p.rentalPolicy ? <> · {t.rental} {p.rentalPolicy}</> : null}
+        {policy ? <> · {t.rental} {policy}</> : null}
         {p.hoa ? <> · HOA {p.hoa}</> : null}
         {typeof p.furnished === "boolean" ? (
           <> · {isEN ? (p.furnished ? "Furnished" : "Unfurnished") : (p.furnished ? "Amoblado" : "Sin amoblar")}</>
         ) : null}
       </p>
+
 
       {/* Micro‑claims / Chips */}
       {(() => {
@@ -313,15 +321,23 @@ export default async function Proyecto({ params }: Params) {
 
       {/* Sticky CTA */}
       <div className="mt-6 rounded-xl border border-black/10 bg-white px-3 py-3 flex flex-col gap-2 sm:flex-row">
-        <Link href={bookingUrl} className="w-full sm:w-auto inline-flex h-9 items-center justify-center rounded-md bg-[#0A2540] px-3 text-xs sm:text-sm font-medium text-white hover:opacity-95">
+        <Link href={bookingUrl} className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95">
           {t.ctas.schedule}
         </Link>
-        <a href={waHref} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a href={waHref} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
           {t.ctas.whatsapp}
         </a>
-        <a href="mailto:info@estebanfirpo.com" className="w-full sm:w-auto inline-flex h-9 items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-xs sm:text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a href="mailto:info@estebanfirpo.com" className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
           {t.ctas.email}
         </a>
+        <ShareButtons
+          url={shareUrl}
+          text={p.name}
+          locale={isEN ? "en" : "es"}
+          variant="light"
+          iconSrc="/icons/whatsapp.svg"
+          buttonClassName="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB] w-full sm:w-auto"
+        />
       </div>
 
       {/* Gallery */}
@@ -538,6 +554,14 @@ export default async function Proyecto({ params }: Params) {
         <a href="mailto:info@estebanfirpo.com" className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
           {t.ctas.email}
         </a>
+        <ShareButtons
+          url={shareUrl}
+          text={p.name}
+          locale={isEN ? "en" : "es"}
+          variant="light"
+          iconSrc="/icons/whatsapp.svg"
+          buttonClassName="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB] w-full sm:w-auto"
+        />
       </section>
 
       {/* Payment plan */}

@@ -15,17 +15,20 @@ export const pNexo: Project = {
   image: "https://ik.imagekit.io/devrodri/1-2-2.jpg",
 
   microClaimsEs: [
+    "VISA de Inversionista (EB‑5)",
     "Alquiler flexible (sin restricciones)",
     "Residencias amobladas",
     "Sobre Biscayne Blvd"
   ],
   microClaimsEn: [
+    "EB‑5 investor visa eligible",
     "Flexible rental (no restrictions)",
     "Furnished residences",
     "On Biscayne Blvd"
   ],
 
   highlights: [
+    "VISA EB‑5: ruta a la Green Card (vía Centro Regional)",
     "254 residencias en 17 pisos",
     "Sin restricciones: apto Airbnb y más",
     "Tech Center de dos niveles con coworking, salas y café",
@@ -34,6 +37,7 @@ export const pNexo: Project = {
     "Residencias terminadas y amobladas; ventanas piso‑techo y balcones",
   ],
   highlightsEn: [
+    "EB‑5 Investor Visa: path to Green Card (via Regional Center)",
     "254 residences in 17 stories",
     "No restrictions: Airbnb & more",
     "Two‑story Tech Center with coworking, meeting rooms and café",
@@ -86,6 +90,7 @@ export const pNexo: Project = {
   ],
 
   faqsEs: [
+    { q: "¿Visa EB‑5?", a: "Sí. Elegible vía Centro Regional; inversión mínima US$800.000 y tarifa administrativa ~US$70.000; camino a la Green Card sujeto a aprobación de USCIS." },
     { q: "¿Se permiten alquileres de corto plazo?", a: "Sí. Nexo no tiene restricciones y permite listar en Airbnb, Vrbo, Booking y otras plataformas." },
     { q: "¿Las residencias se entregan amobladas?", a: "Sí. Todas se entregan completamente terminadas y amobladas." },
     { q: "¿Dónde está ubicado?", a: "13899 Biscayne Blvd, North Miami Beach; cerca de Oleta River Park, Bal Harbour Shops y Aventura Mall." },
@@ -93,6 +98,7 @@ export const pNexo: Project = {
     { q: "¿Cuál es el HOA estimado?", a: "Aproximadamente $1.10 por pie²." }
   ],
   faqsEn: [
+    { q: "EB‑5 Visa?", a: "Yes. Eligible via Regional Center; minimum investment US$800,000 and ~US$70,000 admin fee; path to a Green Card subject to USCIS approval." },
     { q: "Are short‑term rentals allowed?", a: "Yes. No rental restrictions—Airbnb, Vrbo, Booking and other platforms allowed." },
     { q: "Are units furnished?", a: "Yes. All residences are delivered fully finished and furnished." },
     { q: "Where is it located?", a: "13899 Biscayne Blvd, North Miami Beach; near Oleta River Park, Bal Harbour Shops and Aventura Mall." },

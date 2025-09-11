@@ -19,16 +19,16 @@ export const p7200Collins: Project = {
   microClaimsEn: ["STR friendly", "Private beach club", "Oceanfront in North Beach"],
 
   highlights: [
-    "Residencias frente al mar con propiedad flexible",
-    "Colección de 222 unidades completamente amobladas por Adriana Hoyos Design Studio",
+    "Frente al mar, propiedad flexible (STR)",
+    "222 unidades amobladas por Adriana Hoyos",
     "Arquitectura de Revuelta, fachada curva con balcones de vidrio y vistas abiertas",
     "Más de 3 niveles de amenidades: rooftop con piscina, lounge y cine al aire libre",
     "Club de playa privado con sillas y sombrillas",
     "Locales comerciales seleccionados en planta baja y concierge/valet"
   ],
   highlightsEn: [
-    "Oceanfront residences with flexible ownership (STR friendly)",
-    "222 fully furnished homes by Adriana Hoyos Design Studio",
+    "Oceanfront, STR‑friendly ownership",
+    "222 furnished homes by Adriana Hoyos",
     "Revuelta Architecture curved façade with glass balconies and open views",
     "Three+ levels of amenities: rooftop pool, lounge and outdoor cinema",
     "Private beach club with chairs and umbrellas",

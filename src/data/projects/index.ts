@@ -21,6 +21,8 @@ import pOasis from "./oasis";
 import { pRider } from "./rider";
 import { pParkside } from "./parkside";
 import { pPalma } from "./palma";
+import { pMilleniaPark } from "./millenia-park";
+import { pMillux } from "./millux";
 import type { Project } from "../types";
 
 // helper: upsert por id (o alias) preservando el orden base
@@ -37,6 +39,6 @@ function upsertMany(base: Project[], items: Project[]): Project[] {
   return [...extras, ...known];
 }
 
-const INCOMING: Project[] = [p72Park, pEllaMiami, p7200Collins, pDomusBrickellPark, pBaccarat, pCipriani, pTwentySixAndSecond, pFlowHouse, pNexo, pOneParkTower, p2200Brickell, pEdgeHouse, pDomusBrickellCenter, pMercedesBenzPlaces, pOkanTower, pAveMaria, pOasis, pFaena, pRider, pParkside, pPalma];
+const INCOMING: Project[] = [p72Park, pEllaMiami, p7200Collins, pDomusBrickellPark, pBaccarat, pCipriani, pTwentySixAndSecond, pFlowHouse, pNexo, pOneParkTower, p2200Brickell, pEdgeHouse, pDomusBrickellCenter, pMercedesBenzPlaces, pOkanTower, pAveMaria, pOasis, pFaena, pRider, pParkside, pPalma, pMilleniaPark, pMillux];
 export const FEATURED_PROJECTS: Project[] = upsertMany(BASE_FEAT, INCOMING);
 export const ALL_PROJECTS: Project[] = upsertMany(BASE_ALL, INCOMING);

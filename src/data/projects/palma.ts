@@ -8,7 +8,7 @@ export const pPalma: Project = {
   rentalPolicyEs: "Sin restricción de alquiler mínimo; STR permitidos",
   rentalPolicyEn: "No minimum rental restrictions; STR allowed",
   furnished: true,
-  priceFromUsd: 670000,
+  priceFromUsd: 600000,
   pricePerSfApprox: 1600,
   delivery: "2026",
   slug: "/proyectos/palma-miami-beach",
