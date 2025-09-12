@@ -22,7 +22,7 @@ export default function Proyectos() {
         }).format(n)
       : undefined;
 
-  const [filters, setFilters] = useState<Filters>({ q: "", rental: "all", min: undefined, max: undefined });
+  const [filters, setFilters] = useState<Filters>({ q: "", rental: "all", min: undefined, max: undefined, sort: 'alpha-asc' });
 
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<Project | null>(null);
@@ -48,6 +48,34 @@ export default function Proyectos() {
       return textOk && rentalOk && minOk && maxOk;
     });
   }, [filters]);
+
+  const sorted = useMemo(() => {
+    const arr = filtered.slice();
+    const byTitleAsc = (a: Project, b: Project) => (a.name || '').localeCompare(b.name || '');
+    const byTitleDesc = (a: Project, b: Project) => (b.name || '').localeCompare(a.name || '');
+    const byPriceAsc = (a: Project, b: Project) => {
+      const ap = typeof a.priceFromUsd === 'number' ? a.priceFromUsd : Number.POSITIVE_INFINITY;
+      const bp = typeof b.priceFromUsd === 'number' ? b.priceFromUsd : Number.POSITIVE_INFINITY;
+      return ap - bp;
+    };
+    const byPriceDesc = (a: Project, b: Project) => {
+      const ap = typeof a.priceFromUsd === 'number' ? a.priceFromUsd : Number.NEGATIVE_INFINITY;
+      const bp = typeof b.priceFromUsd === 'number' ? b.priceFromUsd : Number.NEGATIVE_INFINITY;
+      return bp - ap;
+    };
+
+    switch (filters.sort) {
+      case 'alpha-desc':
+        return arr.sort(byTitleDesc);
+      case 'price-asc':
+        return arr.sort(byPriceAsc);
+      case 'price-desc':
+        return arr.sort(byPriceDesc);
+      case 'alpha-asc':
+      default:
+        return arr.sort(byTitleAsc);
+    }
+  }, [filtered, filters.sort]);
 
   return (
     <main className="px-4 py-8 sm:py-12">
@@ -75,7 +103,7 @@ export default function Proyectos() {
             locale={locale === "en" ? "en" : "es"}
             value={filters}
             onChange={setFilters}
-            onReset={() => setFilters({ q: "", rental: "all", min: undefined, max: undefined })}
+            onReset={() => setFilters({ q: "", rental: "all", min: undefined, max: undefined, sort: 'alpha-asc' })}
           />
         </div>
       </div>
@@ -113,10 +141,10 @@ export default function Proyectos() {
                 locale={locale === "en" ? "en" : "es"}
                 value={filters}
                 onChange={(next) => setFilters(next)}
-                onReset={() => setFilters({ q: "", rental: "all", min: undefined, max: undefined })}
+                onReset={() => setFilters({ q: "", rental: "all", min: undefined, max: undefined, sort: 'alpha-asc' })}
               />
             </div>
-            <div className="mt-auto pt-3">
+            <div className="pt-3">
               <button
                 onClick={closeDrawer}
                 className="w-full inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-3 text-sm font-medium text-white hover:opacity-95"
@@ -130,7 +158,7 @@ export default function Proyectos() {
 
       {/* Grid */}
       <div className="mt-6 grid grid-cols-1 gap-4 md:mt-8 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-        {filtered.map((p) => (
+        {sorted.map((p) => (
           <div
             key={p.slug}
             className="rounded-2xl border border-black/10 bg-white overflow-hidden transition hover:shadow-sm hover:-translate-y-[1px]"

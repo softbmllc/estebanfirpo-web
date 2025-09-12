@@ -47,10 +47,18 @@ export default async function Home({params}: {params: {locale: string}}) {
           <h1 id="hero-title" className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[58px] font-bold leading-[1.1] tracking-[-0.01em] text-[#0A2540] text-balance max-w-[50rem] mx-auto">
             {params.locale === 'en' ? 'Invest in high-performing pre-construction in Miami.' : 'Invierte en preconstrucción de alto rendimiento en Miami.'}
           </h1>
-          <p className="max-w-2xl mx-auto text-[18px] leading-8 text-[#0D1521]/85">
-            {params.locale === 'en'
-              ? 'Flexible payment plans, top developers, frictionless closing.'
-              : 'Planes de pago flexibles, desarrolladores de primer nivel y cierre sin fricción.'}
+          <p className="max-w-2xl mx-auto text-[18px] leading-8 text-[#0D1521]/85 font-medium">
+            {params.locale === 'en' ? (
+              <>
+                <span className="block">Florida-licensed Realtor®.</span>
+                <span className="block">I advise investors in pre-construction with a focus on ROI and exit.</span>
+              </>
+            ) : (
+              <>
+                <span className="block">Realtor® licenciado en Florida.</span>
+                <span className="block">Asesoro a inversores en preconstrucción con foco en ROI y salida.</span>
+              </>
+            )}
           </p>
 
           <div className="flex flex-col gap-2 sm:gap-3 sm:flex-row justify-center items-center">

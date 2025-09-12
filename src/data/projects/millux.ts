@@ -5,13 +5,14 @@ export const pMillux: Project = {
   id: "millux-place-brickell",
   name: "Millux Place Brickell",
   city: "Brickell, Miami",
-  // A falta de folleto con política exacta, no presumimos STR; se puede completar luego
-  rentalPolicyEs: undefined,
-  rentalPolicyEn: undefined,
-  furnished: undefined,
-  priceFromUsd: 496000, // según listado de brokers (aprox. "desde")
-  pricePerSfApprox: undefined,
-  delivery: "2027",
+  // STR-friendly con detalle multilenguaje
+  rentalPolicyEs: "Lodging: 1 noche–6 meses; resto según reglas del condominio. Requiere Certificado de Uso (<6 meses)",
+  rentalPolicyEn: "Lodging: nightly–6 months; remaining units per condo rules. Certificate of Use required for <6 months",
+  furnished: true,
+  priceFromUsd: 468000, // estudios desde ~US$468k
+  pricePerSfApprox: 1150,
+  hoa: "$1.90/sf",
+  delivery: "Q4 2027",
   slug: "/proyectos/millux-place-brickell",
   image: "https://ik.imagekit.io/devrodri/Millux/i7490rzQ.jpeg",
 
@@ -27,57 +28,79 @@ export const pMillux: Project = {
   ],
 
   microClaimsEs: [
-    "Brickell",
-    "Plan de pagos 20/10/10/10/50",
-    "Entrega 2027"
+    "Residencias terminadas y amobladas (Restoration Hardware)",
+    "STR: lodging desde 1 noche",
+    "Entrega Q4 2027"
   ],
   microClaimsEn: [
-    "Brickell",
-    "Deposit plan 20/10/10/10/50",
-    "Completion 2027"
+    "Fully finished & furnished (Restoration Hardware)",
+    "Short‑term rental friendly (nightly lodging)",
+    "Completion Q4 2027"
   ],
 
   highlights: [
-    "Ubicación central de alta demanda (Brickell)",
-    "Arquitectura contemporánea y amenities de estilo urbano",
-    "Cercanía a Brickell City Centre y Metrorail"
+    "Condo‑hotel in‑house · renta 1 noche–6 meses",
+    "20 residencias · alquiler a largo plazo",
+    "Ubicación prime en Brickell, diseño Kobi Karp",
+    "Mobiliario de lujo incluido (Restoration Hardware)",
+    "HOA estimado ~US$1.90/ft²/mes"
   ],
   highlightsEn: [
-    "Prime Brickell location with strong demand",
-    "Contemporary architecture and urban‑style amenities",
-    "Near Brickell City Centre and Metrorail"
+    "In‑house lodging (condo‑hotel); rent nightly up to 6 months",
+    "~20 residential units under long‑term guidelines",
+    "Prime Brickell location, design by Kobi Karp",
+    "Luxury furniture included (Restoration Hardware)",
+    "Estimated HOA ~US$1.90/ft²/mo"
   ],
 
-  unitMixEs: [],
-  unitMixEn: [],
+  unitMixEs: [
+    "Studios/1–3 dorm · 37–89 m² (397–958 ft²)"
+  ],
+  unitMixEn: [
+    "Studios/1–3 BR · 397–958 sq ft (37–89 m²)"
+  ],
 
-  featuresEs: [],
-  featuresEn: [],
+  featuresEs: [
+    "Entrega llave en mano con mobiliario RH",
+    "Puertas/ventanales de impacto y balcones",
+    "Cocinas equipadas; acabados premium"
+  ],
+  featuresEn: [
+    "Turn‑key delivery with RH furniture",
+    "Impact glazing and balconies",
+    "Equipped kitchens; premium finishes"
+  ],
 
   paymentPlanEs: [
+    "Reserva US$10.000 (se imputa dentro del 20% del contrato)",
     "20% al contrato",
-    "10% al groundbreaking (inicio de obra)",
-    "10% al 4.º piso de construcción",
-    "10% al top‑off (estructura completa)",
+    "10% al groundbreaking",
+    "10% al 4.º piso",
+    "10% al top‑off",
     "50% al cierre"
   ],
   paymentPlanEn: [
-    "20% due at contract",
-    "10% due at groundbreaking",
-    "10% at 4th floor of construction",
-    "10% due at top‑off",
-    "50% due at closing"
+    "Reservation US$10,000 (credited within the 20% at contract)",
+    "20% at contract",
+    "10% at groundbreaking",
+    "10% at 4th floor",
+    "10% at top‑off",
+    "50% at closing"
   ],
 
   faqsEs: [
-    { q: "¿Entrega?", a: "2027 (estimada)." },
-    { q: "¿Plan de pagos?", a: "20/10/10/10/50 (según lámina vigente)." },
-    { q: "¿Desde qué precio?", a: "Aproximadamente desde US$496.000 (según listados de brokers)." }
+    { q: "¿Política STR?", a: "Lodging 1 noche–6 meses; residenciales con reglas propias. CU obligatorio para <6 meses." },
+    { q: "¿HOA?", a: "Aproximadamente US$1.90/ft² por mes." },
+    { q: "¿Amoblamiento?", a: "Sí, entregadas con mobiliario RH (turn‑key)." },
+    { q: "¿Entrega?", a: "Q4 2027 (estimado)." },
+    { q: "¿Financiación a extranjeros?", a: "Hipoteca al cierre ~50–60% LTV (sujeto a banco y ventas del edificio)." }
   ],
   faqsEn: [
-    { q: "Completion?", a: "2027 (estimated)." },
-    { q: "Deposit schedule?", a: "20/10/10/10/50 (per current sheet)." },
-    { q: "Starting from?", a: "Approximately from US$496,000 (per broker listings)." }
+    { q: "STR policy?", a: "Lodging nightly–6 months; residential units under condo rules. City CU required for <6 months." },
+    { q: "HOA?", a: "Approx. US$1.90/sq ft per month." },
+    { q: "Furnishing?", a: "Yes, RH furniture included (turn‑key)." },
+    { q: "Completion?", a: "Q4 2027 (estimated)." },
+    { q: "Foreign financing?", a: "Mortgage at closing ~50–60% LTV (subject to lender and building sales)." }
   ]
 };
 

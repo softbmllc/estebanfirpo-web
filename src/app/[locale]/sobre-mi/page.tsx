@@ -62,8 +62,8 @@ export default async function SobreMi({
             </p>
             <p>
               {isEN
-                ? 'Now based in Miami, I advise investors on pre‑construction and strategic real‑estate opportunities.'
-                : 'Hoy en Miami, asesoro a inversores en preconstrucción y oportunidades estratégicas de real estate.'}
+                ? 'Now based in Miami, I advise investors on pre‑construction and strategic opportunities. I prioritize solid developers, the math behind the ROI, and planning the exit before entering. I guide the full cycle: project selection, due diligence, reservation and contract, construction milestones, financing at closing, and title transfer. I coordinate with attorneys, lenders, and property management; I work in Spanish and English.'
+                : 'Hoy en Miami, asesoro a inversores en preconstrucción y oportunidades estratégicas. Priorizo desarrolladores sólidos, los números detrás del ROI y planificar la salida antes de entrar. Acompaño todo el ciclo: selección de proyecto, debida diligencia, reserva y contrato, hitos de obra, financiación al cierre y traspaso de título. Coordino con abogados, lenders y property management; trabajo en español e inglés.'}
             </p>
           </div>
           {/* services grid */}

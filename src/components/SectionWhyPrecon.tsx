@@ -20,8 +20,8 @@ export function SectionWhyPrecon({ heroImageSrc, heroImageAlt }: SectionWhyPreco
 
   const title = isEN ? "Why Pre‑construction?" : "¿Por qué Preconstrucción?";
   const copy = isEN
-    ? "Deposits 20–40%. Proven 15–30% appreciation. Seamless USD closing."
-    : "Entradas desde 20–40%. Plusvalía comprobada 15–30%. Cierre en USD sin fricciones.";
+    ? "Deposits 20–40%. Proven 15–30% appreciation. Seamless closing."
+    : "Entradas desde 20–40%. Plusvalía comprobada 15–30%. Cierre sin fricciones.";
 
   const points: { kpi: string; label: string }[] = isEN
     ? [
@@ -36,7 +36,7 @@ export function SectionWhyPrecon({ heroImageSrc, heroImageAlt }: SectionWhyPreco
         { kpi: "20–40%", label: "Entradas por hitos" },
         { kpi: "15–30%", label: "Plusvalía en obra" },
         { kpi: "Prime", label: "Amenities y demanda" },
-        { kpi: "Developer", label: "+ escrow" },
+        { kpi: "Desarrollador", label: "+ cuenta escrow" },
         { kpi: "Menor", label: "carga hasta entrega" },
         { kpi: "Financiación", label: "al cierre (extranjeros)" },
       ];
@@ -66,6 +66,21 @@ export function SectionWhyPrecon({ heroImageSrc, heroImageAlt }: SectionWhyPreco
       <div className="max-w-3xl">
         <h2 id="why-precon" className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0A2540]">{title}</h2>
         <p className="mt-2 text-sm text-[#0D1521] max-w-2xl">{copy}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {isEN ? (
+            <>
+              <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">20/10/10/60</span>
+              <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">15–30% appreciation</span>
+              <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">~70–75% LTV</span>
+            </>
+          ) : (
+            <>
+              <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">20/10/10/60</span>
+              <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">15–30% plusvalía</span>
+              <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">~70–75% LTV</span>
+            </>
+          )}
+        </div>
       </div>
 
       <ul className="mt-3 grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">

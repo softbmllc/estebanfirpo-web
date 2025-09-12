@@ -7,6 +7,7 @@ export type Filters = {
   rental: "all" | "No restr." | "30 días" | "60 días" | "90 días" | "6 meses";
   min?: number;
   max?: number;
+  sort?: "alpha-asc" | "alpha-desc" | "price-asc" | "price-desc";
 };
 
 export function ProjectsFilters({
@@ -28,6 +29,16 @@ export function ProjectsFilters({
       any: locale === "en" ? "Any" : "Todas",
       priceFrom: locale === "en" ? "Min price" : "Precio mín.",
       priceTo: locale === "en" ? "Max price" : "Precio máx.",
+      sort: locale === "en" ? "Sort by" : "Ordenar por",
+      sortLabel: (v?: Filters["sort"]) => {
+        const map: Record<string, string> = {
+          "alpha-asc": locale === "en" ? "A→Z" : "A→Z",
+          "alpha-desc": locale === "en" ? "Z→A" : "Z→A",
+          "price-asc": locale === "en" ? "Lowest price" : "Precio más bajo",
+          "price-desc": locale === "en" ? "Highest price" : "Precio más alto",
+        };
+        return map[v || "alpha-asc"];
+      },
       reset: locale === "en" ? "Reset" : "Reiniciar",
       rentalLabel: (v: Filters["rental"]) => {
         if (v === "all") return locale === "en" ? "Any" : "Todas";
@@ -53,11 +64,24 @@ export function ProjectsFilters({
     "6 meses",
   ];
 
+  const sortOptions: NonNullable<Filters["sort"]>[] = [
+    "alpha-asc",
+    "alpha-desc",
+    "price-asc",
+    "price-desc",
+  ];
+
   const [open, setOpen] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const toggle = useCallback(() => setOpen(v => !v), []);
   const close = useCallback(() => setOpen(false), []);
+
+  const [openSort, setOpenSort] = useState(false);
+  const btnSortRef = useRef<HTMLButtonElement>(null);
+  const listSortRef = useRef<HTMLUListElement>(null);
+  const toggleSort = useCallback(() => setOpenSort((v) => !v), []);
+  const closeSort = useCallback(() => setOpenSort(false), []);
 
   // close on outside click
   useEffect(() => {
@@ -71,6 +95,28 @@ export function ProjectsFilters({
     document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("mousedown", onDoc); document.removeEventListener("keydown", onKey); };
   }, [open, close]);
+
+  // close rental dropdown when value changes
+  useEffect(() => {
+    setOpen(false);
+  }, [value.rental]);
+
+  useEffect(() => {
+    if (!openSort) return;
+    const onDoc = (e: MouseEvent) => {
+      if (!listSortRef.current || !btnSortRef.current) return;
+      if (!listSortRef.current.contains(e.target as Node) && !btnSortRef.current.contains(e.target as Node)) closeSort();
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeSort(); };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onDoc); document.removeEventListener("keydown", onKey); };
+  }, [openSort, closeSort]);
+
+  // close sort dropdown when value changes
+  useEffect(() => {
+    setOpenSort(false);
+  }, [value.sort]);
 
   return (
     <aside aria-label={t.title} className="rounded-2xl border border-black/10 bg-white p-3 sm:p-4">
@@ -130,20 +176,65 @@ export function ProjectsFilters({
             <ul
               ref={listRef}
               role="listbox"
-              className="absolute z-20 mt-2 max-h-56 w-full overflow-auto rounded-md border border-black/10 bg-white py-1 text-sm shadow-lg focus:outline-none"
+              className="absolute z-20 bottom-full mb-2 max-h-56 w-full overflow-auto rounded-md border border-black/10 bg-white py-1 text-sm shadow-lg focus:outline-none sm:bottom-auto sm:top-full sm:mt-2 sm:mb-0"
             >
               {rentalOptions.map((opt) => (
                 <li
                   key={opt}
                   role="option"
                   aria-selected={value.rental === opt}
-                  onClick={() => { onChange({ ...value, rental: opt }); close(); }}
+                  onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); onChange({ ...value, rental: opt }); close(); }}
+                  onClick={(e) => { e.stopPropagation(); }}
                   className={`relative cursor-pointer px-3 py-2 hover:bg-[#F9FAFB] ${value.rental === opt ? "bg-[#F2F4F7]" : ""}`}
                 >
                   {value.rental === opt && (
                     <span className="absolute left-0 top-0 h-full w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))'}} />
                   )}
                   {t.rentalLabel(opt)}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </label>
+
+      {/* Sort by */}
+      <label className="mt-3 block text-[12px] font-medium text-[#0A2540]">
+        {t.sort}
+        <div className="relative mt-1">
+          <button
+            ref={btnSortRef}
+            type="button"
+            onClick={toggleSort}
+            aria-haspopup="listbox"
+            aria-expanded={openSort}
+            className="flex w-full items-center justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-left text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#0A2540]"
+          >
+            <span>{t.sortLabel(value.sort)}</span>
+            <svg className={`h-4 w-4 text-black/40 transition-transform ${openSort ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+              <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clipRule="evenodd" />
+            </svg>
+          </button>
+
+          {openSort && (
+            <ul
+              ref={listSortRef}
+              role="listbox"
+              className="absolute z-20 bottom-full mb-2 max-h-56 w-full overflow-auto rounded-md border border-black/10 bg-white py-1 text-sm shadow-lg focus:outline-none sm:bottom-auto sm:top-full sm:mt-2 sm:mb-0"
+            >
+              {sortOptions.map((opt) => (
+                <li
+                  key={opt}
+                  role="option"
+                  aria-selected={value.sort === opt}
+                  onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); onChange({ ...value, sort: opt }); closeSort(); }}
+                  onClick={(e) => { e.stopPropagation(); }}
+                  className={`relative cursor-pointer px-3 py-2 hover:bg-[#F9FAFB] ${value.sort === opt ? "bg-[#F2F4F7]" : ""}`}
+                >
+                  {value.sort === opt && (
+                    <span className="absolute left-0 top-0 h-full w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))'}} />
+                  )}
+                  {t.sortLabel(opt)}
                 </li>
               ))}
             </ul>
@@ -200,15 +291,6 @@ export function ProjectsFilters({
           className="hidden"
           aria-hidden
         />
-      </div>
-      <div className="mt-3 sm:hidden">
-        <button
-          type="button"
-          onClick={() => onChange({ ...value })}
-          className="inline-flex h-9 w-full items-center justify-center rounded-md bg-[#0A2540] px-3 text-sm font-medium text-white hover:opacity-95"
-        >
-          {locale === 'en' ? 'Apply filters' : 'Aplicar filtros'}
-        </button>
       </div>
     </aside>
   );

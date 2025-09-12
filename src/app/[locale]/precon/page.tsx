@@ -135,14 +135,14 @@ export default async function Precon({ params }: { params: { locale: 'es' | 'en'
             ].map(([step, text], i) => (
               <div
                 key={i}
-                className="relative flex items-start gap-3 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+                className="relative flex items-center gap-3 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
               >
                 <div
                   className="h-10 w-[3px] rounded-full"
                   style={{ background: 'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))' }}
                 />
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex rounded-full bg-[#0A2540]/10 px-2 py-0.5 text-[12px] font-semibold text-[#0A2540]">{step}</span>
+                  <span className="inline-flex h-7 min-w-[40px] items-center justify-center rounded-full bg-neutral-100 px-3 text-[12px] font-semibold text-[#0A2540] ring-1 ring-neutral-200 leading-none">{step}</span>
                   <p className="text-[15px] leading-6 text-[#0A2540]">{text}</p>
                 </div>
               </div>

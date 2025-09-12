@@ -9,7 +9,7 @@ export default function SectionWhyMiami() {
   const { locale } = useParams() as { locale: 'es' | 'en' };
   const isEN = locale === 'en';
 
-  const metrics: {label: string; value?: string}[] = [
+  const metrics: { label: string }[] = [
     { label: isEN ? 'Demographic growth +8.2% last decade' : 'Crecimiento demográfico +8.2% la última década' },
     { label: isEN ? '0% state income tax' : '0% Impuesto a las ganancias' },
     { label: isEN ? 'Average occupancy 95.8%' : 'Ocupación promedio 95.8%' },
@@ -22,16 +22,16 @@ export default function SectionWhyMiami() {
     <section aria-labelledby="why-miami" className="mt-10">
       {/* HERO split: image + text */}
       <div className="grid gap-6 md:grid-cols-2 items-stretch">
-        <div className="rounded-xl">
-          {/* Placeholder image — reemplazar con visual SORA */}
+        <div className="relative rounded-xl overflow-hidden">
           <Image
             src="/images/miami-hero.jpg"
             alt="Skyline de Miami"
             width={1360}
             height={520}
             priority
-            className="w-full h-auto rounded-xl"
+            className="w-full h-auto"
           />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-slate-900/35 to-transparent" />
         </div>
         <div className="flex flex-col justify-center">
           <h2 id="why-miami" className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0A2540]">
@@ -42,6 +42,21 @@ export default function SectionWhyMiami() {
               ? 'Investing in Miami means investing in a global market in constant expansion, with solid fundamentals and a forward‑looking vision.'
               : 'Invertir en Miami es invertir en un mercado global en constante expansión, con fundamentos sólidos y visión de futuro.'}
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {isEN ? (
+              <>
+                <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">+372k net migration</span>
+                <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">56M passengers MIA 2024</span>
+                <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">0% state income tax</span>
+              </>
+            ) : (
+              <>
+                <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">+372k migración neta</span>
+                <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">56M pasajeros MIA 2024</span>
+                <span className="inline-flex items-center rounded-md bg-[#0A2540]/5 px-2.5 py-1 text-[12px] font-medium text-[#0A2540] ring-1 ring-[#0A2540]/10">0% impuesto estatal a la renta</span>
+              </>
+            )}
+          </div>
           <div className="mt-5">
             <Link
               href={`/${locale}/miami`}

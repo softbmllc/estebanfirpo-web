@@ -30,7 +30,8 @@ type IconKey =
   | "kid"
   | "laundry"
   | "ac"
-  | "wifi";
+  | "wifi"
+  | "elevator";
 
 export type SpecItem = {
   /** mini SVG o emoji (16px) — opcional si usás iconKey o heurística */
@@ -384,6 +385,14 @@ function AutoIcon({ keyName, text }: { keyName?: IconKey; text: string }) {
           <circle cx="12" cy="20" r="1" />
         </svg>
       );
+    case "elevator":
+      return (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0A2540" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="5" y="4" width="14" height="16" rx="1" />
+          <path d="M9 9l2-2 2 2" />
+          <path d="M9 15l2 2 2-2" />
+        </svg>
+      );
     default:
       return <span>•</span>;
   }
@@ -422,6 +431,7 @@ function guessIconKey(text: string): IconKey {
   if (/(wi[-\s]?fi|wifi|internet|fibra|fiber)/.test(t)) return "wifi";
   if (/(climatizaci[oó]n|hvac|aire\s*acondicionado|air\s*conditioning|a\/?c\b|heating|alta\s*eficiencia)/.test(t)) return "ac";
   if (/(biblioteca|library|lounge)/.test(t)) return "book";
+  if (/(ascensor|elevador|elevator)/.test(t)) return "elevator";
   if (/(cl[óo]set|closet|vestidor(?:es)?|walk[-\s]?in)/.test(t)) return "package";
   if (/(toilette|powder\s*room|toilet)/.test(t)) return "spa";
   if (/(marina|muelle|dock|water taxi)/.test(t)) return "dock";
@@ -432,6 +442,6 @@ function guessIconKey(text: string): IconKey {
   if (/(tecnolog[ií]a\s*inteligente|smart\s*home|dom[oó]tica)/.test(t)) return "sparkles";
   if (/(comercio|retail|tienda)/.test(t)) return "store";
   if (/(cafeter|panader|barista|coffee|café|cafe|wine|beer|cerveza|bar)/.test(t)) return "coffee";
-  if (/(amoblad|amuebl|furnished|terminadas|finished)/.test(t)) return "sparkles";
+  if (/(amoblad|amuebl|furnished|terminadas|finished|llave\s*en\s*mano|turn[-\s]?key|restoration\s*hardware|\brh\b|mobiliario)/.test(t)) return "sparkles";
   return "dot";
 }
