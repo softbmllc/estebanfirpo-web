@@ -406,6 +406,8 @@ function guessIconKey(text: string): IconKey {
   if (/(diseñ|diseño|planos?|uno y dos pisos|1 y 2 pisos|dos pisos|2 pisos|1 piso|\b(1|one)\s*[-–—]?\s*(and|y)\s*(2|two)\s*[-–—]?\s*story\b|\b(1|one)\s*[-–—]?\s*story\b|\b(2|two)\s*[-–—]?\s*story\b|\bstory\b|\bstories\b)/.test(t)) return "height";
   if (/(iluminaci[oó]n|lighting)/.test(t)) return "sparkles";
   if (/(materiales|materials?|acabados|finishes?)/.test(t)) return "sparkles";
+  if (/(piso|pisos|flooring|floors|large[-\s]?format|porcelanato)/.test(t)) return "sparkles";
+  if (/(blackout|shade(s)?|persianas|cortinas)/.test(t)) return "sparkles";
   if (/(beach club|club de playa|beach|playa)/.test(t)) return "beach";
   if (/(lobby|chandelier|grand salon|sal[oó]n)/.test(t)) return "sparkles";
   if (/(altura|alturas|height|techo|techos|ceiling|piso\s*a\s*techo|piso‑techo|piso-techo|floor\s*to\s*ceiling|floor\-to\-ceiling)/.test(t)) return "height";

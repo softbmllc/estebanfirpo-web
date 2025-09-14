@@ -198,9 +198,10 @@ export default async function Proyecto({ params }: Params) {
 
   const bookingUrl = process.env.NEXT_PUBLIC_CALENDAR_URL || `/${locale}/agendar`;
   const hasCoords = typeof (p as Project).lat === "number" && typeof (p as Project).lng === "number";
+  const addressQuery = p.city && /\d/.test(p.city) ? p.city : `${p.name} ${p.city}`;
   const mapSrc = hasCoords
     ? `https://www.google.com/maps?q=${p.lat},${p.lng}&hl=${isEN ? "en" : "es"}&z=15&output=embed`
-    : `https://www.google.com/maps?q=${encodeURIComponent(`${p.name} ${p.city}`)}&hl=${isEN ? "en" : "es"}&z=15&output=embed`;
+    : `https://www.google.com/maps?q=${encodeURIComponent(addressQuery)}&hl=${isEN ? "en" : "es"}&z=15&output=embed`;
   const waNumber = "17542673931"; // +1 754 267 3931
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(
     isEN
