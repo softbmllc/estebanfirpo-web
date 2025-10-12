@@ -10,7 +10,7 @@ export const pSevenPark: Project = {
   priceFromUsd: 370000,
   pricePerSfApprox: undefined,
   hoa: "$1.03/sf",
-  delivery: "Q1 2027",
+  delivery: "2027",
   furnished: false,
 
   rentalPolicyEs: "Uso flexible (short-/long-term)",
@@ -22,7 +22,7 @@ export const pSevenPark: Project = {
     { src: "https://ik.imagekit.io/devrodri/Seven%20Park/1.jpeg?updatedAt=1759349277522" },
     { src: "https://ik.imagekit.io/devrodri/Seven%20Park/2.jpeg?updatedAt=1759349278070" },
     { src: "https://ik.imagekit.io/devrodri/Seven%20Park/3.jpeg?updatedAt=1759349277989" },
-    { src: "https://ik.imagekit.io/devrodri/Seven%20Park/3.jpeg?updatedAt=1759349277989" },
+    { src: "https://ik.imagekit.io/devrodri/Seven%20Park/4.jpeg?updatedAt=1759349278036" },
     { src: "https://ik.imagekit.io/devrodri/Seven%20Park/5.jpeg?updatedAt=1759349278236" },
     { src: "https://ik.imagekit.io/devrodri/Seven%20Park/6.jpeg?updatedAt=1759349278040" },
     { src: "https://ik.imagekit.io/devrodri/Seven%20Park/8.jpeg?updatedAt=1759349277531" }
@@ -92,7 +92,7 @@ export const pSevenPark: Project = {
     },
     {
       q: "¿Cuál es el plan de pagos?",
-      a: "10% reserva · 10% contrato · 10% losa 4º piso · 10% top-off · 60% cierre (entrega estimada Q1 2027)."
+      a: "10% reserva · 10% contrato · 10% losa 4º piso · 10% top-off · 60% cierre (entrega estimada 2027)."
     },
     {
       q: "¿Prestamista preferido e incentivos?",
@@ -114,7 +114,7 @@ export const pSevenPark: Project = {
     },
     {
       q: "What is the payment plan?",
-      a: "10% reservation · 10% contract · 10% 4th-floor slab · 10% top-off · 60% at closing (estimated delivery Q1 2027)."
+      a: "10% reservation · 10% contract · 10% 4th-floor slab · 10% top-off · 60% at closing (estimated delivery 2027)."
     },
     {
       q: "Preferred lender and incentives?",
