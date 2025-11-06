@@ -9,7 +9,7 @@ export interface Project {
   furnished?: boolean;
   priceFromUsd?: number;     // 570000
   priceToUsd?: number;       // opcional
-  pricePerSfApprox?: number; // opcional
+  pricePerSfApprox?: number; // no usar más
   delivery?: string;         // "Q4 2026"
   financingAtClosing?: boolean;
   image: string;             // /images/projects/7200-collins.webp
@@ -31,7 +31,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "No restr.",
     furnished: true,
     priceFromUsd: 720000,
-    pricePerSfApprox: 1500,
     delivery: "2025",
     financingAtClosing: true,
     image: "/images/projects/72-park.webp",
@@ -87,7 +86,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "No restr.",
     furnished: true,
     priceFromUsd: 570000,
-    pricePerSfApprox: 1500,
     delivery: "2028",
     financingAtClosing: true,
     image: "/images/projects/7200-collins.webp",
@@ -101,7 +99,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "30 días",
     furnished: false,
     priceFromUsd: 629000,
-    pricePerSfApprox: 1000,
     delivery: "2026",
     financingAtClosing: true,
     image: "/images/projects/domus-brickell-park.webp",
@@ -129,7 +126,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "30 días",
     furnished: false,
     priceFromUsd: 1500000,
-    pricePerSfApprox: 1250,
     delivery: "2026",
     financingAtClosing: true,
     image: "/images/projects/cipriani.webp",
@@ -150,7 +146,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "No restr.",
     furnished: false,
     priceFromUsd: 500000,
-    pricePerSfApprox: 1500,
     delivery: "2028 Q1",
     financingAtClosing: true,
     image: "/images/projects/26-and-2nd.webp",
@@ -164,7 +159,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "30 días",
     furnished: false,
     priceFromUsd: 492000,
-    pricePerSfApprox: 940,
     delivery: "2025",
     financingAtClosing: true,
     image: "/images/projects/flow-house.webp",
@@ -178,7 +172,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "No restr.",
     furnished: true,
     priceFromUsd: 626000,
-    pricePerSfApprox: 1100,
     delivery: "2025",
     financingAtClosing: true,
     image: "/images/projects/nexo.webp",
@@ -205,7 +198,6 @@ export const FEATURED_PROJECTS: Project[] = [
     rentalPolicy: "90 días",
     furnished: false,
     priceFromUsd: 830000,
-    pricePerSfApprox: 1550,
     delivery: "2026",
     financingAtClosing: false,
     image: "/images/projects/2200-brickell.webp",
@@ -229,7 +221,6 @@ export const ALL_PROJECTS: Project[] = [
     rentalPolicy: "No restr.",
     delivery: "2027",
     priceFromUsd: 470000,
-    pricePerSfApprox: 1500,
     image: "/images/projects/domus-brickell-center.webp",
     slug: "/proyectos/domus-brickell-center",
     highlights: ["Daily up to 6m", "Investor‑ready"],
@@ -241,7 +232,6 @@ export const ALL_PROJECTS: Project[] = [
     rentalPolicy: "30 días",
     delivery: "2028",
     priceFromUsd: 850000,
-    pricePerSfApprox: 1600,
     image: "/images/projects/mercedes-benz-places.webp",
     slug: "/proyectos/mercedes-benz-places",
     highlights: ["Mobility focus", "Design brand"],
@@ -253,7 +243,6 @@ export const ALL_PROJECTS: Project[] = [
     rentalPolicy: "30 días",
     delivery: "2028",
     priceFromUsd: 500000,
-    pricePerSfApprox: 1200,
     image: "/images/projects/edge-house.webp",
     slug: "/proyectos/edge-house",
     highlights: ["Edgewater hub", "30 days policy"],
@@ -265,7 +254,6 @@ export const ALL_PROJECTS: Project[] = [
     rentalPolicy: "30 días",
     delivery: "2027",
     priceFromUsd: 705000,
-    pricePerSfApprox: 1500,
     image: "/images/projects/okan-tower.webp",
     slug: "/proyectos/okan-tower",
     highlights: ["Condo‑hotel", "Sky residences"],

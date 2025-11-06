@@ -83,16 +83,16 @@ export function SectionWhyPrecon({ heroImageSrc, heroImageAlt }: SectionWhyPreco
         </div>
       </div>
 
-      <ul className="mt-3 grid gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <ul className="mt-3 grid gap-3 md:gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {points.map((p, i) => (
           <li
             key={i}
-            className="relative flex items-start gap-3 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)] transition hover:shadow-sm hover:-translate-y-[1px] hover:bg-[#F9FAFB]"
+            className="relative flex items-start gap-3 rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-4 sm:p-5 text-white"
           >
-            <div className="h-10 w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))'}} />
-            <p className="text-[#0A2540] leading-tight">
-              <span className="block text-[15px] md:text-[16px] font-semibold tracking-tight whitespace-nowrap md:whitespace-normal">{p.kpi}</span>
-              <span className="block text-[12px] md:text-[13px] leading-snug opacity-80">{p.label}</span>
+            <div className="h-10 w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.3), rgba(212,175,55,.08))'}} />
+            <p className="text-white/95 leading-tight">
+              <span className="block text-[15px] md:text-[16px] font-semibold tracking-tight whitespace-nowrap md:whitespace-normal text-white">{p.kpi}</span>
+              <span className="block text-[12px] md:text-[13px] leading-snug text-white/80">{p.label}</span>
             </p>
           </li>
         ))}

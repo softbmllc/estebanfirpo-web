@@ -44,17 +44,17 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 
 // Icon components for steps
 const FormIcon = () => (
-  <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+  <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m-6-8h6M5 7h14v10H5V7z" />
   </svg>
 );
 const BankIcon = () => (
-  <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+  <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 10l9-6 9 6M4 10v10h16V10" />
   </svg>
 );
 const SignatureIcon = () => (
-  <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+  <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
     <path strokeLinecap="round" strokeLinejoin="round" d="M16 17l4-4m0 0l-4-4m4 4H8" />
   </svg>
 );
@@ -97,7 +97,7 @@ export default function FinancingPage({ params }: { params: { locale: string } }
           {sortedBenefits.map((b, i) => (
             <li
               key={`b-${i}`}
-              className="relative flex flex-col items-start gap-1 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+              className="relative flex flex-col items-start gap-1 rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-4 sm:p-5 text-white"
             >
               <div className="flex items-center gap-3 w-full">
                 <span
@@ -105,32 +105,32 @@ export default function FinancingPage({ params }: { params: { locale: string } }
                   className="h-6 w-[3px] rounded-full"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))",
+                      "linear-gradient(180deg, rgba(212,175,55,.3), rgba(212,175,55,.08))",
                   }}
                 />
-                <p className="text-[15px] leading-6">{b.text}</p>
+                <p className="text-[15px] leading-6 text-white/95">{b.text}</p>
               </div>
-              <p className="ml-[calc(3px+0.75rem)] text-[13px] text-[#0A2540]/60">{b.microcopy}</p>
+              <p className="ml-[calc(3px+0.75rem)] text-[13px] text-white/80">{b.microcopy}</p>
             </li>
           ))}
         </ul>
 
         <h2 className="mb-4 text-xl font-medium">{t.reqTitle}</h2>
-        <div className="mb-10 rounded-lg border border-primary/10 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
+        <div className="mb-10 relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-6 text-white overflow-hidden">
           <div
-            className="mb-3 h-[2px] w-full rounded-full"
+            className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full"
             style={{
               background:
-                "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))",
+                "linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))",
             }}
           />
-          <ul className="grid grid-cols-1 gap-2 text-[15px] md:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-2 text-[15px] md:grid-cols-2 text-white/95">
             {t.requirements.map((r, i) => (
               <li
                 key={`r-${i}`}
                 className="flex items-center gap-2"
               >
-                <span className="text-green-600 text-lg leading-none select-none">✔︎</span>
+                <span className="text-white text-lg leading-none select-none">✔︎</span>
                 <span className="list-none">{r}</span>
               </li>
             ))}
@@ -142,23 +142,23 @@ export default function FinancingPage({ params }: { params: { locale: string } }
           {activeVerbTitles.map((s: StepT, i) => (
             <div
               key={`s-${i}`}
-              className="relative rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+              className="relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-4 sm:p-5 text-white"
             >
               <div
                 className="mb-2 h-[2px] w-full rounded-full"
                 style={{
                   background:
-                    "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.35), rgba(212,175,55,.0))",
+                    "linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))",
                 }}
               />
               <div className="mb-1 flex items-center gap-2">
-                <div className="inline-flex rounded-full bg-[#0A2540]/10 px-2 py-0.5 text-[12px] font-semibold text-[#0A2540]" style={{ position: 'relative', top: '-2px' }}>
+                <div className="inline-flex rounded-full bg-white/10 px-2 py-0.5 text-[12px] font-semibold text-white" style={{ position: 'relative', top: '-2px' }}>
                   {i + 1}
                 </div>
                 {stepIcons[i]}
-                <p className="font-semibold tracking-tight">{s.t}</p>
+                <p className="font-semibold tracking-tight text-white">{s.t}</p>
               </div>
-              <p className="mt-1 text-[13px] text-[#0A2540]/70">{s.d}</p>
+              <p className="mt-1 text-[13px] text-white/80">{s.d}</p>
             </div>
           ))}
         </div>

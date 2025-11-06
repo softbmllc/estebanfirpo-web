@@ -35,24 +35,28 @@ const PaymentPlan: React.FC<PaymentPlanProps> = ({
   return (
     <section
       id={id}
-      className={`py-8 text-[#0A2540] ${className}`}
+      className={`rounded-[10px] bg-[#0A2540] p-6 sm:p-7 ring-1 ring-white/10 text-white relative overflow-hidden ${className}`}
       aria-label={title ?? "Plan de pagos"}
       data-project={project || undefined}
     >
+      <div
+        className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full"
+        style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))' }}
+      />
       {title ? (
-        <Heading className="mb-4 text-3xl font-semibold">{title}</Heading>
+        <Heading className="mb-2.5 text-[16px] sm:text-[17px] font-semibold tracking-tight text-white">{title}</Heading>
       ) : null}
 
-      <ol className="flex flex-col space-y-5">
+      <ol className="flex flex-col space-y-[11px] mt-2 sm:mt-3">
         {steps.map((step, index) => {
           const [firstToken, ...restTokens] = step.label.split(" ");
           const restLabel = restTokens.join(" ");
           const numberBadgeBase =
-            "flex flex-shrink-0 select-none items-center justify-center rounded-full mr-4 w-8 h-8 font-semibold transition-transform hover:scale-[1.02]";
+            "flex flex-shrink-0 select-none items-center justify-center rounded-full mr-4 w-8 h-8 font-semibold transition-colors";
           const numberBadge =
             variant === "filled"
-              ? `${numberBadgeBase} bg-[#0A2540] text-white`
-              : `${numberBadgeBase} border border-[#0A2540]/20 text-[#0A2540] bg-white`;
+              ? `${numberBadgeBase} bg-white/15 text-white ring-1 ring-white/20`
+              : `${numberBadgeBase} border border-white/25 text-white bg-transparent`;
 
           const labelContent = emphasizeFirstToken ? (
             <>
@@ -77,9 +81,9 @@ const PaymentPlan: React.FC<PaymentPlanProps> = ({
                 {index + 1}
               </span>
               <div>
-                <p className="text-[15px] leading-tight">{labelContent}</p>
+                <p className="text-[16px] leading-[26px] text-white/95">{labelContent}</p>
                 {step.description ? (
-                  <p className="mt-1 text-[13px] text-[#0A2540]/70">
+                  <p className="mt-1 text-[14px] leading-[22px] text-white/80">
                     {step.description}
                   </p>
                 ) : null}

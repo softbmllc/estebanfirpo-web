@@ -69,10 +69,10 @@ export default async function Miami({ params }: { params: { locale: 'es' | 'en' 
         {/* KPI strip */}
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 mt-2">
           {kpis.map((k, i) => (
-            <li key={i} className="relative rounded-lg border border-black/8 bg-white p-3.5 sm:p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
-              <div className="absolute left-3 right-3 top-0 h-[2px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
-              <p className="text-2xl font-semibold tracking-tight text-[#0A2540] tabular-nums whitespace-nowrap">{k.value}</p>
-              <p className="mt-1 text-[13px] leading-5 text-[#0D1521]/80">{k.label}</p>
+            <li key={i} className="relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-3.5 sm:p-4 text-white">
+              <div className="absolute left-3 right-3 top-0 h-[2px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+              <p className="text-2xl font-semibold tracking-tight text-white tabular-nums whitespace-nowrap">{k.value}</p>
+              <p className="mt-1 text-[13px] leading-5 text-white/80">{k.label}</p>
             </li>
           ))}
         </ul>
@@ -81,7 +81,7 @@ export default async function Miami({ params }: { params: { locale: 'es' | 'en' 
             href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ21yM5KOsoq2niX4QY7FXyUrFiLuQpLxw9IIzheIYWY1ruSBHG5DUrSzUmGst3Ew4nb8ZKw6ptP"
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center rounded-lg border border-[#0A2540]/20 px-4 py-2 text-sm font-medium text-[#0A2540] hover:bg-[#0A2540]/5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A2540] whitespace-nowrap"
+            className="inline-flex items-center rounded-lg border border-[#0A2540]/25 px-4 py-2 text-sm font-medium text-[#0A2540] hover:bg-[#0A2540]/10 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/40 whitespace-nowrap"
           >
             {locale === 'en' ? 'Talk to an advisor' : 'Hablar con un asesor'}
           </a>
@@ -175,13 +175,13 @@ export default async function Miami({ params }: { params: { locale: 'es' | 'en' 
       <section id="highlights" className="mt-8">
         <ul className="grid gap-3 sm:gap-4 md:grid-cols-2">
           {stats.map((s, i) => (
-            <li key={i} className="relative rounded-lg border border-black/8 bg-white p-3.5 sm:p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
-              <div className="absolute left-3 right-3 top-0 h-[2px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
+            <li key={i} className="relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-3.5 sm:p-4 text-white">
+              <div className="absolute left-3 right-3 top-0 h-[2px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
               <div className="flex items-start gap-3">
-                <span aria-hidden className="mt-2 inline-block h-2 w-2 rounded-full bg-[#0A2540]/40" />
+                <span aria-hidden className="mt-2 inline-block h-2 w-2 rounded-full bg-white/50" />
                 <div>
-                  <p className="text-[17px] font-semibold leading-6 text-[#0A2540] tabular-nums whitespace-nowrap">{s.value}</p>
-                  <p className="text-[14px] leading-6 text-[#0D1521]/85">{s.label}</p>
+                  <p className="text-[17px] font-semibold leading-6 text-white tabular-nums whitespace-nowrap">{s.value}</p>
+                  <p className="text-[14px] leading-6 text-white/85">{s.label}</p>
                 </div>
               </div>
             </li>
@@ -192,80 +192,81 @@ export default async function Miami({ params }: { params: { locale: 'es' | 'en' 
       {/* Anchor targets */}
       <div id="demografia" className="h-0 scroll-mt-24" />
       {/* Demografía chart block */}
-      <div className="mt-3 rounded-lg border border-black/8 bg-white p-4">
-        <div className="mb-2 h-[2px] w-full rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
+      <div className="mt-3 relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-5 text-white overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
         <div className="flex items-end gap-8">
           <div className="flex flex-col items-center">
-            <div className="w-8 rounded bg-[#0A2540]" style={{height: '116px'}} />
-            <p className="mt-2 text-[12px] text-[#0D1521]/80">{locale === 'en' ? 'Domestic' : 'Doméstica'}</p>
-            <p className="text-[12px] font-semibold tabular-nums text-[#0A2540]">≈194k</p>
+            <div className="w-8 rounded bg-white" style={{height: '116px'}} />
+            <p className="mt-2 text-[12px] text-white/80">{locale === 'en' ? 'Domestic' : 'Doméstica'}</p>
+            <p className="text-[12px] font-semibold tabular-nums text-white">≈194k</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="w-8 rounded bg-[#0A2540]/70" style={{height: '106px'}} />
-            <p className="mt-2 text-[12px] text-[#0D1521]/80">{locale === 'en' ? 'International' : 'Internacional'}</p>
-            <p className="text-[12px] font-semibold tabular-nums text-[#0A2540]">≈178k</p>
+            <div className="w-8 rounded bg-white/70" style={{height: '106px'}} />
+            <p className="mt-2 text-[12px] text-white/80">{locale === 'en' ? 'International' : 'Internacional'}</p>
+            <p className="text-[12px] font-semibold tabular-nums text-white">≈178k</p>
           </div>
         </div>
-        <div className="mt-3 flex items-center justify-between text-[12px] text-[#0D1521]/70">
+        <div className="mt-3 flex items-center justify-between text-[12px] text-white/70">
           <p>{locale === 'en' ? 'Florida net migration 2022–23' : 'Migración neta Florida 2022–23'}</p>
           <p>{locale === 'en' ? 'Source: U.S. Census; Florida EDR' : 'Fuente: U.S. Census; Florida EDR'}</p>
         </div>
-        <div className="mt-2 h-px bg-black/10" />
+        <div className="mt-2 h-px bg-white/10" />
       </div>
       <div id="empleo" className="h-0 scroll-mt-24" />
       <section id="precios" className="mt-12 scroll-mt-24">
         <h3 className="text-lg font-semibold text-[#0A2540]">{locale === 'en' ? 'Prices' : 'Precios'}</h3>
-        <div className="mt-3 rounded-lg border border-black/10 bg-white p-4">
+        <div className="mt-3 relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-5 text-white overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
           <div className="flex items-center justify-between">
-            <p className="text-[14px] text-[#0D1521]/80">{locale === 'en' ? 'Case‑Shiller Miami index (2000=100)' : 'Índice Case‑Shiller Miami (2000=100)'}</p>
-            <p className="text-[14px] font-semibold tabular-nums text-[#0A2540]">{locale === 'en' ? '≈4.4×' : '≈4,4×'}</p>
+            <p className="text-[14px] text-white/85">{locale === 'en' ? 'Case‑Shiller Miami index (2000=100)' : 'Índice Case‑Shiller Miami (2000=100)'}</p>
+            <p className="text-[14px] font-semibold tabular-nums text-white">{locale === 'en' ? '≈4.4×' : '≈4,4×'}</p>
           </div>
           <svg viewBox="0 0 320 80" className="mt-2 h-20 w-full" role="img" aria-label={locale === 'en' ? 'Case‑Shiller Miami index trend' : 'Tendencia del índice Case‑Shiller de Miami'}>
             <title>{locale === 'en' ? 'Case‑Shiller Miami (2000=100) trend' : 'Tendencia Case‑Shiller Miami (2000=100)'}</title>
-            <path d="M0 70 C40 65, 60 60, 80 55 S120 45, 140 40 180 35, 200 38 240 50, 260 45 300 20, 320 15" fill="none" stroke="#0A2540" strokeWidth="2" strokeLinecap="round" />
-            <line x1="0" y1="70" x2="320" y2="70" stroke="currentColor" opacity=".06" />
+            <path d="M0 70 C40 65, 60 60, 80 55 S120 45, 140 40 180 35, 200 38 240 50, 260 45 300 20, 320 15" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <line x1="0" y1="70" x2="320" y2="70" stroke="white" opacity=".12" />
           </svg>
         </div>
       </section>
       <div id="impuestos" className="h-0 scroll-mt-24" />
       <div id="demanda" className="h-0 scroll-mt-24" />
       {/* Demanda stacked-bar block */}
-      <div className="mt-3 rounded-lg border border-black/8 bg-white p-4">
-        <div className="mb-2 h-[2px] w-full rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
-        <div className="h-3 w-full overflow-hidden rounded bg-black/5 flex">
-          <div className="h-full bg-[#0A2540]" style={{width: '15%'}} title={locale === 'en' ? 'Colombia 15%' : 'Colombia 15%'} />
-          <div className="h-full bg-[#0A2540]/80" style={{width: '14%'}} title={locale === 'en' ? 'Argentina 14%' : 'Argentina 14%'} />
-          <div className="h-full bg-[#0A2540]/60" style={{width: '7%'}} title={locale === 'en' ? 'Brazil 7%' : 'Brasil 7%'} />
-          <div className="h-full bg-[#0A2540]/40" style={{width: '6%'}} title={locale === 'en' ? 'Venezuela 6%' : 'Venezuela 6%'} />
-          <div className="h-full bg-[#0A2540]/20" style={{width: '58%'}} title={locale === 'en' ? 'Others 58%' : 'Otros 58%'} />
+      <div className="mt-3 relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-5 text-white overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+        <div className="h-3 w-full overflow-hidden rounded bg-white/10 flex">
+          <div className="h-full bg-white/70" style={{width: '15%'}} title={locale === 'en' ? 'Colombia 15%' : 'Colombia 15%'} />
+          <div className="h-full bg-white/60" style={{width: '14%'}} title={locale === 'en' ? 'Argentina 14%' : 'Argentina 14%'} />
+          <div className="h-full bg-white/50" style={{width: '7%'}} title={locale === 'en' ? 'Brazil 7%' : 'Brasil 7%'} />
+          <div className="h-full bg-white/40" style={{width: '6%'}} title={locale === 'en' ? 'Venezuela 6%' : 'Venezuela 6%'} />
+          <div className="h-full bg-white/20" style={{width: '58%'}} title={locale === 'en' ? 'Others 58%' : 'Otros 58%'} />
         </div>
-        <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-[13px] text-[#0D1521]/85">
-          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#0A2540]" />Colombia 15%</li>
-          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#0A2540]/80" />Argentina 14%</li>
-          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#0A2540]/60" />{locale === 'en' ? 'Brazil 7%' : 'Brasil 7%'}</li>
-          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#0A2540]/40" />Venezuela 6%</li>
-          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#0A2540]/20" />{locale === 'en' ? 'Others 58%' : 'Otros 58%'}</li>
+        <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-[13px] text-white/85">
+          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-white/70" />Colombia 15%</li>
+          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-white/60" />Argentina 14%</li>
+          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-white/50" />{locale === 'en' ? 'Brazil 7%' : 'Brasil 7%'}</li>
+          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-white/40" />Venezuela 6%</li>
+          <li className="flex items-center"><span className="mr-2 inline-block h-2 w-2 rounded-full bg-white/20" />{locale === 'en' ? 'Others 58%' : 'Otros 58%'}</li>
         </ul>
-        <p className="mt-2 text-[12px] text-[#0D1521]/70">{locale === 'en' ? 'Source: NAR Florida 2023' : 'Fuente: NAR Florida 2023'}</p>
+        <p className="mt-2 text-[12px] text-white/70">{locale === 'en' ? 'Source: NAR Florida 2023' : 'Fuente: NAR Florida 2023'}</p>
       </div>
       <div id="infraestructura" className="h-0 scroll-mt-24" />
       <div id="str" className="h-0 scroll-mt-24" />
       {/* STR pipeline block */}
-      <div className="mt-3 rounded-lg border border-black/8 bg-white p-4">
-        <div className="mb-2 h-[2px] w-full rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
+      <div className="mt-3 relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-5 text-white overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
         <div className="flex items-center justify-between">
-          <p className="text-[14px] text-[#0D1521]/80">{locale === 'en' ? 'New condo pipeline South FL' : 'Pipeline de nuevos condominios en S. Florida'}</p>
-          <p className="text-[14px] font-semibold tabular-nums text-[#0A2540]">{locale === 'en' ? '≈20,600' : '≈20.600'}</p>
+          <p className="text-[14px] text-white/85">{locale === 'en' ? 'New condo pipeline South FL' : 'Pipeline de nuevos condominios en S. Florida'}</p>
+          <p className="text-[14px] font-semibold tabular-nums text-white">{locale === 'en' ? '≈20,600' : '≈20.600'}</p>
         </div>
-        <div className="mt-2 h-3 w-full overflow-hidden rounded bg-black/5 flex">
-          <div className="h-full bg-[#0A2540]" style={{width: '50%'}} title={locale === 'en' ? 'STR‑friendly ≈10.3k' : 'Apto STR ≈10.3k'} />
-          <div className="h-full bg-[#0A2540]/30" style={{width: '50%'}} title={locale === 'en' ? 'Traditional ≈10.3k' : 'Tradicional ≈10.3k'} />
+        <div className="mt-2 h-3 w-full overflow-hidden rounded bg-white/10 flex">
+          <div className="h-full bg-white/90" style={{width: '50%'}} title={locale === 'en' ? 'STR‑friendly ≈10.3k' : 'Apto STR ≈10.3k'} />
+          <div className="h-full bg-white/40" style={{width: '50%'}} title={locale === 'en' ? 'Traditional ≈10.3k' : 'Tradicional ≈10.3k'} />
         </div>
-        <div className="mt-2 flex justify-between text-[12px] text-[#0D1521]/80">
+        <div className="mt-2 flex justify-between text-[12px] text-white/80">
           <p>{locale === 'en' ? 'STR‑friendly projects' : 'Proyectos apto STR'}</p>
           <p>{locale === 'en' ? 'Traditional owner‑occupant' : 'Tradicional owner‑occupant'}</p>
         </div>
-        <p className="mt-2 text-[12px] text-[#0D1521]/70">{locale === 'en' ? 'Source: ISG World, Q1‑2024' : 'Fuente: ISG World, Q1‑2024'}</p>
+        <p className="mt-2 text-[12px] text-white/70">{locale === 'en' ? 'Source: ISG World, Q1‑2024' : 'Fuente: ISG World, Q1‑2024'}</p>
       </div>
       <div id="riesgos" className="h-0 scroll-mt-24" />
 
@@ -294,21 +295,21 @@ export default async function Miami({ params }: { params: { locale: 'es' | 'en' 
               ? ['Global liquidity','International buyers; USD reserve']
               : ['Liquidez global','Compradores internacionales; USD reserva']
           ].map(([title, micro], i) => (
-            <div key={i} className="relative flex items-start gap-3 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
-              <div className="h-10 w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))'}} />
+            <div key={i} className="relative flex items-start gap-3 rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-4 sm:p-5 text-white">
+              <div className="h-10 w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.3), rgba(212,175,55,.08))'}} />
               <div>
-                <p className="text-[15px] leading-6 font-medium text-[#0A2540]">{title}</p>
-                <p className="text-[12px] text-neutral-500">{micro as string}</p>
+                <p className="text-[15px] leading-6 font-medium text-white">{title}</p>
+                <p className="text-[12px] text-white/80">{micro as string}</p>
               </div>
             </div>
           ))}
         </div>
-        <details className="mt-4 rounded-lg border border-black/10 bg-white p-4 sm:p-5 open:shadow-[0_6px_18px_rgba(0,0,0,.04)]">
-          <div className="mb-2 h-[2px] w-full rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
-          <summary className="cursor-pointer text-[14px] font-semibold text-[#0A2540]">
+        <details className="mt-4 relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-4 sm:p-5 text-white overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+          <summary className="cursor-pointer text-[14px] font-semibold text-white">
             {locale === 'en' ? 'See more reasons' : 'Ver más razones'}
           </summary>
-          <div className="mt-3 space-y-2 text-[14.5px] leading-7 text-[#0D1521]/85">
+          <div className="mt-3 space-y-2 text-[14.5px] leading-7 text-white/90">
             <p>
               {locale === 'en'
                 ? 'Title insurance, standardized contracts and public records reduce uncertainty and speed due diligence.'
@@ -325,32 +326,36 @@ export default async function Miami({ params }: { params: { locale: 'es' | 'en' 
 
       {/* Sources */}
       <section id="fuentes" className="mt-12">
-        <div className="rounded-lg border border-black/10 bg-white p-4 sm:p-5 shadow-[0_1px_3px_rgba(0,0,0,.04)]">
-          <div className="mb-2 h-[2px] w-full rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
-          <h3 className="text-lg font-semibold text-[#0A2540]">{locale === 'en' ? 'Sources' : 'Fuentes'}</h3>
-          <ul className="mt-2 list-disc pl-6 text-[14px] text-[#0D1521]/80 space-y-1">
+        <div className="relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-5 sm:p-6 text-white overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+          <h3 className="text-lg font-semibold text-white">{locale === 'en' ? 'Sources' : 'Fuentes'}</h3>
+          <ul className="mt-2 list-disc pl-6 text-[14px] text-white/85 space-y-1">
             <li>NAR Florida 2023 — {locale === 'en' ? 'International buyers share' : 'Participación de compradores internacionales'}</li>
             <li>ISG World Q1‑2024 — {locale === 'en' ? 'Condo pipeline' : 'Pipeline de condominios'}</li>
             <li>S&amp;P Case‑Shiller — {locale === 'en' ? 'Miami index (2000=100)' : 'Índice Miami (2000=100)'}</li>
             <li>MIA &amp; PortMiami — {locale === 'en' ? 'Passenger volumes' : 'Volúmenes de pasajeros'}</li>
             <li>U.S. Census &amp; Florida EDR — {locale === 'en' ? 'Net migration' : 'Migración neta'}</li>
           </ul>
-          <p className="mt-2 text-[12px] italic text-neutral-500">{locale === 'en' ? 'Data consolidated 2023–2024.' : 'Datos consolidados 2023–2024.'}</p>
+          <p className="mt-2 text-[12px] italic text-white/60">{locale === 'en' ? 'Data consolidated 2023–2024.' : 'Datos consolidados 2023–2024.'}</p>
         </div>
       </section>
-      <section className="mt-6 rounded-lg border border-primary/10 bg-white p-5 text-center shadow-[0_1px_3px_rgba(0,0,0,.04)]">
+      <section className="mt-6 rounded-[10px] bg-[#0A2540] p-6 sm:p-7 ring-1 ring-white/10 text-white text-center relative overflow-hidden max-w-[1100px] mx-auto">
+        <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
         <div className="mx-auto mb-3 h-[2px] w-24 rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.6), rgba(212,175,55,.0))'}} />
-        <p className="mb-3 text-[14px] text-neutral-700">{locale === 'en' ? 'Ready to explore Miami projects?' : '¿Listo para explorar proyectos en Miami?'}</p>
+        <p className="mb-3 text-[14px] text-white/90">{locale === 'en' ? 'Ready to explore Miami projects?' : '¿Listo para explorar proyectos en Miami?'}</p>
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ21yM5KOsoq2niX4QY7FXyUrFiLuQpLxw9IIzheIYWY1ruSBHG5DUrSzUmGst3Ew4nb8ZKw6ptP"
             target="_blank"
             rel="noopener"
-            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-white no-underline hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+            className="inline-flex h-10 items-center justify-center rounded-md bg-white/10 px-4 text-sm font-medium text-white no-underline hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
           >
             {locale === 'en' ? 'Talk to an advisor' : 'Hablar con un asesor'}
           </a>
-          <a href={`/${locale}/proyectos`} className="inline-flex h-10 items-center justify-center rounded-md border border-primary/30 bg-white px-4 text-sm font-medium text-primary no-underline hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30">
+          <a
+            href={`/${locale}/proyectos`}
+            className="inline-flex h-10 items-center justify-center rounded-md border border-white/25 bg-transparent px-4 text-sm font-medium text-white no-underline hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
+          >
             {locale === 'en' ? 'See available projects' : 'Ver proyectos disponibles'}
           </a>
         </div>

@@ -1,5 +1,5 @@
 // src/app/[locale]/proyectos/page.tsx
-"use client";
+"use client"; 
 
 import Link from "next/link";
 import Image from "next/image";
@@ -161,7 +161,7 @@ export default function Proyectos() {
         {sorted.map((p) => (
           <div
             key={p.slug}
-            className="rounded-2xl border border-black/10 bg-white overflow-hidden transition hover:shadow-sm hover:-translate-y-[1px]"
+            className="rounded-[14px] ring-1 ring-white/10 bg-[#0A2540] text-white overflow-hidden transition hover:shadow-sm hover:-translate-y-[1px]"
           >
             <Link href={`/${locale}${p.slug}`}>
               <div className="relative aspect-[3/2] w-full overflow-hidden">
@@ -184,13 +184,13 @@ export default function Proyectos() {
 
             {/* Content */}
             <div className="p-4 flex flex-col h-[220px]">
-              <h3 className="text-[15px] md:text-[16px] font-semibold tracking-tight text-[#0A2540] line-clamp-1">
+              <h3 className="text-[15px] md:text-[16px] font-semibold tracking-tight text-white line-clamp-1">
                 <Link href={`/${locale}${p.slug}`}>{p.name}</Link>
               </h3>
-              <p className="mt-1 text-[12px] text-[#0A2540]/70 line-clamp-1">
+              <p className="mt-1 text-[12px] text-white/70 line-clamp-1">
                 {p.city} · {p.rentalPolicy}
               </p>
-              <div className="mt-2 text-[14px] font-semibold text-[#0A2540]">
+              <div className="mt-2 text-[14px] font-semibold text-white">
                 {typeof p.priceFromUsd === "number"
                   ? (locale === "en"
                       ? `From ${fmt(p.priceFromUsd)}`
@@ -199,7 +199,7 @@ export default function Proyectos() {
                   ? "Inquire"
                   : "Consultar"}
                 {typeof p.pricePerSfApprox === "number" ? (
-                  <span className="ml-1 text-[12px] font-normal text-[#0A2540]/60"> · ~${p.pricePerSfApprox}/sf</span>
+                  <span className="ml-1 text-[12px] font-normal text-white/70"> · ~${p.pricePerSfApprox}/sf</span>
                 ) : null}
               </div>
               {/* Secondary line: highlight cap */}
@@ -210,7 +210,7 @@ export default function Proyectos() {
   {caps.slice(0, 2).map((h: string, i: number) => (
     <span
       key={i}
-      className="text-[11px] px-2 py-0.5 rounded-full bg-[#0A2540]/5 text-[#0A2540]"
+      className="text-[11px] px-2 py-0.5 rounded-full bg-white text-[#0A2540] ring-1 ring-[#0A2540]/15 whitespace-nowrap"
     >
       {h}
     </span>
@@ -220,13 +220,12 @@ export default function Proyectos() {
               })()}
 
               <div className="flex-1" />
-              <button
-                type="button"
-                onClick={() => { setSelected(p); setOpen(true); }}
-                className="mt-3 inline-flex h-9 w-full items-center justify-center rounded-md border border-[#0A2540]/20 px-3 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]"
+              <Link
+                href={`/${locale}${p.slug}`}
+                className="mt-3 inline-flex h-9 w-full items-center justify-center rounded-md border border-white/25 px-3 text-sm font-medium text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
               >
                 {locale === "en" ? "View details" : "Ver más detalles"}
-              </button>
+              </Link>
             </div>
           </div>
         ))}

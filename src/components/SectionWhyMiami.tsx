@@ -70,22 +70,23 @@ export default function SectionWhyMiami() {
       </div>
 
       {/* Metric cards */}
-      <ul className="mt-8 grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <ul className="mt-8 grid gap-3 sm:gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         {metrics.map((m, i) => (
           <li
             key={i}
-            className="relative flex items-start gap-3 rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+            className="relative flex items-start gap-3 rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-4 sm:p-5 text-white"
           >
-            <div className="h-10 w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.5), rgba(212,175,55,.1))'}} />
-            <p className="text-[15px] leading-6 text-[#0A2540]">{m.label}</p>
+            <div className="h-10 w-[3px] rounded-full" style={{background:'linear-gradient(180deg, rgba(212,175,55,.3), rgba(212,175,55,.08))'}} />
+            <p className="text-[15px] leading-6 text-white/95 font-medium">{m.label}</p>
           </li>
         ))}
       </ul>
 
       {/* Quote band */}
-      <div className="mt-8 rounded-lg border border-primary/10 bg-white p-6 text-center text-sm text-[#0A2540] shadow-[0_1px_3px_rgba(0,0,0,.04)]">
+      <div className="mt-8 rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-6 text-center text-sm text-white relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
         <div className="mx-auto mb-3 h-[2px] w-24 rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.6), rgba(212,175,55,.0))'}} />
-        <p className="italic tracking-wide leading-[1.5]">
+        <p className="italic tracking-wide leading-[1.5] text-white/95">
           {isEN
             ? '"Do not wait to buy properties, buy properties and wait."'
             : '"No espere a comprar propiedades inmuebles, compre propiedades inmuebles y espere."'}

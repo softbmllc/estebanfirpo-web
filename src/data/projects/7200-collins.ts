@@ -7,7 +7,6 @@ export const p7200Collins: Project = {
   city: "Miami Beach",
   delivery: "2028",
   priceFromUsd: 570000,
-  pricePerSfApprox: 1500,
   rentalPolicyEs: "Sin restricciones",
   rentalPolicyEn: "No restrictions",
   furnished: true,

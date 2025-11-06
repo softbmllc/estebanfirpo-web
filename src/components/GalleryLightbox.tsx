@@ -52,7 +52,7 @@ export default function GalleryLightbox({ images, name }: { images: Img[]; name:
             key={`${g.src}-${i}`}
             type="button"
             onClick={() => openAt(i)}
-            className="relative aspect-[16/10] overflow-hidden rounded-xl border border-black/10 focus:outline-none focus:ring-2 focus:ring-[#0A2540]"
+            className="relative aspect-[16/10] overflow-hidden rounded-xl ring-1 ring-white/15 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/40 [@media(hover:hover)]:hover:ring-white/30 transition"
             aria-label={`Open image ${i + 1}`}
           >
             <Image
@@ -92,7 +92,7 @@ export default function GalleryLightbox({ images, name }: { images: Img[]; name:
                 <button
                   type="button"
                   onClick={prev}
-                  className="h-9 w-9 rounded-md bg-white/85 text-[#0A2540] hover:bg-white focus:outline-none focus:ring-2 focus:ring-white/60"
+                  className="h-9 w-9 rounded-md bg-[#0A2540]/85 text-white hover:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
                   aria-label="Previous"
                 >
                   ‹
@@ -100,7 +100,7 @@ export default function GalleryLightbox({ images, name }: { images: Img[]; name:
                 <button
                   type="button"
                   onClick={next}
-                  className="h-9 w-9 rounded-md bg-white/85 text-[#0A2540] hover:bg-white focus:outline-none focus:ring-2 focus:ring-white/60"
+                  className="h-9 w-9 rounded-md bg-[#0A2540]/85 text-white hover:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
                   aria-label="Next"
                 >
                   ›
@@ -111,7 +111,7 @@ export default function GalleryLightbox({ images, name }: { images: Img[]; name:
             <button
               type="button"
               onClick={close}
-              className="absolute -right-2 -top-2 h-8 w-8 rounded-full bg-white/90 text-[#0A2540] hover:bg-white focus:outline-none focus:ring-2 focus:ring-white/60"
+              className="absolute -right-2 -top-2 h-8 w-8 rounded-full bg-[#0A2540]/90 text-white hover:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
               aria-label="Close"
             >
               ✕

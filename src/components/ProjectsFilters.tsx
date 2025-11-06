@@ -119,22 +119,22 @@ export function ProjectsFilters({
   }, [value.sort]);
 
   return (
-    <aside aria-label={t.title} className="rounded-2xl border border-black/10 bg-white p-3 sm:p-4">
+    <aside aria-label={t.title} className="rounded-[10px] bg-[#0A2540] p-4 sm:p-5 ring-1 ring-white/10 text-white relative max-w-[1100px] mx-auto">
       <div className="mb-2 h-[2px] w-full rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.45), rgba(212,175,55,.0))'}} />
       <div className="flex items-center justify-between">
-        <p className="text-[12.5px] font-medium text-[#0A2540]">{t.title}</p>
+        <p className="text-[13px] font-semibold text-white">{t.title}</p>
         {onReset ? (
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex h-8 items-center justify-center rounded-md border border-primary/20 bg-white px-2 text-[12px] text-primary hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+            className="inline-flex h-8 items-center justify-center rounded-md border border-white/25 bg-transparent px-2 text-[12px] text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
           >
             {t.reset}
           </button>
         ) : null}
       </div>
       {/* Search */}
-      <label className="block text-[12px] font-medium text-[#0A2540]">
+      <label className="block text-[12px] font-medium text-white/90">
         {t.search}
         <div className="relative mt-1">
           <input
@@ -142,7 +142,7 @@ export function ProjectsFilters({
             value={value.q}
             onChange={(e) => onChange({ ...value, q: e.target.value })}
             placeholder={t.search}
-            className="block w-full rounded-md border border-black/10 bg-white px-3 py-2 text-sm text-[#0A2540] placeholder-black/40 outline-none focus:ring-2 focus:ring-[#0A2540]"
+            className="block w-full rounded-md border border-white/20 bg-white px-3 py-2 text-sm text-[#0A2540] placeholder-black/40 outline-none focus:ring-2 focus:ring-[#D4AF37]/40 transition"
           />
           <svg
             aria-hidden
@@ -155,7 +155,7 @@ export function ProjectsFilters({
       </label>
 
       {/* Rental policy */}
-      <label className="mt-3 block text-[12px] font-medium text-[#0A2540]">
+      <label className="mt-3 block text-[12px] font-medium text-white/90">
         {t.rental}
         <div className="relative mt-1">
           <button
@@ -164,7 +164,7 @@ export function ProjectsFilters({
             onClick={toggle}
             aria-haspopup="listbox"
             aria-expanded={open}
-            className="flex w-full items-center justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-left text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#0A2540]"
+            className="flex w-full items-center justify-between rounded-md border border-white/20 bg-white px-3 py-2 text-left text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#D4AF37]/40 transition"
           >
             <span>{t.rentalLabel(value.rental)}</span>
             <svg className={`h-4 w-4 text-black/40 transition-transform ${open ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden>
@@ -176,7 +176,7 @@ export function ProjectsFilters({
             <ul
               ref={listRef}
               role="listbox"
-              className="absolute z-20 bottom-full mb-2 max-h-56 w-full overflow-auto rounded-md border border-black/10 bg-white py-1 text-sm shadow-lg focus:outline-none sm:bottom-auto sm:top-full sm:mt-2 sm:mb-0"
+              className="absolute z-20 bottom-full mb-2 max-h-56 w-full overflow-auto rounded-md border border-black/10 bg-white text-[#0A2540] py-1 text-sm shadow-lg focus:outline-none sm:bottom-auto sm:top-full sm:mt-2 sm:mb-0 hover:ring-[#D4AF37]/30 transition"
             >
               {rentalOptions.map((opt) => (
                 <li
@@ -199,7 +199,7 @@ export function ProjectsFilters({
       </label>
 
       {/* Sort by */}
-      <label className="mt-3 block text-[12px] font-medium text-[#0A2540]">
+      <label className="mt-3 block text-[12px] font-medium text-white/90">
         {t.sort}
         <div className="relative mt-1">
           <button
@@ -208,7 +208,7 @@ export function ProjectsFilters({
             onClick={toggleSort}
             aria-haspopup="listbox"
             aria-expanded={openSort}
-            className="flex w-full items-center justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-left text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#0A2540]"
+            className="flex w-full items-center justify-between rounded-md border border-white/20 bg-white px-3 py-2 text-left text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#D4AF37]/40 transition"
           >
             <span>{t.sortLabel(value.sort)}</span>
             <svg className={`h-4 w-4 text-black/40 transition-transform ${openSort ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor" aria-hidden>
@@ -220,7 +220,7 @@ export function ProjectsFilters({
             <ul
               ref={listSortRef}
               role="listbox"
-              className="absolute z-20 bottom-full mb-2 max-h-56 w-full overflow-auto rounded-md border border-black/10 bg-white py-1 text-sm shadow-lg focus:outline-none sm:bottom-auto sm:top-full sm:mt-2 sm:mb-0"
+              className="absolute z-20 bottom-full mb-2 max-h-56 w-full overflow-auto rounded-md border border-black/10 bg-white text-[#0A2540] py-1 text-sm shadow-lg focus:outline-none sm:bottom-auto sm:top-full sm:mt-2 sm:mb-0 hover:ring-[#D4AF37]/30 transition"
             >
               {sortOptions.map((opt) => (
                 <li
@@ -244,7 +244,7 @@ export function ProjectsFilters({
 
       {/* Price range */}
       <div className="mt-3 grid grid-cols-2 gap-2">
-        <label className="block text-[12px] font-medium text-[#0A2540]">
+        <label className="block text-[12px] font-medium text-white/90">
           {t.priceFrom}
           <div className="relative mt-1">
             <input
@@ -257,11 +257,11 @@ export function ProjectsFilters({
                 const raw = e.target.value.replace(/\D/g, "");
                 onChange({ ...value, min: raw ? Number(raw) * 1000 : undefined });
               }}
-              className="block w-full rounded-md border border-black/10 bg-white px-3 py-2 text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#0A2540]"
+              className="block w-full rounded-md border border-white/20 bg-white px-3 py-2 text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#D4AF37]/40 transition"
             />
           </div>
         </label>
-        <label className="block text-[12px] font-medium text-[#0A2540]">
+        <label className="block text-[12px] font-medium text-white/90">
           {t.priceTo}
           <div className="relative mt-1">
             <input
@@ -274,12 +274,12 @@ export function ProjectsFilters({
                 const raw = e.target.value.replace(/\D/g, "");
                 onChange({ ...value, max: raw ? Number(raw) * 1000 : undefined });
               }}
-              className="block w-full rounded-md border border-black/10 bg-white px-3 py-2 text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#0A2540]"
+              className="block w-full rounded-md border border-white/20 bg-white px-3 py-2 text-sm text-[#0A2540] outline-none focus:ring-2 focus:ring-[#D4AF37]/40 transition"
             />
           </div>
         </label>
       </div>
-      <p className="mt-2 text-[11px] text-black/40">
+      <p className="mt-2 text-[11px] text-white/40">
         {locale === 'en' ? 'Prices in thousands (500 = 500,000 USD)' : 'Precios en miles (500 = 500.000 USD)'}
       </p>
 

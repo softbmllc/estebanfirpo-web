@@ -53,22 +53,26 @@ export default function SectionWhyStorages({ locale = "es" }: Props) {
   const t = dict[locale];
 
   return (
-    <section aria-labelledby="why-storages" className="py-12">
+    <section aria-labelledby="why-storages" className="py-12 rounded-[10px] bg-[#0A2540] ring-1 ring-white/10 text-white relative overflow-hidden max-w-[1100px] mx-auto p-6 sm:p-7">
+      <div
+        className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full"
+        style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}}
+      />
       <div>
         <header className="mb-6">
           <h2
             id="why-storages"
-            className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0A2540]"
+            className="text-2xl sm:text-3xl font-semibold tracking-tight text-white"
           >
             {t.title}
           </h2>
-          <p className="mt-1 text-[15px] leading-[1.75] text-[#0A2540]">
+          <p className="mt-1 text-[15px] leading-[1.75] text-white/90">
             {t.sub}
           </p>
         </header>
 
         {/* value tiles */}
-        <ul className="mb-6 grid gap-4 md:grid-cols-3">
+        <ul className="mb-6 grid gap-3 md:grid-cols-3">
           {t.tiles.map((card, i) => {
             const isTicketTile =
               card.t === (locale === "en" ? "Low entry ticket" : "Ticket accesible");
@@ -76,25 +80,25 @@ export default function SectionWhyStorages({ locale = "es" }: Props) {
             return (
               <li
                 key={`tile-${i}`}
-                className="relative rounded-lg border border-primary/15 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,.04)]"
+                className="relative rounded-[10px] ring-1 ring-white/10 bg-[#0A2540] p-4 sm:p-5 text-white"
               >
                 <div
                   className="mb-2 h-[2px] w-full rounded-full"
                   style={{
                     background:
-                      "linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.35), rgba(212,175,55,.0))",
+                      "linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,.08))",
                   }}
                 />
 
                 {/* Badge de precio para destacar el ticket */}
                 {isTicketTile && (
-                  <div className="mb-2 inline-flex rounded-full bg-[#0A2540]/10 px-2.5 py-0.5 text-[12px] font-semibold text-[#0A2540]">
+                  <div className="mb-2 inline-flex rounded-full bg-white/10 px-2.5 py-0.5 text-[12px] font-semibold text-white">
                     {locale === "en" ? "From USD 50,000" : "Desde USD 50.000"}
                   </div>
                 )}
 
-                <p className="font-medium tracking-tight text-[#0A2540]">{card.t}</p>
-                <p className="mt-1 text-[13px] text-[#0A2540]/70">{card.d}</p>
+                <p className="font-medium tracking-tight text-white">{card.t}</p>
+                <p className="mt-1 text-[13px] text-white/80">{card.d}</p>
               </li>
             );
           })}
@@ -104,7 +108,7 @@ export default function SectionWhyStorages({ locale = "es" }: Props) {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href={`/${locale}/storages`}
-            className="inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+            className="inline-flex h-10 items-center justify-center rounded-md bg-white/10 px-4 text-sm font-medium text-white hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
           >
             {t.ctaPrimary}
           </Link>
@@ -116,14 +120,14 @@ export default function SectionWhyStorages({ locale = "es" }: Props) {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540] px-4 text-sm font-medium text-[#0A2540] hover:bg-[#0A2540] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+            className="inline-flex h-10 items-center justify-center rounded-md border border-white/25 px-4 text-sm font-medium text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
           >
             {t.ctaSecondary}
           </a>
         </div>
 
         {/* footnote / sources */}
-        <p className="mt-3 text-[12px] text-neutral-500">
+        <p className="mt-3 text-[12px] text-white/50">
           {locale === "en"
             ? "Industry data from BAS Storage / BAS Academy and public sources."
             : "Datos de industria: BAS Storage / BAS Academy y fuentes públicas."}

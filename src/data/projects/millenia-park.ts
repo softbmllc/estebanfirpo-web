@@ -21,8 +21,6 @@ export const pMilleniaPark: Project = {
     { src: "https://ik.imagekit.io/devrodri/Millenia%20Park/fKoXigmg.jpeg" }
   ],
 
-  hoa: "$0.25/sf",
-
   microClaimsEs: [
     "VISA de Inversionista (EB‑5)",
     "960 residencias · 25.000 sf retail",
@@ -79,18 +77,17 @@ export const pMilleniaPark: Project = {
 
   // Planes según fase (resumen)
   paymentPlanEs: [
-    "Fase 1: 70% contrato · 30% cierre",
+    "Fase 1: 30% contrato · 70% cierre",
     "Fases 2/3: 30% contrato · 20% inicio de obra · 20% top‑off · 30% cierre"
   ],
   paymentPlanEn: [
-    "Phase 1: 70% at contract · 30% at closing",
+    "Phase 1: 30% at contract · 70% at closing",
     "Phases 2/3: 30% at contract · 20% at groundbreaking · 20% at top‑off · 30% at closing"
   ],
 
   faqsEs: [
     { q: "¿Precio desde?", a: "1 BR + estudio desde ~US$289.900; 2 BR desde ~US$364.900; 3 BR desde ~US$419.900." },
     { q: "¿Política de alquiler?", a: "Mínimo 31 días, hasta 4 alquileres al año (flexible para mensualidades)." },
-    { q: "¿HOA?", a: "Aprox. US$0,25 por pie² al mes." },
     { q: "¿Incluye muebles?", a: "No. Se entregan terminadas con acabados/electrodomésticos; mobiliario no incluido." },
     { q: "¿Financiación para extranjeros?", a: "Disponible — brokers reportan hipotecas hasta ~50% del valor (sujeto a calificación)." },
     { q: "¿EB‑5?", a: "Sí, proyecto elegible a través de Centro Regional (visa de inversionista)." },
@@ -99,7 +96,6 @@ export const pMilleniaPark: Project = {
   faqsEn: [
     { q: "Starting prices?", a: "1 BR + den from ~US$289,900; 2 BR from ~US$364,900; 3 BR from ~US$419,900." },
     { q: "Rental policy?", a: "Minimum 31 days; up to 4 leases per year (flexible for monthly rentals)." },
-    { q: "HOA?", a: "Approx. US$0.25 per sq ft monthly." },
     { q: "Furnishing?", a: "No. Delivered finished with appliances; furniture not included." },
     { q: "Foreign financing?", a: "Available — brokers indicate mortgages up to ~50% LTV (subject to approval)." },
     { q: "EB‑5?", a: "Yes, eligible via Regional Center (investor visa)." },

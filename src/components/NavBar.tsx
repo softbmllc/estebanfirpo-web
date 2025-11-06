@@ -36,9 +36,9 @@ export default function NavBar(){
   const switchHref = `/${switchTo}${pathname.replace(/^\/(es|en)/,"")}`;
 
   return (
-    <header className={"w-full bg-white " + (scrolled ? "border-b border-black/10 shadow-[0_1px_8px_rgba(0,0,0,.03)]" : "border-b border-black/5")}>
+    <header className={"w-full bg-[#0A2540] text-white transition-shadow " + (scrolled ? "border-b border-white/10 shadow-[0_1px_8px_rgba(0,0,0,.08)]" : "border-b border-white/5")}>
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
-        <Link href={base} className="text-sm font-semibold text-brand-navy no-underline">
+        <Link href={base} className="text-sm font-semibold text-white no-underline hover:opacity-90">
           Esteban Firpo · Miami Real Estate
         </Link>
 
@@ -59,7 +59,7 @@ export default function NavBar(){
                 key={it.href}
                 href={it.href}
                 aria-current={isActive ? 'page' : undefined}
-                className={`no-underline text-ink hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30 underline-offset-10 xl:underline-offset-12 transition-colors ${isActive ? 'text-primary underline decoration-2 xl:decoration-1 decoration-[#D4AF37]' : ''}`}
+                className={`no-underline text-white/85 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4AF37] focus-visible:ring-2 focus-visible:ring-[#D4AF37]/30 underline-offset-10 xl:underline-offset-12 transition-colors ${isActive ? 'text-white underline decoration-2 xl:decoration-1 decoration-[#D4AF37]' : ''}`}
               >
                 {it.label}
               </Link>
@@ -69,7 +69,7 @@ export default function NavBar(){
             href={switchHref}
             title={switchTo.toUpperCase()}
             aria-label={locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
-            className="inline-flex items-center rounded-full border border-primary text-primary px-2.5 py-1 text-xs font-semibold no-underline hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+            className="inline-flex items-center rounded-full border border-white/25 text-white px-2.5 py-1 text-xs font-semibold no-underline hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
           >
             {switchTo.toUpperCase()}
           </Link>
@@ -77,17 +77,17 @@ export default function NavBar(){
       </div>
 
       {open && (
-        <nav className="md:hidden fixed inset-0 z-50 bg-white/95 backdrop-blur-sm">
+        <nav className="md:hidden fixed inset-0 z-50 bg-[#0A2540]/95 text-white backdrop-blur-sm">
           <div className="mx-auto max-w-6xl px-4 py-4 flex flex-col h-full">
             {/* Top bar */}
             <div className="flex items-center justify-between pb-3 border-b border-black/10">
-              <Link href={base} onClick={()=>setOpen(false)} className="text-sm font-semibold text-brand-navy no-underline">
+              <Link href={base} onClick={()=>setOpen(false)} className="text-sm font-semibold text-white no-underline hover:opacity-90">
                 Esteban Firpo · Miami Real Estate
               </Link>
               <button aria-label="Cerrar menú" onClick={()=>setOpen(false)} className="p-2">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" stroke="white" />
+                  <line x1="6" y1="6" x2="18" y2="18" stroke="white" />
                 </svg>
               </button>
             </div>
@@ -104,7 +104,7 @@ export default function NavBar(){
                       href={it.href}
                       aria-current={isActive ? 'page' : undefined}
                       onClick={()=>setOpen(false)}
-                      className={`block py-3.5 text-lg no-underline transition-colors ${isActive ? 'text-primary underline decoration-2 underline-offset-[6px] decoration-[#D4AF37]' : 'text-ink hover:text-primary'}`}
+                      className={`block py-3.5 text-lg no-underline transition-colors ${isActive ? 'text-white underline decoration-2 underline-offset-[6px] decoration-[#D4AF37]' : 'text-white/85 hover:text-white'}`}
                     >
                       {it.label}
                     </Link>
@@ -116,7 +116,7 @@ export default function NavBar(){
                   onClick={()=>setOpen(false)}
                   title={switchTo.toUpperCase()}
                   aria-label={locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
-                  className="inline-flex w-full items-center justify-center rounded-md border border-primary text-primary px-3 py-2 text-sm font-semibold no-underline hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+                  className="inline-flex w-full items-center justify-center rounded-md border border-white/25 text-white px-3 py-2 text-sm font-semibold no-underline hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
                 >
                   {switchTo.toUpperCase()}
                 </Link>

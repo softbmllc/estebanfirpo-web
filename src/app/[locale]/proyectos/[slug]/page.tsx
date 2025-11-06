@@ -11,6 +11,16 @@ import WhyBlock, { type WhyItem } from "@/components/WhyBlock";
 import FaqsBlock, { type FaqItem } from "@/components/FaqsBlock";
 import PaymentPlan from "@/components/PaymentPlan";
 import { Lock, WashingMachine, Tv, Speaker, PawPrint, Palette, Dumbbell, Briefcase } from "lucide-react";
+import {
+  Sparkles,
+  LayoutGrid,
+  ListChecks,
+  PackageOpen,
+  CalendarClock,
+  CircleHelp,
+  MapPin,
+  Images as ImagesIcon,
+} from "lucide-react";
 import ShareButtons from "@/components/ShareButtons";
 function BedIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -275,7 +285,7 @@ export default async function Proyecto({ params }: Params) {
 
         // Desktop (wrap) + Mobile (horizontal scroll)
         const Chip = ({ children }: { children: React.ReactNode }) => (
-          <span className="inline-flex items-center rounded-full bg-[#0A2540]/5 px-3 py-1 text-[12px] sm:text-[12.5px] text-[#0A2540]">
+          <span className="inline-flex items-center rounded-full bg-white text-[#0A2540] ring-1 ring-[#0A2540]/15 px-3 py-[6px] text-[12.5px] font-medium leading-tight whitespace-nowrap">
             {children}
           </span>
         );
@@ -308,7 +318,7 @@ export default async function Proyecto({ params }: Params) {
 
       {/* Hero */}
       <section className="mt-3 sm:mt-6">
-        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-black/10">
+        <div className="relative aspect-[21/9] w-full overflow-hidden rounded-[14px] ring-1 ring-black/10">
           <Image
             src={p.image}
             alt={p.name}
@@ -321,14 +331,25 @@ export default async function Proyecto({ params }: Params) {
       </section>
 
       {/* Sticky CTA */}
-      <div className="mt-6 rounded-xl border border-black/10 bg-white px-3 py-3 flex flex-col gap-2 sm:flex-row">
-        <Link href={bookingUrl} className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white hover:opacity-95">
+      <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-start">
+        <Link
+          href={bookingUrl}
+          className="inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-5 text-sm font-medium text-white hover:opacity-95 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
+        >
           {t.ctas.schedule}
         </Link>
-        <a href={waHref} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a
+          href={waHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/25 px-5 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB] focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
+        >
           {t.ctas.whatsapp}
         </a>
-        <a href="mailto:info@estebanfirpo.com" className="w-full sm:w-auto inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB]">
+        <a
+          href="mailto:info@estebanfirpo.com"
+          className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/25 px-5 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB] focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
+        >
           {t.ctas.email}
         </a>
         <ShareButtons
@@ -337,14 +358,18 @@ export default async function Proyecto({ params }: Params) {
           locale={isEN ? "en" : "es"}
           variant="light"
           iconSrc="/icons/whatsapp.svg"
-          buttonClassName="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/20 px-4 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB] w-full sm:w-auto"
+          buttonClassName="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540]/25 px-5 text-sm font-medium text-[#0A2540] hover:bg-[#F9FAFB] focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40 w-full sm:w-auto"
         />
       </div>
 
       {/* Gallery */}
       {Array.isArray(p.images) && p.images.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-xl font-medium text-[#0A2540]">{t.gallery}</h2>
+        <section className="mt-8 rounded-[10px] bg-[#0A2540] p-6 sm:p-7 max-w-[1100px] mx-auto ring-1 ring-white/10 text-white relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+          <div className="mb-2.5 flex items-center gap-2">
+            <ImagesIcon className="h-5 w-5 text-white stroke-[1.5]" aria-hidden />
+            <h2 className="text-[16px] sm:text-[17px] font-semibold tracking-tight text-white">{t.gallery}</h2>
+          </div>
           {/* Desktop / Tablet: Lightbox grid */}
           <div className="hidden sm:block">
             <GalleryLightbox images={p.images} name={p.name} />
@@ -354,7 +379,7 @@ export default async function Proyecto({ params }: Params) {
             <ul className="flex gap-3 snap-x snap-mandatory">
               {p.images.map((img, i) => (
                 <li key={`mimg-${i}`} className="snap-start shrink-0 first:pl-0 last:pr-0">
-                  <div className="relative h-48 w-[85vw] overflow-hidden rounded-xl border border-black/10">
+                  <div className="relative h-48 w-[85vw] overflow-hidden rounded-xl ring-1 ring-white/15">
                     <Image
                       src={img.src}
                       alt={`${p.name} — ${t.gallery} ${i + 1}`}
@@ -375,80 +400,96 @@ export default async function Proyecto({ params }: Params) {
         const lines = (isEN ? p.highlightsEn : p.highlights) ?? [];
         if (!Array.isArray(lines) || lines.length === 0) return null;
         const items: HighlightItem[] = lines.map((line: string) => ({ title: line }));
-        return <HighlightsBlock title={t.highlights} items={items} />;
+        return (
+          <HighlightsBlock title={t.highlights} items={items} />
+        );
       })()}
 
 
-      {unitMix.length > 0 && (
-        <SpecsBlock
-          title={t.mix}
-          subhead={isEN ? "Units & measures" : "Unidades y medidas"}
-          items={
-            (isEN ? p.unitMixEn : p.unitMixEs)?.map((line, i) => {
-              const norm = typeof line === "string" ? { label: line } : line;
-              return {
-                label: norm.label,
-                icon:
-                  i === 0 ? <BedIcon className="h-4 w-4" /> :
-                  i === 1 ? <BedIcon className="h-4 w-4" /> :
-                  i === 2 ? <BedIcon className="h-4 w-4" /> :
-                  i === 3 ? <BedIcon className="h-4 w-4" /> :
-                  i === 4 ? <BedIcon className="h-4 w-4" /> :
-                  i === 5 ? <BalconyIcon className="h-4 w-4" /> : undefined,
-              };
-            }) ?? []
-          }
-          primaryCta={{
-            label: isEN ? "Request floor plans (PDF)" : "Solicitar planos (PDF)",
-            href: `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
-              isEN ? `Floor plans (PDF) — ${p.name}` : `Planos (PDF) — ${p.name}`
-            )}&body=${encodeURIComponent(
-              isEN
-                ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send me floor plans (PDF).\n\nThanks.`
-                : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame los planos (PDF).\n\nGracias.`
-            )}`,
-            variant: "ghost",
-          }}
-          secondaryCta={{
-            label: isEN ? "Check availability by typology" : "Ver disponibilidad por tipología",
-            href: `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
-              isEN ? `Availability by typology — ${p.name}` : `Disponibilidad por tipología — ${p.name}`
-            )}&body=${encodeURIComponent(
-              isEN
-                ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send availability by typology (Jr‑1 / 1BR / 2BR / 3BR).\n\nThanks.`
-                : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame disponibilidad por tipología (Jr‑1 / 1BR / 2BR / 3BR).\n\nGracias.`
-            )}`,
-            variant: "ghost",
-          }}
-        />
-      )}
+      {unitMix.length > 0 && (() => {
+        const items = (isEN ? p.unitMixEn : p.unitMixEs) ?? [];
+        const mailtoPlans = `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+          isEN ? `Floor plans (PDF) — ${p.name}` : `Planos (PDF) — ${p.name}`
+        )}&body=${encodeURIComponent(
+          isEN
+            ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send me floor plans (PDF).\n\nThanks.`
+            : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame los planos (PDF).\n\nGracias.`
+        )}`;
+        const mailtoAvail = `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+          isEN ? `Availability by typology — ${p.name}` : `Disponibilidad por tipología — ${p.name}`
+        )}&body=${encodeURIComponent(
+          isEN
+            ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send availability by typology (Jr‑1 / 1BR / 2BR / 3BR).\n\nThanks.`
+            : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame disponibilidad por tipología (Jr‑1 / 1BR / 2BR / 3BR).\n\nGracias.`
+        )}`;
+        return (
+          <section className="mt-8 rounded-[10px] bg-[#0A2540] p-6 sm:p-7 max-w-[1100px] mx-auto ring-1 ring-white/10 text-white relative overflow-hidden">
+            <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+            <div className="mb-2.5 flex items-center gap-2">
+              <LayoutGrid className="h-5 w-5 text-white stroke-[1.5]" aria-hidden />
+              <h2 className="text-[16px] sm:text-[17px] font-semibold tracking-tight text-white">{t.mix}</h2>
+            </div>
+            <ul className="mt-2 sm:mt-3 space-y-[11px] max-w-[1000px] lg:max-w-[960px] mx-auto" role="list">
+              {items.map((line: any, i: number) => {
+                const label = typeof line === 'string' ? line : line?.label;
+                if (!label) return null;
+                return (
+                  <li key={`mix-${i}`} role="listitem" className="flex items-start gap-3">
+                    <span className="relative top-[9px] inline-block h-[6px] w-[6px] sm:h-[7px] sm:w-[7px] rounded-full bg-[#D4AF37] flex-shrink-0" aria-hidden />
+                    <p className="text-[16px] leading-[26px] text-white/95">{label}</p>
+                  </li>
+                );
+              })}
+            </ul>
+            {/* CTAs */}
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+              <a href={mailtoPlans} className="inline-flex h-10 items-center justify-center rounded-md border border-white/20 px-4 text-sm font-medium text-white hover:bg-white/10">
+                {isEN ? 'Request floor plans (PDF)' : 'Solicitar planos (PDF)'}
+              </a>
+              <a href={mailtoAvail} className="inline-flex h-10 items-center justify-center rounded-md border border-white/20 px-4 text-sm font-medium text-white hover:bg-white/10">
+                {isEN ? 'Check availability by typology' : 'Ver disponibilidad por tipología'}
+              </a>
+            </div>
+          </section>
+        );
+      })()}
 
-      {features.length > 0 && (
-        <SpecsBlock
-          title={t.features}
-          subhead={isEN ? "Materials & finishes" : "Materiales y marcas"}
-          items={
-            (isEN ? p.featuresEn : p.featuresEs)?.map((line) => {
-              const norm = typeof line === "string" ? { label: line } : line;
-              return {
-                label: norm.label,
-                icon: featureIconFor(norm.label),
-              };
-            }) ?? []
-          }
-          primaryCta={{
-            label: isEN ? "Request materials (PDF)" : "Solicitar materiales (PDF)",
-            href: `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
-              isEN ? `Materials list (PDF) — ${p.name}` : `Lista de materiales (PDF) — ${p.name}`
-            )}&body=${encodeURIComponent(
-              isEN
-                ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send me the materials list (PDF).\n\nThanks.`
-                : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame la lista de materiales (PDF).\n\nGracias.`
-            )}`,
-            variant: "ghost",
-          }}
-        />
-      )}
+      {features.length > 0 && (() => {
+        const items = (isEN ? p.featuresEn : p.featuresEs) ?? [];
+        const mailtoMaterials = `mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(
+          isEN ? `Materials list (PDF) — ${p.name}` : `Lista de materiales (PDF) — ${p.name}`
+        )}&body=${encodeURIComponent(
+          isEN
+            ? `Hi Esteban,\n\nI’m interested in ${p.name}. Please send me the materials list (PDF).\n\nThanks.`
+            : `Hola Esteban,\n\nEstoy interesado/a en ${p.name}. Por favor envíame la lista de materiales (PDF).\n\nGracias.`
+        )}`;
+        return (
+          <section className="mt-8 rounded-[10px] bg-[#0A2540] p-6 sm:p-7 max-w-[1100px] mx-auto ring-1 ring-white/10 text-white relative overflow-hidden">
+            <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+            <div className="mb-2.5 flex items-center gap-2">
+              <ListChecks className="h-5 w-5 text-white stroke-[1.5]" aria-hidden />
+              <h2 className="text-[16px] sm:text-[17px] font-semibold tracking-tight text-white">{t.features}</h2>
+            </div>
+            <ul className="mt-2 sm:mt-3 space-y-[11px] max-w-[1000px] lg:max-w-[960px] mx-auto" role="list">
+              {items.map((line: any, i: number) => {
+                const label = typeof line === 'string' ? line : line?.label;
+                if (!label) return null;
+                return (
+                  <li key={`feat-${i}`} role="listitem" className="flex items-start gap-3">
+                    <span className="relative top-[9px] inline-block h-[6px] w-[6px] sm:h-[7px] sm:w-[7px] rounded-full bg-[#D4AF37] flex-shrink-0" aria-hidden />
+                    <p className="text-[16px] leading-[26px] text-white/95">{label}</p>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="mt-4">
+              <a href={mailtoMaterials} className="inline-flex h-10 items-center justify-center rounded-md border border-white/20 px-4 text-sm font-medium text-white hover:bg-white/10">
+                {isEN ? 'Request materials (PDF)' : 'Solicitar materiales (PDF)'}
+              </a>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* WhyBlock */}
       {(() => {
@@ -456,12 +497,22 @@ export default async function Proyecto({ params }: Params) {
         const pp = p as WithClaims;
         const whyClaims = (isEN ? pp.microClaimsEn : pp.microClaimsEs) ?? [];
         if (!Array.isArray(whyClaims) || whyClaims.length === 0) return null;
-        const whyItems: WhyItem[] = whyClaims.map((c) => ({ heading: c }));
         return (
-          <WhyBlock
-            title={isEN ? `Why ${p.name}?` : `¿Por qué ${p.name}?`}
-            items={whyItems}
-          />
+          <section className="mt-8 rounded-[10px] bg-[#0A2540] p-6 sm:p-7 max-w-[1100px] mx-auto ring-1 ring-white/10 text-white relative overflow-hidden">
+            <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+            <div className="mb-2.5 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-white stroke-[1.5]" aria-hidden />
+              <h2 className="text-[16px] sm:text-[17px] font-semibold tracking-tight text-white">{isEN ? `Why ${p.name}?` : `¿Por qué ${p.name}?`}</h2>
+            </div>
+            <ul className="mt-2 sm:mt-3 space-y-[11px] max-w-[1000px] lg:max-w-[960px] mx-auto" role="list">
+              {whyClaims.map((c, i) => (
+                <li key={`why-${i}`} role="listitem" className="flex items-start gap-3">
+                  <span className="relative top-[9px] inline-block h-[6px] w-[6px] sm:h-[7px] sm:w-[7px] rounded-full bg-[#D4AF37] flex-shrink-0" aria-hidden />
+                  <p className="text-[16px] leading-[26px] text-white/95">{c}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
         );
       })()}
 
@@ -541,7 +592,9 @@ export default async function Proyecto({ params }: Params) {
           } as FaqItem;
         });
 
-        return <FaqsBlock id="faqs" title={t.faqsTitle} items={faqItems} />;
+        return (
+          <FaqsBlock id="faqs" title={t.faqsTitle} items={faqItems} className="mt-8" />
+        );
       })()}
 
       {/* CTAs */}
@@ -570,12 +623,17 @@ export default async function Proyecto({ params }: Params) {
         title={t.payments}
         steps={payment.map((label: string) => ({ label }))}
         project={p.name}
+        className="mt-8"
       />
 
       {/* Location */}
-      <section id="ubicacion" className="mt-12">
-        <h2 className="text-xl font-medium text-[#0A2540]">{isEN ? 'Location' : 'Ubicación'}</h2>
-        <div className="mt-3 overflow-hidden rounded-2xl border border-black/10">
+      <section id="ubicacion" className="mt-8 rounded-[10px] bg-[#0A2540] p-6 sm:p-7 max-w-[1100px] mx-auto ring-1 ring-white/10 text-white relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
+        <div className="mb-2.5 flex items-center gap-2">
+          <MapPin className="h-5 w-5 text-white stroke-[1.5]" aria-hidden />
+          <h2 className="text-[16px] sm:text-[17px] font-semibold tracking-tight text-white">{isEN ? 'Location' : 'Ubicación'}</h2>
+        </div>
+        <div className="overflow-hidden rounded-2xl ring-1 ring-white/10">
           <iframe
             src={mapSrc}
             width="100%"

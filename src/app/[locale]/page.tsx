@@ -179,37 +179,38 @@ export default async function Home({params}: {params: {locale: string}}) {
       />
 
       {/* PROYECTOS DESTACADOS */}
-      <FeaturedProjects />
+      <div className="max-w-[1100px] mx-auto">
+        <FeaturedProjects />
+      </div>
       {/* STORAGES SECTION (aligned to same container as featured projects) */}
-      <div>
+      <div className="max-w-[1100px] mx-auto">
         <SectionWhyStorages locale={params.locale === 'en' ? 'en' : 'es'} />
       </div>
 
       {/* BANDA CTA — premium */}
-      <section className="mt-6 rounded-lg border border-primary/10 bg-white p-5 text-center shadow-[0_1px_3px_rgba(0,0,0,.04)]">
+      <section className="mt-6 rounded-[10px] bg-[#0A2540] p-6 sm:p-7 ring-1 ring-white/10 text-white text-center relative overflow-hidden max-w-[1100px] mx-auto">
+        <div className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))'}} />
         <div className="mx-auto mb-3 h-[2px] w-24 rounded-full" style={{background:'linear-gradient(90deg, rgba(212,175,55,.0), rgba(212,175,55,.6), rgba(212,175,55,.0))'}} />
-        <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#0A2540]">
+        <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white">
           {params.locale === 'en' ? 'Ready to invest?' : '¿Listo para invertir?'}
         </h3>
-        <p className="mt-2 text-[14px] text-neutral-700">
+        <p className="mt-2 text-[14px] text-white/80">
           {params.locale === 'en'
             ? 'Let’s connect and review the best opportunities together.'
             : 'Conversemos y revisemos las mejores oportunidades.'}
         </p>
         <div className="mt-4 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          {/* Email (primary) */}
           <a
             href={`mailto:esteban@miamiliferealty.com?subject=${encodeURIComponent(params.locale==='en' ? 'Investment inquiry from website' : 'Consulta de inversión desde la web')}`}
-            className="inline-flex h-10 items-center justify-center rounded-md bg-[#0A2540] px-4 text-sm font-medium text-white no-underline hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+            className="inline-flex h-10 items-center justify-center rounded-md bg-white/10 px-4 text-sm font-medium text-white no-underline hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
           >
             {params.locale === 'en' ? 'Email Esteban' : 'Escribir a Esteban'}
           </a>
-          {/* WhatsApp (outline) */}
           <a
             href={`https://wa.me/17542673931?text=${encodeURIComponent(params.locale==='en' ? 'Hi Esteban, I would like to schedule a call to discuss investment opportunities.' : 'Hola Esteban, me gustaría agendar una llamada para hablar de oportunidades de inversión.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-10 items-center justify-center rounded-md border border-[#0A2540] px-4 text-sm font-medium text-[#0A2540] no-underline hover:bg-[#0A2540] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2540] focus-visible:ring-2 focus-visible:ring-[#0A2540]/30"
+            className="inline-flex h-10 items-center justify-center rounded-md border border-white/25 px-4 text-sm font-medium text-white no-underline hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40"
           >
             {params.locale === 'en' ? 'WhatsApp' : 'WhatsApp'}
           </a>
