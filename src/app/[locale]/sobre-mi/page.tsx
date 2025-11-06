@@ -26,7 +26,7 @@ export default async function SobreMi({
           <p className="mt-1 max-w-[60ch] text-white/85 leading-relaxed">
             {isEN
               ? 'I advise real‑estate investors in Miami throughout the entire process —from selecting the right project to closing— with a clear focus on ROI and capital preservation.'
-              : 'Asesoro a inversores en Miami durante todo el proceso —desde la selección del proyecto hasta el cierre— con foco claro en ROI y preservación de capital.'}
+              : 'Asesoro a inversores en Miami durante todo el proceso desde la selección del proyecto hasta el cierre con foco claro en ROI y preservación de capital.'}
           </p>
         </div>
         <div className="relative h-44 w-44 overflow-hidden rounded-xl ring-1 ring-white/20 sm:h-48 sm:w-48">
