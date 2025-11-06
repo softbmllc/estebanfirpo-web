@@ -1,4 +1,4 @@
-# 🏙️ Esteban Firpo Real Estate — Web
+# 🏙️ Esteban Firpo Real Estate - Web
 
 ## Overview
 A professional real‑estate website built with **Next.js (App Router)** focused on **Miami pre‑construction** and related investment verticals (financing and storages). The design language is **minimal, Apple‑inspired**, with strong hierarchy, accessibility and performance to convert leads.
