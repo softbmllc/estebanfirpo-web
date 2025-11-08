@@ -2,14 +2,21 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 declare global {
   interface Window { gtag?: (...args: any[]) => void }
 }
 
 export default function Contacto() {
+  const { locale } = useParams() as { locale: 'es' | 'en' };
+  const isEN = locale === 'en';
+  const waMsg = isEN ? 'Hi Esteban, I would like to schedule a call to discuss Miami pre-construction opportunities.' : 'Hola Esteban, me gustaría coordinar una llamada para hablar de oportunidades en Miami.';
+  const waHref = `https://wa.me/17542673931?text=${encodeURIComponent(waMsg)}`;
+
   const [form, setForm] = useState({ nombre: "", email: "", mensaje: "" });
+  const [sending, setSending] = useState(false);
+  const [notice, setNotice] = useState<null | { type: 'success' | 'error'; text: string }>(null);
   const router = useRouter();
 
   const handleChange = (
@@ -17,6 +24,7 @@ export default function Contacto() {
   ) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async () => {
+    setSending(true);
     try {
       const r = await fetch("/api/contact", {
         method: "POST",
@@ -24,65 +32,136 @@ export default function Contacto() {
         body: JSON.stringify(form),
       });
       const raw = await r.text();
-      alert(`Servidor respondió: ${raw}`);
       let data: any = {};
       try { data = JSON.parse(raw); } catch {}
-      if (!r.ok || !data?.ok) throw new Error(data?.error || raw || "send failed");
-      window.gtag?.("event", "generate_lead", { event_category: "form", event_label: "contacto" });
-      router.push("/gracias");
+      if (!r.ok || !data?.ok) throw new Error(data?.error || raw || 'send failed');
+      setNotice({ type: 'success', text: isEN ? 'Message sent. I will contact you shortly.' : 'Mensaje enviado. Te contactaré a la brevedad.' });
+      window.gtag?.('event', 'generate_lead', { event_category: 'form', event_label: isEN ? 'contact' : 'contacto' });
+      setTimeout(() => router.push(`/${locale}/gracias`), 400);
     } catch (err) {
-      alert(`Error: ${err instanceof Error ? err.message : String(err)}`);
+      setNotice({ type: 'error', text: isEN ? 'Could not send the message. Try again.' : 'No se pudo enviar. Intenta de nuevo.' });
       console.error("contact api error:", err);
+    } finally {
+      setSending(false);
     }
   };
 
+  const handleWhatsApp = () => {
+    window.gtag?.('event','click_whatsapp',{
+      event_category:'engagement',
+      event_label: isEN ? 'contact_whatsapp_en' : 'contact_whatsapp_es'
+    });
+  };
+
   return (
-    <main className="mx-auto max-w-lg px-4 py-16 space-y-6">
-      <h2 className="text-3xl font-semibold text-primary">Contacto</h2>
-      <p className="text-neutral-700">
-        Completa el formulario y te contactaré para asesorarte en tu inversión en Miami.
-      </p>
-      <form className="mt-6 grid gap-4">
-        <input
-          name="nombre"
-          className="h-11 rounded-md border border-primary/30 px-3 focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="Nombre"
-          required
-          onChange={handleChange}
+    <main className="mx-auto max-w-[700px] px-4 py-16">
+      {/* Navy card wrapper */}
+      <section className="relative rounded-[12px] bg-[#0A2540] p-6 sm:p-7 ring-1 ring-white/10 text-white overflow-hidden">
+        {/* gold hairline */}
+        <div
+          className="pointer-events-none absolute inset-x-5 sm:inset-x-6 top-0 h-[1.5px] rounded-full"
+          style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0), rgba(212,175,55,.25), rgba(212,175,55,0))' }}
         />
-        <input
-          name="email"
-          className="h-11 rounded-md border border-primary/30 px-3 focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="Email"
-          type="email"
-          required
-          onChange={handleChange}
-        />
-        <textarea
-          name="mensaje"
-          className="min-h-32 rounded-md border border-primary/30 p-3 focus:border-primary focus:ring-1 focus:ring-primary"
-          placeholder="Tu consulta"
-          required
-          onChange={handleChange}
-        />
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className="h-11 rounded-md bg-primary px-4 text-white font-medium hover:opacity-90"
+
+        {/* Title & copy */}
+        <header className="mb-4">
+          <h2 className="text-[22px] sm:text-[24px] font-semibold tracking-tight">{isEN ? 'Contact' : 'Contacto'}</h2>
+          <p className="mt-1 text-white/85 leading-relaxed">
+            {isEN
+              ? 'Fill the form and we\'ll schedule a call.'
+              : 'Completá el formulario y coordinamos una llamada.'}
+          </p>
+        </header>
+
+        {/* Form */}
+        <form className="mt-2 grid gap-3" onSubmit={(e)=>{e.preventDefault(); handleSubmit();}}>
+          <label className="block">
+            <span className="sr-only">{isEN ? 'Name' : 'Nombre'}</span>
+            <input
+              name="nombre"
+              className="h-11 w-full rounded-md border border-white/20 bg-white px-3 text-[#0A2540] placeholder-black/40 outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
+              placeholder={isEN ? 'Name' : 'Nombre'}
+              required
+              onChange={handleChange}
+            />
+          </label>
+          <label className="block">
+            <span className="sr-only">{isEN ? 'Email' : 'Email'}</span>
+            <input
+              name="email"
+              className="h-11 w-full rounded-md border border-white/20 bg-white px-3 text-[#0A2540] placeholder-black/40 outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
+              placeholder={isEN ? 'Email' : 'Email'}
+              type="email"
+              required
+              onChange={handleChange}
+            />
+          </label>
+          <label className="block">
+            <span className="sr-only">{isEN ? 'Message' : 'Mensaje'}</span>
+            <textarea
+              name="mensaje"
+              className="min-h-32 w-full rounded-md border border-white/20 bg-white p-3 text-[#0A2540] placeholder-black/40 outline-none focus:ring-2 focus:ring-[#D4AF37]/40"
+              placeholder={isEN ? 'Your message' : 'Tu consulta'}
+              required
+              onChange={handleChange}
+            />
+          </label>
+
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={sending}
+            className={`mt-1 h-11 rounded-md px-4 text-white text-[14px] font-medium focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40 transition-colors ${sending ? 'bg-white/10 opacity-70 cursor-not-allowed' : 'bg-white/10 hover:bg-white/20'}`}
+            aria-label={isEN ? 'Send inquiry' : 'Enviar consulta'}
+          >
+            {isEN ? 'Send' : 'Enviar'}
+          </button>
+        </form>
+
+        {/* Secondary CTA */}
+        <div className="mt-5 text-center">
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleWhatsApp}
+            className="group inline-flex items-center justify-center gap-2 h-11 rounded-lg border border-white/25 px-5 text-white text-[14px] font-medium transition-all duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]/40 shadow-[inset_0_0_0_0_rgba(255,255,255,0.0)] hover:shadow-[inset_0_0_0_9999px_rgba(255,255,255,0.04)]"
+            aria-label={isEN ? 'Chat on WhatsApp' : 'Contactar por WhatsApp'}
+          >
+            <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 opacity-90 transition-transform group-hover:scale-110" fill="currentColor"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.04 0C5.5 0 .2 5.3.2 11.84c0 2.08.54 4.1 1.57 5.89L0 24l6.42-1.67a11.75 11.75 0 0 0 5.62 1.43h.01c6.54 0 11.85-5.3 11.85-11.84 0-3.16-1.23-6.14-3.38-8.44ZM12.05 21.4a9.55 9.55 0 0 1-4.86-1.33l-.35-.2-3.81 1 1.02-3.71-.23-.38a9.65 9.65 0 0 1-1.49-5.2c0-5.32 4.33-9.64 9.66-9.64 2.58 0 5 1 6.82 2.82a9.6 9.6 0 0 1 2.83 6.8c0 5.32-4.33 9.64-9.59 9.64Zm5.46-7.17c-.3-.15-1.77-.87-2.05-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.78-1.49-1.73-1.66-2.02-.17-.3-.02-.46.13-.6.13-.12.3-.32.44-.48.15-.16.2-.27.3-.45.1-.2.05-.36-.02-.5-.07-.15-.66-1.6-.9-2.2-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.5.07-.76.36-.26.3-1 1-1 2.42s1.02 2.8 1.17 3c.15.2 2.02 3.08 4.92 4.33.69.3 1.24.48 1.66.6.7.22 1.35.19 1.86.12.57-.08 1.77-.72 2.03-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.36Z"/></svg>
+            <span className="relative">
+              {isEN ? 'Contact via WhatsApp' : 'Contactar por WhatsApp'}
+              <span className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
+            </span>
+          </a>
+        </div>
+      </section>
+
+      {/* Toast */}
+      {notice && (
+        <div
+          role="status"
+          aria-live="polite"
+          className={`fixed bottom-6 right-6 z-50 max-w-sm rounded-lg px-4 py-3 shadow-lg ring-1 backdrop-blur-sm ${notice.type==='success' ? 'bg-white/95 text-[#0A2540] ring-black/10' : 'bg-red-600 text-white ring-red-700/40'}`}
         >
-          Enviar
-        </button>
-      </form>
-      <div className="mt-6 text-center">
-        <a
-          href="https://wa.me/17542673931"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block h-11 rounded-md border border-primary px-6 text-primary hover:bg-accent/10"
-        >
-          Contactar por WhatsApp
-        </a>
-      </div>
+          <div className="flex items-start gap-3">
+            {notice.type === 'success' ? (
+              <svg className="h-5 w-5 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            ) : (
+              <svg className="h-5 w-5 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+            )}
+            <div className="text-sm leading-5">{notice.text}</div>
+            <button
+              type="button"
+              onClick={() => setNotice(null)}
+              className="ml-auto rounded p-1 opacity-70 hover:opacity-100 focus:outline-none"
+              aria-label={isEN ? 'Close notification' : 'Cerrar notificación'}
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
